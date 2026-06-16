@@ -99,7 +99,11 @@ export default function ClientPortal() {
   const [deadline, setDeadline] = useState("");
 
   // UI States
-  const [isCreatorMode, setIsCreatorMode] = useState(false);
+  const [isCreatorMode, setIsCreatorMode] = useState(() => {
+    return sessionStorage.getItem("tamashhh_creator_auth") === "true";
+  });
+  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCategory, setFilterCategory] = useState<string>("All");
   const [selectedProject, setSelectedProject] = useState<ProjectBrief | null>(null);
@@ -364,8 +368,8 @@ export default function ClientPortal() {
 
   // Filtered List
   const filtered = projects.filter((p) => {
-    // Hide Pending Review orders from the public queue if not in Creator Mode
-    if (!isCreatorMode && p.status === "Pending Review") {
+    // Hide Pending Review and Completed orders from the public queue if not in Creator Mode
+    if (!isCreatorMode && (p.status === "Pending Review" || p.status === "Completed")) {
       return false;
     }
     const matchesSearch =
@@ -429,8 +433,13 @@ export default function ClientPortal() {
             <button
               id="creator-mode-switch"
               onClick={() => {
-                setIsCreatorMode(!isCreatorMode);
-                addToast("info", isCreatorMode ? "Creator workspace deactivated." : "Creator workspace mode activated!");
+                if (isCreatorMode) {
+                  setIsCreatorMode(false);
+                  sessionStorage.removeItem("tamashhh_creator_auth");
+                  addToast("info", "Creator workspace deactivated.");
+                } else {
+                  setShowPasswordPrompt(true);
+                }
               }}
               className={`relative w-12 h-6.5 rounded-full transition-colors duration-300 flex items-center p-0.5 ${
                 isCreatorMode ? "bg-gradient-to-r from-blue-600 to-purple-600" : "bg-white/10"
@@ -947,6 +956,81 @@ export default function ClientPortal() {
                   Close Workspace
                 </button>
               </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Password Prompt Modal */}
+      <AnimatePresence>
+        {showPasswordPrompt && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => {
+              setShowPasswordPrompt(false);
+              setPasswordInput("");
+            }}
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 15 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 15 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+              className="glass-card max-w-sm w-full p-6 sm:p-8 border border-white/10 shadow-2xl relative"
+            >
+              <button
+                onClick={() => {
+                  setShowPasswordPrompt(false);
+                  setPasswordInput("");
+                }}
+                className="absolute top-6 right-6 p-1.5 rounded-full bg-white/5 border border-white/10 text-white/50 hover:text-white transition-colors"
+                aria-label="Close password prompt"
+              >
+                <X className="w-4 h-4" />
+              </button>
+
+              <div className="text-[10px] font-bold tracking-widest uppercase text-purple-400 mb-2 font-mono">
+                Creator Verification
+              </div>
+              <h2 className="text-xl font-bold font-podium tracking-wide text-white mb-4 font-mono">
+                ENTER ACCESS PASSWORD
+              </h2>
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const correctPassword = import.meta.env.VITE_CREATOR_PASSWORD || "tamashhh-admin";
+                  if (passwordInput === correctPassword) {
+                    setIsCreatorMode(true);
+                    sessionStorage.setItem("tamashhh_creator_auth", "true");
+                    setShowPasswordPrompt(false);
+                    setPasswordInput("");
+                    addToast("success", "Creator workspace mode activated!");
+                  } else {
+                    addToast("error", "Incorrect password. Access denied.");
+                  }
+                }}
+                className="flex flex-col gap-4"
+              >
+                <input
+                  type="password"
+                  placeholder="Enter creator password..."
+                  value={passwordInput}
+                  onChange={(e) => setPasswordInput(e.target.value)}
+                  autoFocus
+                  className="bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-sm text-white focus:border-purple-500 focus:ring-1 focus:ring-purple-500/30 w-full outline-none transition-colors duration-200"
+                />
+                <button
+                  type="submit"
+                  className="btn-gradient w-full py-3 text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2"
+                >
+                  Verify Access
+                </button>
+              </form>
             </motion.div>
           </motion.div>
         )}
