@@ -14,7 +14,7 @@ const NAV_LINKS = [
 ];
 
 const OFFERS = [
-  "🔥 Limited Time Offer: Save 25% on Brand Identity Design & Video Editing. Code: OBSIDIAN25",
+  "🔥 Limited Time Offer: Save 25% on Brand Identity Design & Video Editing. Code: TAMASHHH25",
   "🎓 Learn Creative Skills: Enroll in our UI/UX Masterclass & Video Bootcamp for 20% off. Code: STUDY20",
   "⚡ Premium Assets Hub: Download templates, presets, and color LUTs for free!"
 ];
@@ -58,7 +58,7 @@ export default function Navbar() {
             to="/"
             className="font-podium text-2xl sm:text-3xl font-bold uppercase tracking-wider text-white"
           >
-            OBSIDIAN
+            TAMASHHH
           </Link>
 
           {/* Desktop Links */}
@@ -107,7 +107,7 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between px-6 sm:px-10 py-4">
           <span className="font-podium text-2xl font-bold uppercase tracking-wider text-white">
-            OBSIDIAN
+            TAMASHHH
           </span>
           <button onClick={() => setMenuOpen(false)} className="text-white" aria-label="Close menu">
             <X className="w-7 h-7" />
@@ -142,7 +142,7 @@ export default function Navbar() {
               transform: menuOpen ? "translateY(0)" : "translateY(20px)",
             }}
           >
-            Contact Us
+            Contact Me
             <ArrowUpRight className="w-4 h-4" />
           </Link>
         </div>

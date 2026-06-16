@@ -21,7 +21,7 @@ export default function Layout() {
 
       {/* Floating WhatsApp Button */}
       <a
-        href="https://wa.me/919773135547?text=Hello%20Obsidian%20Studio!"
+        href="https://wa.me/919773135547?text=Hello%20Tamashhh!"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-40 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg shadow-green-500/10 hover:bg-[#20ba5a] hover:scale-110 hover:shadow-green-500/20 active:scale-95 transition-all duration-300 group border border-white/5"

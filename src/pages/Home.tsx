@@ -62,7 +62,7 @@ function Hero() {
       {/* background image */}
       <img
         src="/hero-bg.jpg"
-        alt="Obsidian Creative Hero Background"
+        alt="Tamashhh Creative Hero Background"
         className="absolute inset-0 w-full h-full object-cover"
       />
 
@@ -80,7 +80,7 @@ function Hero() {
         <motion.div variants={fadeUp} className="flex items-center gap-2 mb-8">
           <Crown className="w-4 h-4 text-white/60" />
           <span className="text-white/60 text-xs tracking-[0.3em] uppercase font-inter">
-            World-Class Digital Collective
+            World-Class Digital Creator
           </span>
         </motion.div>
 
@@ -101,14 +101,14 @@ function Hero() {
           variants={fadeUp}
           className="text-white/60 max-w-md mt-6 text-sm sm:text-base leading-relaxed"
         >
-          We build fierce brand identities, cinematic edits, and digital
+          I build fierce brand identities, cinematic edits, and digital
           experiences that dominate industries and turn heads.
         </motion.p>
 
         {/* CTAs */}
         <motion.div variants={fadeUp} className="flex flex-wrap gap-4 mt-8">
           <Link to="/portfolio" className="btn-gradient inline-flex items-center gap-2">
-            SEE OUR WORK
+            SEE MY WORK
             <ArrowUpRight className="w-4 h-4" />
           </Link>
           <Link to="/contact" className="btn-outline inline-flex items-center gap-2">
@@ -166,8 +166,8 @@ function ServicesPreview() {
     <section className="py-24 lg:py-32 px-6 sm:px-10 lg:px-16">
       <SectionHeader
         label="WHAT WE DO"
-        title="Services we offer"
-        subtitle="From concept to creation, we deliver end-to-end creative solutions that set brands apart."
+        title="Services I offer"
+        subtitle="From concept to creation, I deliver end-to-end creative solutions that set brands apart."
       />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -215,12 +215,12 @@ function PortfolioPreview() {
   const items = [
     { videoUrl: "/portfolio/cgi-saregama.mp4", category: "CGI & Ad", title: "CGI Saregama Ad" },
     { videoUrl: "/portfolio/tracking.mp4", category: "VFX & Tracking", title: "Tracking VFX Showcase" },
-    { videoUrl: "/portfolio/obsidian-draft-1.mp4", category: "Brand Film", title: "Obsidian Brand Film" },
+    { videoUrl: "/portfolio/obsidian-draft-1.mp4", category: "Brand Film", title: "Tamashhh Brand Film" },
   ];
 
   return (
     <section className="py-24 lg:py-32 bg-dark-50 px-6 sm:px-10 lg:px-16">
-      <SectionHeader label="SELECTED WORK" title="Our portfolio" />
+      <SectionHeader label="SELECTED WORK" title="My portfolio" />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
         {items.map((p, i) => (
@@ -334,19 +334,19 @@ function Testimonials() {
   const testimonials = [
     {
       quote:
-        "Obsidian Studio transformed our entire brand presence. Their design instincts are unmatched — every deliverable exceeded expectations.",
+        "Tamashhh transformed our entire brand presence. His design instincts are unmatched — every deliverable exceeded expectations.",
       name: "Priya Sharma",
       role: "CEO, Luxora Brands",
     },
     {
       quote:
-        "The video editing quality is cinematic-grade. They turned raw footage into storytelling gold. Absolute game-changers.",
+        "The video editing quality is cinematic-grade. He turned raw footage into storytelling gold. An absolute game-changer.",
       name: "Marcus Chen",
       role: "Founder, Elevate Media",
     },
     {
       quote:
-        "Their courses gave my team the confidence and skills to level up our in-house creative work. Worth every penny.",
+        "Tamash's courses gave my team the confidence and skills to level up our in-house creative work. Worth every penny.",
       name: "Ananya Patel",
       role: "Creative Director, Nomad Studio",
     },

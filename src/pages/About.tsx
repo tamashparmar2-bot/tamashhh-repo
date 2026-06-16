@@ -72,23 +72,23 @@ function HeroBanner() {
           variants={fadeUp}
           className="text-blue-500 text-xs tracking-[0.3em] uppercase font-inter"
         >
-          ABOUT US
+          ABOUT ME
         </motion.span>
 
         <motion.h1
           variants={fadeUp}
           className="text-4xl sm:text-5xl lg:text-6xl font-bold gradient-text-h font-podium mt-4"
         >
-          We are Obsidian Studio
+          I am Tamashhh
         </motion.h1>
 
         <motion.p
           variants={fadeUp}
           className="text-white/60 max-w-2xl mx-auto mt-6 text-sm sm:text-base leading-relaxed"
         >
-          A collective of designers, editors, and educators who craft digital
-          experiences that leave lasting impressions. We don&rsquo;t just build
-          brands — we forge legacies.
+          A creative designer, video editor, and educator who crafts digital
+          experiences that leave lasting impressions. I don&rsquo;t just build
+          brands — I forge legacies.
         </motion.p>
       </motion.div>
     </section>
@@ -113,16 +113,16 @@ function StorySection() {
             Born from a passion for exceptional craft
           </h2>
           <p className="text-white/60 leading-relaxed mb-4">
-            Obsidian Studio was forged with a single belief: that design has the
-            power to reshape industries. What began as a small creative
-            experiment quickly grew into a full-service studio trusted by brands
-            that refuse to settle for ordinary.
+            Tamashhh was forged with a single belief: that design has the
+            power to reshape industries. What began as a personal creative
+            passion quickly grew into a full-service brand trusted by clients
+            who refuse to settle for ordinary.
           </p>
           <p className="text-white/60 leading-relaxed">
-            Every pixel we push, every frame we cut, and every lesson we teach
+            Every pixel I push, every frame I cut, and every lesson I teach
             is rooted in obsessive attention to detail and an unyielding
-            commitment to our clients&rsquo; success. We don&rsquo;t chase
-            trends — we set them.
+            commitment to my clients&rsquo; success. I don&rsquo;t chase
+            trends — I set them.
           </p>
         </motion.div>
 
@@ -156,28 +156,28 @@ function MissionVisionValues() {
     {
       Icon: Target,
       color: "#3b82f6",
-      title: "Our Mission",
+      title: "My Mission",
       desc: "To empower brands with design that speaks — visuals that resonate, narratives that captivate, and experiences that convert.",
     },
     {
       Icon: Eye,
       color: "#8b5cf6",
-      title: "Our Vision",
-      desc: "To become the most sought-after creative collective, known for pushing boundaries and redefining what's possible in digital craft.",
+      title: "My Vision",
+      desc: "To be a leading creative force, known for pushing boundaries and redefining what's possible in digital craft.",
     },
     {
       Icon: Heart,
       color: "#ef4444",
-      title: "Our Values",
-      desc: "Craft, integrity, and relentless innovation. We hold ourselves to an uncompromising standard because our clients deserve nothing less.",
+      title: "My Values",
+      desc: "Craft, integrity, and relentless innovation. I hold myself to an uncompromising standard because my clients deserve nothing less.",
     },
   ];
 
   return (
     <section className="py-24 bg-dark-50 px-6 sm:px-10 lg:px-16">
       <SectionHeader
-        label="OUR FOUNDATION"
-        title="What drives us"
+        label="MY FOUNDATION"
+        title="What drives me"
         subtitle="The principles that guide every project, pixel, and partnership."
       />
 
@@ -215,15 +215,15 @@ function MissionVisionValues() {
    ═══════════════════════════════════════════════════════════════════════ */
 function Timeline() {
   const milestones = [
-    { year: "2021", text: "Founded Obsidian Studio with a vision to redefine creative excellence." },
-    { year: "2022", text: "Crossed 50+ projects, earning the trust of brands across industries." },
+    { year: "2021", text: "Started Tamashhh with a vision to redefine creative excellence." },
+    { year: "2022", text: "Crossed 50+ projects, earning the trust of clients across industries." },
     { year: "2023", text: "Launched online courses, empowering creators worldwide." },
-    { year: "2024", text: "Expanded to a full-service agency with design, editing, and education." },
+    { year: "2024", text: "Expanded to full-service creative offerings with design, editing, and education." },
   ];
 
   return (
     <section className="py-24 px-6 sm:px-10 lg:px-16">
-      <SectionHeader label="OUR JOURNEY" title="The timeline" />
+      <SectionHeader label="MY JOURNEY" title="The timeline" />
 
       <div className="relative max-w-4xl mx-auto">
         {/* center line */}
@@ -267,76 +267,79 @@ function Timeline() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   5 — TEAM
+   5 — CREATOR PROFILE (REPLACES TEAM)
    ═══════════════════════════════════════════════════════════════════════ */
 function TeamSection() {
-  const team = [
-    { name: "Tamash Parmar", role: "Founder & Creative Director", initials: "TP" },
-    { name: "Arjun Kapoor", role: "Lead Designer", initials: "AK" },
-    { name: "Neha Reddy", role: "Video Editor", initials: "NR" },
-    { name: "Sahil Mehta", role: "Instructor", initials: "SM" },
-  ];
-
   return (
     <section className="py-24 bg-dark-50 px-6 sm:px-10 lg:px-16">
       <SectionHeader
-        label="THE TEAM"
-        title="Meet the Creators"
-        subtitle="Talented individuals united by a passion for craft and an obsession with quality."
+        label="THE CREATOR"
+        title="Behind Tamashhh"
+        subtitle="The designer, editor, and educator behind every pixel and frame."
       />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-        {team.map((t, i) => (
-          <motion.div
-            key={t.name}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: i * 0.1 }}
-            className="glass-card p-8 text-center group"
-          >
-            {/* avatar */}
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-red-500 flex items-center justify-center mx-auto mb-5 transition-transform duration-300 group-hover:scale-110">
-              <span className="text-xl font-bold text-white font-podium">
-                {t.initials}
-              </span>
-            </div>
+      <div className="max-w-2xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="glass-card p-10 sm:p-12 text-center group relative overflow-hidden"
+        >
+          {/* Decorative background glow */}
+          <div className="absolute -top-12 -left-12 w-48 h-48 rounded-full bg-blue-500/10 blur-2xl pointer-events-none group-hover:bg-blue-500/20 transition-colors duration-500" />
+          <div className="absolute -bottom-12 -right-12 w-48 h-48 rounded-full bg-red-500/10 blur-2xl pointer-events-none group-hover:bg-red-500/20 transition-colors duration-500" />
 
-            <h3 className="text-white font-bold font-podium text-lg">
-              {t.name}
-            </h3>
-            <p className="text-white/50 text-sm mt-1 mb-5">{t.role}</p>
+          {/* Avatar */}
+          <div className="w-28 h-28 rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-red-500 flex items-center justify-center mx-auto mb-6 transition-transform duration-500 group-hover:scale-105 shadow-xl shadow-purple-500/10">
+            <span className="text-3xl font-bold text-white font-podium">
+              TP
+            </span>
+          </div>
 
-            {/* social icons */}
-            <div className="flex justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <a
-                href="#"
-                className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors"
-              >
-                <IconTwitterX className="w-3.5 h-3.5 text-white/60" />
-              </a>
-              <a
-                href="#"
-                className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors"
-              >
-                <IconLinkedin className="w-3.5 h-3.5 text-white/60" />
-              </a>
-              <a
-                href="#"
-                className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors"
-              >
-                <IconInstagram className="w-3.5 h-3.5 text-white/60" />
-              </a>
-            </div>
-          </motion.div>
-        ))}
+          <h3 className="text-white font-bold font-podium text-2xl">
+            Tamash Parmar
+          </h3>
+          <p className="text-blue-400 text-xs tracking-widest uppercase font-semibold mt-2 mb-6">
+            Founder & Solo Creator
+          </p>
+
+          <p className="text-white/60 text-sm leading-relaxed max-w-lg mx-auto mb-8">
+            Hi! I&rsquo;m Tamash, a multi-disciplinary creator specializing in brand identity design, high-end video editing, and motion graphics. With years of experience working with global clients, I help businesses elevate their aesthetics and tell stories that resonate. I also run online bootcamps and share creative resources to empower the next generation of designers and editors.
+          </p>
+
+          {/* social icons */}
+          <div className="flex justify-center gap-4">
+            <a
+              href="#"
+              className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-all duration-300 border border-white/10 group"
+              aria-label="Twitter"
+            >
+              <IconTwitterX className="w-4 h-4 text-white/60 group-hover:text-white" />
+            </a>
+            <a
+              href="#"
+              className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-all duration-300 border border-white/10 group"
+              aria-label="LinkedIn"
+            >
+              <IconLinkedin className="w-4 h-4 text-white/60 group-hover:text-white" />
+            </a>
+            <a
+              href="#"
+              className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-all duration-300 border border-white/10 group"
+              aria-label="Instagram"
+            >
+              <IconInstagram className="w-4 h-4 text-white/60 group-hover:text-white" />
+            </a>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   CTA BANNER
+   6 — CTA BANNER
    ═══════════════════════════════════════════════════════════════════════ */
 function CtaBanner() {
   return (
@@ -352,11 +355,10 @@ function CtaBanner() {
         className="relative z-10 text-center px-6"
       >
         <h2 className="text-3xl sm:text-5xl font-bold gradient-text-h font-podium">
-          Want to work with us?
+          Want to work with me?
         </h2>
         <p className="text-white/50 max-w-md mx-auto mt-4 text-sm sm:text-base">
-          We&rsquo;re always looking for ambitious brands and talented
-          collaborators. Let&rsquo;s create something remarkable.
+          I&rsquo;m always looking for ambitious projects and creative partnerships. Let&rsquo;s create something remarkable.
         </p>
         <div className="flex flex-wrap justify-center gap-4 mt-8">
           <Link
@@ -370,7 +372,7 @@ function CtaBanner() {
             to="/portfolio"
             className="btn-outline inline-flex items-center gap-2"
           >
-            SEE OUR WORK
+            SEE MY WORK
           </Link>
         </div>
       </motion.div>

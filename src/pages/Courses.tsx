@@ -91,12 +91,12 @@ const faqs = [
   {
     question: "What payment options are available?",
     answer:
-      "We accept all major credit and debit cards, UPI, net banking, and popular wallets. You can also pay via EMI options on select cards. International payments are supported through Stripe.",
+      "I accept all major credit and debit cards, UPI, net banking, and popular wallets. You can also pay via EMI options on select cards. International payments are supported through Stripe.",
   },
   {
     question: "Are there any prerequisites for the courses?",
     answer:
-      "Most of our courses are designed for beginners and require no prior experience. For intermediate and advanced courses, we recommend basic familiarity with the subject. Each course page lists specific prerequisites if any.",
+      "Most of my courses are designed for beginners and require no prior experience. For intermediate and advanced courses, I recommend basic familiarity with the subject. Each course page lists specific prerequisites if any.",
   },
   {
     question: "How long do I have access to the course?",
@@ -111,7 +111,7 @@ const faqs = [
   {
     question: "What is the refund policy?",
     answer:
-      "We offer a 7-day money-back guarantee on all courses. If you're not satisfied with the content, simply reach out to our support team within 7 days of purchase for a full refund — no questions asked.",
+      "I offer a 7-day money-back guarantee on all courses. If you're not satisfied with the content, simply reach out to me within 7 days of purchase for a full refund — no questions asked.",
   },
 ];
 
@@ -250,7 +250,7 @@ export default function Courses() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-5xl font-podium font-bold gradient-text-h">
-              Why choose our courses
+              Why choose my courses
             </h2>
             <div className="gradient-line mx-auto mt-6" />
           </motion.div>

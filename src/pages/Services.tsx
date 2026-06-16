@@ -19,7 +19,7 @@ const services = [
     subtitle: "Visual identities that captivate",
     color: "#3b82f6",
     description:
-      "We create stunning brand identities, UI/UX designs, and visual systems that resonate with your audience and elevate your brand presence.",
+      "I create stunning brand identities, UI/UX designs, and visual systems that resonate with your audience and elevate your brand presence.",
     features: ["Brand Identity", "UI/UX Design", "Social Media Graphics", "Packaging Design", "Logo Design", "Print Design"],
     gradient: "from-blue-600/20 to-blue-900/10",
     videoUrl: "/portfolio/v5.mp4"
@@ -72,7 +72,7 @@ const pricing = [
     name: "Enterprise",
     price: "₹49,999+",
     popular: false,
-    features: ["Custom scope", "Dedicated team", "Ongoing support", "All deliverables", "Strategy included"],
+    features: ["Custom scope", "Direct 1-on-1 support", "Ongoing support", "All deliverables", "Strategy included"],
   },
 ];
 
@@ -90,7 +90,7 @@ export default function Services() {
             transition={{ duration: 0.6 }}
             className="text-blue-500 text-xs tracking-[0.3em] uppercase font-semibold mb-6"
           >
-            OUR SERVICES
+            MY SERVICES
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -106,7 +106,7 @@ export default function Services() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="mt-6 text-white/50 max-w-2xl mx-auto"
           >
-            From brand identity to video production to creative education — we deliver end-to-end creative
+            From brand identity to video production to creative education — I deliver end-to-end creative
             solutions tailored to your unique vision.
           </motion.p>
         </div>
@@ -180,8 +180,8 @@ export default function Services() {
       {/* Process */}
       <section className="py-24 lg:py-32 bg-dark-50 px-6 sm:px-10 lg:px-16">
         <div className="text-center mb-16">
-          <p className="text-blue-500 text-xs tracking-[0.3em] uppercase font-semibold mb-4">HOW WE WORK</p>
-          <h2 className="text-3xl sm:text-4xl font-bold gradient-text-h">Our Process</h2>
+          <p className="text-blue-500 text-xs tracking-[0.3em] uppercase font-semibold mb-4">HOW I WORK</p>
+          <h2 className="text-3xl sm:text-4xl font-bold gradient-text-h">My Process</h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {steps.map((step, i) => (

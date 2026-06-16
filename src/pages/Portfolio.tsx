@@ -26,7 +26,7 @@ const projects: Project[] = [
     videoUrl: "/portfolio/cgi-saregama.mp4"
   },
   {
-    title: "Obsidian Brand Film",
+    title: "Tamashhh Brand Film",
     category: "Editing",
     gradient: "from-blue-600 via-purple-600 to-red-500",
     videoUrl: "/portfolio/obsidian-draft-1.mp4"
@@ -109,7 +109,7 @@ export default function Portfolio() {
             animate={{ opacity: 1, y: 0 }}
             className="text-blue-500 text-xs tracking-[0.3em] uppercase font-semibold mb-6"
           >
-            OUR WORK
+            MY WORK
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -125,7 +125,7 @@ export default function Portfolio() {
             transition={{ delay: 0.2 }}
             className="mt-6 text-white/50 max-w-xl mx-auto"
           >
-            A curated collection of our finest work across design, editing, and creative education.
+            A curated collection of my finest work across design, editing, and creative education.
           </motion.p>
         </div>
       </section>

@@ -96,7 +96,7 @@ export default function Contact() {
       <AnimatePresence>
         {showToast && (
           <Toast
-            message="Message sent! We'll get back to you soon."
+            message="Message sent! I'll get back to you soon."
             onClose={() => setShowToast(false)}
           />
         )}
@@ -131,7 +131,7 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-6 text-lg md:text-xl text-white/60 max-w-2xl mx-auto"
           >
-            Have a project in mind or just want to say hello? We'd love to hear
+            Have a project in mind or just want to say hello? I'd love to hear
             from you.
           </motion.p>
         </div>
@@ -219,7 +219,7 @@ export default function Contact() {
                       name="message"
                       required
                       rows={5}
-                      placeholder="Tell us about your project…"
+                      placeholder="Tell me about your project…"
                       value={formData.message}
                       onChange={handleChange}
                       className={`${inputClass} resize-none`}

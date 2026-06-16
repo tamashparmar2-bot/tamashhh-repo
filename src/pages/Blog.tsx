@@ -114,7 +114,7 @@ export default function Blog() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-5xl md:text-7xl font-podium font-bold gradient-text-h leading-tight"
           >
-            Our blog
+            My blog
           </motion.h1>
 
           <motion.p

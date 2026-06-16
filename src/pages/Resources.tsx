@@ -38,10 +38,10 @@ interface ResourceFile {
 const DEFAULT_RESOURCES: ResourceFile[] = [
   {
     id: "1",
-    title: "Obsidian Intro Template",
+    title: "Tamashhh Intro Template",
     description: "Premiere Pro intro sequence template with modern motion graphics and title presets.",
     category: "video",
-    fileName: "obsidian-intro-v1.prproj",
+    fileName: "tamashhh-intro-v1.prproj",
     fileSize: "84.5 MB",
     fileType: "prproj",
     downloads: 142,
@@ -96,7 +96,7 @@ const DEFAULT_RESOURCES: ResourceFile[] = [
     title: "Cinematic Color Grading LUTs",
     description: "Professional LUT cube files designed for Sony S-Log3 and LOG footage to achieve warm shadow tones and clean skin.",
     category: "video",
-    fileName: "obsidian-cinematic-luts.cube",
+    fileName: "tamashhh-cinematic-luts.cube",
     fileSize: "12.8 MB",
     fileType: "cube",
     downloads: 45,
@@ -113,7 +113,7 @@ interface Toast {
 export default function Resources() {
   // --- States ---
   const [files, setFiles] = useState<ResourceFile[]>(() => {
-    const saved = localStorage.getItem("obsidian_resources");
+    const saved = localStorage.getItem("tamashhh_resources");
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -132,7 +132,7 @@ export default function Resources() {
 
   // Admin Auth States
   const [isAdmin, setIsAdmin] = useState<boolean>(() => {
-    return sessionStorage.getItem("obsidian_is_admin") === "true";
+    return sessionStorage.getItem("tamashhh_is_admin") === "true";
   });
   const [passcode, setPasscode] = useState("");
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -154,12 +154,12 @@ export default function Resources() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    sessionStorage.setItem("obsidian_is_admin", isAdmin ? "true" : "false");
+    sessionStorage.setItem("tamashhh_is_admin", isAdmin ? "true" : "false");
   }, [isAdmin]);
 
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (passcode === "obsidian2026") {
+    if (passcode === "tamashhh2026") {
       setIsAdmin(true);
       setShowAuthModal(false);
       setPasscode("");
@@ -178,7 +178,7 @@ export default function Resources() {
 
   // Sync to localStorage
   useEffect(() => {
-    localStorage.setItem("obsidian_resources", JSON.stringify(files));
+    localStorage.setItem("tamashhh_resources", JSON.stringify(files));
   }, [files]);
 
   // --- Toast Actions ---
@@ -313,7 +313,7 @@ export default function Resources() {
               const newFile: ResourceFile = {
                 id: Date.now().toString(),
                 title: title.trim() || selectedFile.name.replace(/\.[^/.]+$/, ""),
-                description: description.trim() || "Obsidian deliverable package file.",
+                description: description.trim() || "Tamashhh deliverable package file.",
                 category,
                 fileName: selectedFile.name,
                 fileSize: formatBytes(selectedFile.size),
@@ -457,7 +457,7 @@ export default function Resources() {
             animate={{ opacity: 1, y: 0 }}
             className="text-blue-500 text-xs tracking-[0.3em] uppercase font-semibold mb-4"
           >
-            OBSIDIAN STORAGE
+            TAMASHHH STORAGE
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -686,10 +686,10 @@ export default function Resources() {
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-sm font-bold uppercase tracking-wider text-white">
-                    Obsidian Deliverables
+                    Tamashhh Deliverables
                   </h3>
                   <p className="text-xs text-white/50 leading-relaxed">
-                    Filter, search, and download content creative assets, layouts, plugins, and courses packages created by Obsidian Studio.
+                    Filter, search, and download content creative assets, layouts, plugins, and courses packages created by Tamashhh.
                   </p>
                 </div>
                 <button
@@ -1057,7 +1057,7 @@ export default function Resources() {
                   />
                   {authError && (
                     <p className="text-[10px] text-red-400 font-semibold uppercase text-center mt-1 animate-pulse">
-                      Passcode incorrect. Hint: obsidian2026
+                      Passcode incorrect. Hint: tamashhh2026
                     </p>
                   )}
                 </div>

@@ -11,7 +11,7 @@ const footerLinks = {
     { label: "Online Courses", to: "/courses" },
   ],
   quickLinks: [
-    { label: "About Us", to: "/about" },
+    { label: "About", to: "/about" },
     { label: "Portfolio", to: "/portfolio" },
     { label: "Blog", to: "/blog" },
     { label: "Courses", to: "/courses" },
@@ -30,10 +30,10 @@ export default function Footer() {
           {/* About */}
           <div>
             <Link to="/" className="font-podium text-2xl font-bold uppercase tracking-wider text-white">
-              OBSIDIAN
+              TAMASHHH
             </Link>
             <p className="mt-4 text-sm text-white/40 leading-relaxed">
-              A premium creative studio crafting exceptional digital experiences through design,
+              A premium creative brand crafting exceptional digital experiences through design,
               editing, and education.
             </p>
             <div className="flex gap-3 mt-6">
@@ -122,10 +122,10 @@ export default function Footer() {
         <div className="mt-16 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex flex-col items-center sm:items-start gap-1">
             <p className="text-xs text-white/25">
-              © 2026 Obsidian Studio. All rights reserved.
+              © 2026 Tamashhh. All rights reserved.
             </p>
             <p className="text-[10px] text-white/40 tracking-wider">
-              Crafted by <span className="gradient-text font-semibold uppercase">Tamash Parmar</span> | Founder - Obsidian
+              Crafted by <span className="gradient-text font-semibold uppercase">Tamash Parmar</span> | Tamashhh
             </p>
           </div>
           <div className="flex gap-6">
