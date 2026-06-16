@@ -165,7 +165,7 @@ function ServicesPreview() {
   return (
     <section className="py-24 lg:py-32 px-6 sm:px-10 lg:px-16">
       <SectionHeader
-        label="WHAT WE DO"
+        label="WHAT I DO"
         title="Services I offer"
         subtitle="From concept to creation, I deliver end-to-end creative solutions that set brands apart."
       />
@@ -440,7 +440,7 @@ function CtaSection() {
             <ArrowUpRight className="w-4 h-4" />
           </Link>
           <Link to="/portfolio" className="btn-outline inline-flex items-center gap-2">
-            VIEW OUR WORK
+            VIEW MY WORK
           </Link>
         </div>
       </motion.div>
