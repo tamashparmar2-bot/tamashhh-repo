@@ -8,6 +8,7 @@ import Portfolio from "./pages/Portfolio";
 import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
 import Resources from "./pages/Resources";
+import ClientPortal from "./pages/ClientPortal";
 import Preloader from "./components/Preloader";
 import "./index.css";
 
@@ -27,6 +28,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/resources" element={<Resources />} />
+            <Route path="/portal" element={<ClientPortal />} />
           </Route>
         </Routes>
       </BrowserRouter>

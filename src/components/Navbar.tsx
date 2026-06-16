@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { label: "Portfolio", to: "/portfolio" },
   { label: "Blog", to: "/blog" },
   { label: "Resources", to: "/resources" },
+  { label: "Portal", to: "/portal" },
 ];
 
 const OFFERS = [
