@@ -10,6 +10,8 @@ interface Project {
   category: string;
   gradient: string;
   videoUrl?: string;
+  imageUrl?: string;
+  projectUrl?: string;
 }
 
 const projects: Project[] = [
@@ -88,6 +90,13 @@ const projects: Project[] = [
     title: "Vibe Builder AI",
     category: "Vibe Coding",
     gradient: "from-emerald-500 to-teal-400"
+  },
+  {
+    title: "Zara Kai Fashion Portfolio",
+    category: "Vibe Coding",
+    gradient: "from-emerald-500 via-teal-500 to-lime-400",
+    imageUrl: "/portfolio/fashion-portfolio.png",
+    projectUrl: "/fashion_portfolio_modern.html"
   },
   {
     title: "Vortex Music Festival",
@@ -227,7 +236,13 @@ export default function Portfolio() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.4 }}
-                onClick={() => project.videoUrl && handleOpenVideo(project.videoUrl, project.title)}
+                onClick={() => {
+                  if (project.projectUrl) {
+                    window.open(project.projectUrl, "_blank");
+                  } else if (project.videoUrl) {
+                    handleOpenVideo(project.videoUrl, project.title);
+                  }
+                }}
                 className={`group glass-card overflow-hidden cursor-pointer ${getGridSpan(idx)}`}
               >
                 <div
@@ -252,6 +267,12 @@ export default function Portfolio() {
                       loop
                       playsInline
                       className="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:opacity-95 transition-all duration-300"
+                    />
+                  ) : project.imageUrl ? (
+                    <img
+                      src={project.imageUrl}
+                      alt={project.title}
+                      className="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:opacity-95 group-hover:scale-105 transition-all duration-500"
                     />
                   ) : (
                     <div
@@ -283,11 +304,15 @@ export default function Portfolio() {
                     <span className="text-[10px] uppercase tracking-widest text-white/30">
                       {project.category}
                     </span>
-                    {project.videoUrl && (
+                    {project.videoUrl ? (
                       <span className="text-[9px] uppercase tracking-widest font-semibold px-2 py-0.5 rounded bg-white/5 border border-white/10 text-white/50">
                         VIDEO
                       </span>
-                    )}
+                    ) : project.projectUrl ? (
+                      <span className="text-[9px] uppercase tracking-widest font-semibold px-2 py-0.5 rounded bg-gradient-to-r from-emerald-500 to-teal-500 border border-emerald-500/20 text-white">
+                        LIVE APP
+                      </span>
+                    ) : null}
                   </div>
                   <h3 className="text-sm font-semibold text-white mt-1">{project.title}</h3>
                 </div>

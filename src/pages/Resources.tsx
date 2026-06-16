@@ -81,6 +81,17 @@ const DEFAULT_RESOURCES: ResourceFile[] = [
     createdAt: "2026-05-20",
   },
   {
+    id: "7",
+    title: "Zara Kai Fashion Portfolio Source",
+    description: "Sleek, fully responsive model portfolio template featuring a custom interactive cursor, custom typography, and native HSL styling.",
+    category: "vibe-coding",
+    fileName: "fashion_portfolio_modern.html",
+    fileSize: "26 KB",
+    fileType: "html",
+    downloads: 142,
+    createdAt: "2026-06-16",
+  },
+  {
     id: "5",
     title: "Framer Motion Custom Hooks",
     description: "Utility animation hooks for scroll triggers, text animations, and smooth magnetic mouse tracking elements.",
@@ -116,7 +127,17 @@ export default function Resources() {
     const saved = localStorage.getItem("tamashhh_resources");
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved) as ResourceFile[];
+        // Merge in any default resources that are not present in localStorage
+        const missing = DEFAULT_RESOURCES.filter(
+          (def) => !parsed.some((p) => p.id === def.id)
+        );
+        if (missing.length > 0) {
+          const merged = [...parsed, ...missing];
+          localStorage.setItem("tamashhh_resources", JSON.stringify(merged));
+          return merged;
+        }
+        return parsed;
       } catch (e) {
         console.error("Failed to parse saved resources:", e);
       }
