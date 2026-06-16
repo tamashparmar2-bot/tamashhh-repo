@@ -8,6 +8,7 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { IconInstagram, IconTwitterX, IconYoutube, IconLinkedin } from "../components/SocialIcons";
+import { supabase } from "../lib/supabaseClient";
 
 const contactInfo = [
   {
@@ -79,8 +80,31 @@ export default function Contact() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.name || !formData.email || !formData.service || !formData.message) {
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from("contact_submissions")
+        .insert([
+          {
+            name: formData.name,
+            email: formData.email,
+            service: formData.service,
+            message: formData.message,
+          },
+        ]);
+
+      if (error) {
+        console.error("Database submission error:", error);
+      }
+    } catch (err) {
+      console.error("Failed to connect to database:", err);
+    }
+
     setShowToast(true);
     setFormData({ name: "", email: "", service: "", message: "" });
   };

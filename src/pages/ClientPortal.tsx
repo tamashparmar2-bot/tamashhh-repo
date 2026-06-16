@@ -17,6 +17,7 @@ import {
   TrendingUp,
   X
 } from "lucide-react";
+import { supabase } from "../lib/supabaseClient";
 
 interface ProjectBrief {
   id: string;
@@ -86,27 +87,7 @@ interface Toast {
 
 export default function ClientPortal() {
   // --- State ---
-  const [projects, setProjects] = useState<ProjectBrief[]>(() => {
-    const saved = localStorage.getItem("tamashhh_portal_projects");
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved) as ProjectBrief[];
-        // Auto-merge default seed entries if missing
-        const missing = DEFAULT_PROJECTS.filter(
-          (def) => !parsed.some((p) => p.id === def.id)
-        );
-        if (missing.length > 0) {
-          const merged = [...parsed, ...missing];
-          localStorage.setItem("tamashhh_portal_projects", JSON.stringify(merged));
-          return merged;
-        }
-        return parsed;
-      } catch (e) {
-        console.error("Failed to parse portal projects:", e);
-      }
-    }
-    return DEFAULT_PROJECTS;
-  });
+  const [projects, setProjects] = useState<ProjectBrief[]>([]);
 
   // Form Fields
   const [clientName, setClientName] = useState("");
@@ -124,9 +105,76 @@ export default function ClientPortal() {
   const [selectedProject, setSelectedProject] = useState<ProjectBrief | null>(null);
   const [toasts, setToasts] = useState<Toast[]>([]);
 
-  // Local Storage Sync
+  // Fetch from Supabase
   useEffect(() => {
-    localStorage.setItem("tamashhh_portal_projects", JSON.stringify(projects));
+    const fetchProjects = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("client_portal_projects")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        if (error) {
+          console.error("Error fetching database projects:", error);
+          const saved = localStorage.getItem("tamashhh_portal_projects");
+          if (saved) {
+            setProjects(JSON.parse(saved));
+          } else {
+            setProjects(DEFAULT_PROJECTS);
+          }
+        } else if (data && data.length > 0) {
+          const mapped: ProjectBrief[] = data.map((d: any) => ({
+            id: d.id,
+            clientName: d.client_name,
+            clientEmail: d.client_email,
+            title: d.title,
+            category: d.category as ProjectBrief["category"],
+            description: d.description,
+            driveLink: d.drive_link,
+            deadline: d.deadline,
+            status: d.status as ProjectBrief["status"],
+            progress: d.progress,
+            adminNotes: d.admin_notes || undefined,
+            createdAt: d.created_at ? d.created_at.split("T")[0] : new Date().toISOString().split("T")[0]
+          }));
+          setProjects(mapped);
+          localStorage.setItem("tamashhh_portal_projects", JSON.stringify(mapped));
+        } else {
+          // Seed initial projects if Supabase is completely empty
+          setProjects(DEFAULT_PROJECTS);
+          localStorage.setItem("tamashhh_portal_projects", JSON.stringify(DEFAULT_PROJECTS));
+          
+          DEFAULT_PROJECTS.forEach(async (p) => {
+            await supabase.from("client_portal_projects").insert({
+              id: p.id,
+              client_name: p.clientName,
+              client_email: p.clientEmail,
+              title: p.title,
+              category: p.category,
+              description: p.description,
+              drive_link: p.driveLink,
+              deadline: p.deadline,
+              status: p.status,
+              progress: p.progress,
+              admin_notes: p.adminNotes
+            });
+          });
+        }
+      } catch (err) {
+        console.error("Supabase load connection failed:", err);
+        const saved = localStorage.getItem("tamashhh_portal_projects");
+        setProjects(saved ? JSON.parse(saved) : DEFAULT_PROJECTS);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  // Local Storage Sync (Backup)
+  useEffect(() => {
+    if (projects.length > 0) {
+      localStorage.setItem("tamashhh_portal_projects", JSON.stringify(projects));
+    }
   }, [projects]);
 
   // Toast Helper
@@ -147,7 +195,7 @@ export default function ClientPortal() {
   };
 
   // Submit Brief
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!clientName || !clientEmail || !title || !description || !driveLink || !deadline) {
@@ -174,7 +222,30 @@ export default function ClientPortal() {
       createdAt: new Date().toISOString().split("T")[0]
     };
 
+    // Optimistic UI update
     setProjects((prev) => [newProject, ...prev]);
+
+    try {
+      const { error } = await supabase.from("client_portal_projects").insert({
+        id: newProject.id,
+        client_name: newProject.clientName,
+        client_email: newProject.clientEmail,
+        title: newProject.title,
+        category: newProject.category,
+        description: newProject.description,
+        drive_link: newProject.driveLink,
+        deadline: newProject.deadline,
+        status: newProject.status,
+        progress: newProject.progress
+      });
+
+      if (error) {
+        console.error("Database insert error:", error);
+      }
+    } catch (err) {
+      console.error("Database insert connection failed:", err);
+    }
+
     addToast("success", "Brief submitted successfully! Placed in Review Queue.");
     
     // Clear Form
@@ -188,34 +259,75 @@ export default function ClientPortal() {
   };
 
   // Creator Mode Handlers
-  const handleUpdateStatus = (id: string, status: ProjectBrief["status"]) => {
+  const handleUpdateStatus = async (id: string, status: ProjectBrief["status"]) => {
     let progressVal = 0;
     if (status === "Pending Review") progressVal = 10;
     else if (status === "In Progress") progressVal = 40;
     else if (status === "Review & Feedback") progressVal = 80;
     else if (status === "Completed") progressVal = 100;
 
+    // Optimistic UI update
     setProjects((prev) =>
       prev.map((p) => (p.id === id ? { ...p, status, progress: progressVal } : p))
     );
+
+    try {
+      const { error } = await supabase
+        .from("client_portal_projects")
+        .update({ status, progress: progressVal })
+        .eq("id", id);
+      if (error) console.error("Database status update error:", error);
+    } catch (err) {
+      console.error("Database status update connection failed:", err);
+    }
+
     addToast("success", `Project status updated to ${status}!`);
   };
 
-  const handleUpdateProgress = (id: string, progress: number) => {
+  const handleUpdateProgress = async (id: string, progress: number) => {
     setProjects((prev) =>
       prev.map((p) => (p.id === id ? { ...p, progress } : p))
     );
+
+    try {
+      await supabase
+        .from("client_portal_projects")
+        .update({ progress })
+        .eq("id", id);
+    } catch (err) {
+      console.error("Database progress update connection failed:", err);
+    }
   };
 
-  const handleUpdateNotes = (id: string, notes: string) => {
+  const handleUpdateNotes = async (id: string, notes: string) => {
     setProjects((prev) =>
       prev.map((p) => (p.id === id ? { ...p, adminNotes: notes } : p))
     );
+
+    try {
+      await supabase
+        .from("client_portal_projects")
+        .update({ admin_notes: notes })
+        .eq("id", id);
+    } catch (err) {
+      console.error("Database notes update connection failed:", err);
+    }
   };
 
-  const handleDeleteProject = (id: string) => {
+  const handleDeleteProject = async (id: string) => {
     if (confirm("Are you sure you want to remove this project from the workspace queue?")) {
       setProjects((prev) => prev.filter((p) => p.id !== id));
+
+      try {
+        const { error } = await supabase
+          .from("client_portal_projects")
+          .delete()
+          .eq("id", id);
+        if (error) console.error("Database delete error:", error);
+      } catch (err) {
+        console.error("Database delete connection failed:", err);
+      }
+
       addToast("info", "Project removed from workspace.");
       if (selectedProject?.id === id) {
         setSelectedProject(null);
