@@ -70,9 +70,34 @@ const projects: Project[] = [
     gradient: "from-red-600 to-red-400"
   },
   {
+    title: "Apex Sneakers Branding",
+    category: "Design",
+    gradient: "from-orange-600 to-red-500"
+  },
+  {
+    title: "Aura Cosmetics Packaging",
+    category: "Design",
+    gradient: "from-pink-400 to-rose-600"
+  },
+  {
+    title: "Nova Smartwatch UI",
+    category: "Design",
+    gradient: "from-cyan-500 to-blue-600"
+  },
+  {
     title: "Vibe Builder AI",
     category: "Vibe Coding",
     gradient: "from-emerald-500 to-teal-400"
+  },
+  {
+    title: "Vortex Music Festival",
+    category: "Design",
+    gradient: "from-amber-500 via-red-500 to-purple-600"
+  },
+  {
+    title: "Nebula Poster Series",
+    category: "Design",
+    gradient: "from-indigo-950 via-purple-800 to-pink-600"
   },
   {
     title: "Motion Squad Showreel",
@@ -80,6 +105,43 @@ const projects: Project[] = [
     gradient: "from-purple-500 to-pink-500"
   },
 ];
+
+// Helper mapping functions for asymmetrical layout grid
+const getGridSpan = (idx: number) => {
+  const spans = [
+    "col-span-12 md:col-span-7",
+    "col-span-12 md:col-span-5",
+    "col-span-12 md:col-span-5",
+    "col-span-12 md:col-span-7",
+    "col-span-12 md:col-span-4",
+    "col-span-12 md:col-span-8",
+    "col-span-12 md:col-span-6",
+    "col-span-12 md:col-span-6",
+    "col-span-12 md:col-span-8",
+    "col-span-12 md:col-span-4",
+    "col-span-12 md:col-span-5",
+    "col-span-12 md:col-span-7",
+  ];
+  return spans[idx % spans.length];
+};
+
+const getAspectClass = (idx: number) => {
+  const aspects = [
+    "aspect-[16/10]",
+    "aspect-[4/5]",
+    "aspect-[4/3]",
+    "aspect-[16/9]",
+    "aspect-[4/3]",
+    "aspect-[16/10]",
+    "aspect-[4/5]",
+    "aspect-[16/10]",
+    "aspect-[16/9]",
+    "aspect-[4/3]",
+    "aspect-[4/5]",
+    "aspect-[16/10]",
+  ];
+  return aspects[idx % aspects.length];
+};
 
 export default function Portfolio() {
   const [filter, setFilter] = useState("All");
@@ -155,9 +217,9 @@ export default function Portfolio() {
         </motion.div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 max-w-6xl mx-auto">
           <AnimatePresence mode="popLayout">
-            {filtered.map((project) => (
+            {filtered.map((project, idx) => (
               <motion.div
                 key={project.title}
                 layout
@@ -166,10 +228,10 @@ export default function Portfolio() {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.4 }}
                 onClick={() => project.videoUrl && handleOpenVideo(project.videoUrl, project.title)}
-                className="group glass-card overflow-hidden cursor-pointer"
+                className={`group glass-card overflow-hidden cursor-pointer ${getGridSpan(idx)}`}
               >
                 <div
-                  className="relative aspect-[4/3] overflow-hidden bg-zinc-950"
+                  className={`relative ${getAspectClass(idx)} overflow-hidden bg-zinc-950`}
                   onMouseEnter={(e) => {
                     const video = e.currentTarget.querySelector("video");
                     if (video) video.play().catch(() => {});
