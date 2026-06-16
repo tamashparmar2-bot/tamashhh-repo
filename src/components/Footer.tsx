@@ -37,13 +37,20 @@ export default function Footer() {
               editing, and education.
             </p>
             <div className="flex gap-3 mt-6">
-              {[IconInstagram, IconTwitterX, IconYoutube, IconLinkedin].map((Icon, i) => (
+              {[
+                { Icon: IconInstagram, href: "https://instagram.com/shy_yshrj" },
+                { Icon: IconTwitterX, href: "https://x.com" },
+                { Icon: IconYoutube, href: "https://youtube.com" },
+                { Icon: IconLinkedin, href: "https://linkedin.com" },
+              ].map((item, i) => (
                 <a
                   key={i}
-                  href="#"
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all duration-300"
                 >
-                  <Icon className="w-4 h-4" />
+                  <item.Icon className="w-4 h-4" />
                 </a>
               ))}
             </div>
