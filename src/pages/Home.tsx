@@ -111,9 +111,14 @@ function Hero() {
             SEE MY WORK
             <ArrowUpRight className="w-4 h-4" />
           </Link>
-          <Link to="/contact" className="btn-outline inline-flex items-center gap-2">
+          <a
+            href="https://wa.me/919773135547"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-outline inline-flex items-center gap-2"
+          >
             START A PROJECT
-          </Link>
+          </a>
         </motion.div>
 
         {/* stats */}
