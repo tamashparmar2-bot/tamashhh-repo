@@ -14,7 +14,7 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    detail: "tamashparmar2@gmail.com",
+    detail: "workwithtamashhh@gmail.com",
   },
   {
     icon: Phone,
