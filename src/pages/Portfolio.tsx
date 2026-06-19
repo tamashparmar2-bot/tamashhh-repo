@@ -99,6 +99,13 @@ const projects: Project[] = [
     projectUrl: "/fashion_portfolio_modern.html"
   },
   {
+    title: "Priya Solanki Portfolio",
+    category: "Vibe Coding",
+    gradient: "from-amber-100 via-orange-200 to-amber-300",
+    imageUrl: "/portfolio/priya-portfolio.png",
+    projectUrl: "https://priya-solanki-portfolio.vercel.app/"
+  },
+  {
     title: "Vortex Music Festival",
     category: "Design",
     gradient: "from-amber-500 via-red-500 to-purple-600"
