@@ -37,7 +37,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-3 mt-6">
               {[
-                { Icon: IconInstagram, href: "https://instagram.com/shy_yshrj" },
+                { Icon: IconInstagram, href: "https://www.instagram.com/yashhh.img" },
                 { Icon: IconTwitterX, href: "https://x.com" },
                 { Icon: IconYoutube, href: "https://youtube.com" },
                 { Icon: IconLinkedin, href: "https://linkedin.com" },

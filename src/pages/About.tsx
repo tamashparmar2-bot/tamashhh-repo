@@ -378,7 +378,7 @@ function TeamSection() {
                 <IconLinkedin className="w-4 h-4" />
               </a>
               <a
-                href="https://instagram.com/shy_yshrj"
+                href="https://www.instagram.com/yashhh.img"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-slate-100 hover:bg-blue-50 flex items-center justify-center transition-all duration-200 border border-slate-200 hover:border-blue-300 text-slate-700 hover:text-blue-600"

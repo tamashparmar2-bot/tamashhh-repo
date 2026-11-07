@@ -29,7 +29,7 @@ const contactInfo = [
 ];
 
 const socials = [
-  { icon: IconInstagram, href: "https://instagram.com/shy_yshrj", label: "Instagram" },
+  { icon: IconInstagram, href: "https://www.instagram.com/yashhh.img", label: "Instagram" },
   { icon: IconTwitterX, href: "https://x.com", label: "Twitter / X" },
   { icon: IconYoutube, href: "https://youtube.com", label: "YouTube" },
   { icon: IconLinkedin, href: "https://linkedin.com", label: "LinkedIn" },

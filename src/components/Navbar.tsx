@@ -324,7 +324,7 @@ export default function Navbar() {
                 <div className="flex items-center justify-between pt-2">
                   <div className="flex items-center gap-2">
                     {[
-                      { Icon: IconInstagram, href: "https://instagram.com/shy_yshrj" },
+                      { Icon: IconInstagram, href: "https://www.instagram.com/yashhh.img" },
                       { Icon: IconTwitterX, href: "https://x.com" },
                       { Icon: IconYoutube, href: "https://youtube.com" },
                       { Icon: IconLinkedin, href: "https://linkedin.com" },
