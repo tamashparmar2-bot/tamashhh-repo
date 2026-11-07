@@ -65,20 +65,20 @@ function HeroVisual() {
   const waveformBars = [40, 75, 50, 90, 65, 85, 45, 95, 70, 55, 80, 60, 88, 45, 70, 55];
 
   return (
-    <div className="relative w-full max-w-lg mx-auto lg:max-w-none flex items-center justify-center pt-4 lg:pt-0">
+    <div className="relative w-full flex items-center justify-center">
       {/* Background Rotating Animated Blueprint Geometry */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         {/* Outer Rotating Dashed Ring */}
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          className="w-[360px] h-[360px] sm:w-[460px] sm:h-[460px] rounded-full border border-dashed border-blue-400/25"
+          className="w-[300px] h-[300px] rounded-full border border-dashed border-blue-400/25"
         />
         {/* Inner Counter-Rotating Ring */}
         <motion.div
           animate={{ rotate: -360 }}
           transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-          className="w-[260px] h-[260px] sm:w-[330px] sm:h-[330px] rounded-full border border-dashed border-blue-500/20"
+          className="w-[200px] h-[200px] rounded-full border border-dashed border-blue-500/20"
         />
         {/* Central Ambient Glow */}
         <div className="w-64 h-64 rounded-full bg-blue-500/15 blur-3xl pointer-events-none" />
@@ -188,7 +188,7 @@ function HeroVisual() {
       <motion.div
         animate={{ y: [0, -8, 0] }}
         transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -top-6 -right-2 sm:-right-4 z-20 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl p-3 sm:p-3.5 shadow-xl shadow-blue-500/10 flex items-center gap-3"
+        className="absolute top-0 -right-2 z-20 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl p-3 sm:p-3.5 shadow-xl shadow-blue-500/10 flex items-center gap-3"
       >
         <div className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0">
           <Sparkles className="w-4 h-4" />
@@ -210,7 +210,7 @@ function HeroVisual() {
       <motion.div
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-        className="absolute -bottom-6 -left-2 sm:-left-6 z-20 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl p-3 sm:p-3.5 shadow-xl shadow-blue-500/10 flex items-center gap-3"
+        className="absolute bottom-0 -left-2 z-20 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl p-3 sm:p-3.5 shadow-xl shadow-blue-500/10 flex items-center gap-3"
       >
         <div className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0">
           <Code className="w-4 h-4" />
@@ -234,7 +234,7 @@ function HeroVisual() {
       <motion.div
         animate={{ y: [-3, 5, -3] }}
         transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute -bottom-4 right-4 sm:right-8 z-20 bg-blue-600 text-white shadow-lg shadow-blue-500/30 px-3.5 py-1.5 rounded-full text-[10px] font-bold font-mono tracking-wider flex items-center gap-1.5"
+        className="absolute bottom-2 right-4 z-20 bg-blue-600 text-white shadow-lg shadow-blue-500/30 px-3.5 py-1.5 rounded-full text-[10px] font-bold font-mono tracking-wider flex items-center gap-1.5"
       >
         <CheckCircle2 className="w-3.5 h-3.5 text-blue-200" />
         48-72h Sprints
@@ -254,7 +254,7 @@ function Hero() {
   ];
 
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-b from-blue-50/40 via-white to-slate-50/50 py-16 lg:py-24">
+    <section className="relative min-h-[90vh] flex items-center bg-gradient-to-b from-blue-50/40 via-white to-slate-50/50 py-16 lg:py-24">
       {/* Background Hero Subtle Artwork & Grid */}
       <img
         src="/hero-bg.jpg"
@@ -345,7 +345,7 @@ function Hero() {
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-5 relative mt-4 lg:mt-0"
+            className="lg:col-span-5 relative mt-12 lg:mt-0 pt-8 pb-8 px-8"
           >
             <HeroVisual />
           </motion.div>
