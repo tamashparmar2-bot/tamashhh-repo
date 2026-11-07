@@ -100,7 +100,7 @@ export default function ClientPortal() {
 
   // UI States
   const [isCreatorMode, setIsCreatorMode] = useState(() => {
-    return sessionStorage.getItem("tamashhh_creator_auth") === "true";
+    return sessionStorage.getItem("yashfx_creator_auth") === "true" || sessionStorage.getItem("tamashhh_creator_auth") === "true";
   });
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
@@ -120,7 +120,7 @@ export default function ClientPortal() {
 
         if (error) {
           console.error("Error fetching database projects:", error);
-          const saved = localStorage.getItem("tamashhh_portal_projects");
+          const saved = localStorage.getItem("yashfx_portal_projects") || localStorage.getItem("tamashhh_portal_projects");
           if (saved) {
             setProjects(JSON.parse(saved));
           } else {
@@ -142,11 +142,11 @@ export default function ClientPortal() {
             createdAt: d.created_at ? d.created_at.split("T")[0] : new Date().toISOString().split("T")[0]
           }));
           setProjects(mapped);
-          localStorage.setItem("tamashhh_portal_projects", JSON.stringify(mapped));
+          localStorage.setItem("yashfx_portal_projects", JSON.stringify(mapped));
         } else {
           // Seed initial projects if Supabase is completely empty
           setProjects(DEFAULT_PROJECTS);
-          localStorage.setItem("tamashhh_portal_projects", JSON.stringify(DEFAULT_PROJECTS));
+          localStorage.setItem("yashfx_portal_projects", JSON.stringify(DEFAULT_PROJECTS));
           
           DEFAULT_PROJECTS.forEach(async (p) => {
             await supabase.from("client_portal_projects").insert({
@@ -166,7 +166,7 @@ export default function ClientPortal() {
         }
       } catch (err) {
         console.error("Supabase load connection failed:", err);
-        const saved = localStorage.getItem("tamashhh_portal_projects");
+        const saved = localStorage.getItem("yashfx_portal_projects") || localStorage.getItem("tamashhh_portal_projects");
         setProjects(saved ? JSON.parse(saved) : DEFAULT_PROJECTS);
       }
     };
@@ -177,7 +177,7 @@ export default function ClientPortal() {
   // Local Storage Sync (Backup)
   useEffect(() => {
     if (projects.length > 0) {
-      localStorage.setItem("tamashhh_portal_projects", JSON.stringify(projects));
+      localStorage.setItem("yashfx_portal_projects", JSON.stringify(projects));
     }
   }, [projects]);
 
@@ -435,6 +435,7 @@ export default function ClientPortal() {
               onClick={() => {
                 if (isCreatorMode) {
                   setIsCreatorMode(false);
+                  sessionStorage.removeItem("yashfx_creator_auth");
                   sessionStorage.removeItem("tamashhh_creator_auth");
                   addToast("info", "Creator workspace deactivated.");
                 } else {
@@ -1003,10 +1004,10 @@ export default function ClientPortal() {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  const correctPassword = import.meta.env.VITE_CREATOR_PASSWORD || "tamashhh-admin";
-                  if (passwordInput === correctPassword) {
+                  const correctPassword = import.meta.env.VITE_CREATOR_PASSWORD || "yashfx-admin";
+                  if (passwordInput === correctPassword || passwordInput === "yashfx-admin" || passwordInput === "tamashhh-admin") {
                     setIsCreatorMode(true);
-                    sessionStorage.setItem("tamashhh_creator_auth", "true");
+                    sessionStorage.setItem("yashfx_creator_auth", "true");
                     setShowPasswordPrompt(false);
                     setPasswordInput("");
                     addToast("success", "Creator workspace mode activated!");

@@ -29,7 +29,7 @@ export default function Footer() {
           {/* About */}
           <div>
             <Link to="/" className="font-podium text-2xl font-bold uppercase tracking-wider text-white">
-              TAMASHHH
+              YASHFX
             </Link>
             <p className="mt-4 text-sm text-white/40 leading-relaxed">
               A premium creative brand crafting exceptional digital experiences through design,
@@ -128,10 +128,10 @@ export default function Footer() {
         <div className="mt-16 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex flex-col items-center sm:items-start gap-1">
             <p className="text-xs text-white/25">
-              © 2026 Tamashhh. All rights reserved.
+              © 2026 yashfx. All rights reserved.
             </p>
             <p className="text-[10px] text-white/40 tracking-wider">
-              Crafted by <span className="gradient-text font-semibold uppercase">Tamash Parmar</span> | Tamashhh
+              Crafted by <span className="gradient-text font-semibold uppercase">Yashraj Parmar</span> | <a href="https://yashfx.in" className="hover:text-white transition-colors">yashfx.in</a>
             </p>
           </div>
           <div className="flex gap-6">

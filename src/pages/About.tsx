@@ -79,7 +79,7 @@ function HeroBanner() {
           variants={fadeUp}
           className="text-4xl sm:text-5xl lg:text-6xl font-bold gradient-text-h font-podium mt-4"
         >
-          I am Tamashhh
+          I am yashfx
         </motion.h1>
 
         <motion.p
@@ -113,7 +113,7 @@ function StorySection() {
             Born from a passion for exceptional craft
           </h2>
           <p className="text-white/60 leading-relaxed mb-4">
-            Tamashhh was forged with a single belief: that design has the
+            yashfx was forged with a single belief: that design has the
             power to reshape industries. What began as a personal creative
             passion quickly grew into a full-service brand trusted by clients
             who refuse to settle for ordinary.
@@ -215,7 +215,7 @@ function MissionVisionValues() {
    ═══════════════════════════════════════════════════════════════════════ */
 function Timeline() {
   const career = [
-    { year: "2021", text: "Started Tamashhh with a vision to redefine creative excellence." },
+    { year: "2021", text: "Started yashfx with a vision to redefine creative excellence." },
     { year: "2022", text: "Crossed 50+ projects, earning the trust of clients across industries." },
     { year: "2023", text: "Pivoted to Vibe Coding, pioneering live speed-development." },
     { year: "2024", text: "Expanded to full-service creative offerings with design, editing, and engineering." },
@@ -322,7 +322,7 @@ function TeamSection() {
     <section className="py-24 bg-dark-50 px-6 sm:px-10 lg:px-16">
       <SectionHeader
         label="THE CREATOR"
-        title="Behind Tamashhh"
+        title="Behind yashfx"
         subtitle="The designer, editor, and educator behind every pixel and frame."
       />
 
@@ -342,7 +342,7 @@ function TeamSection() {
             
             <img
               src="/creator-profile.jpg"
-              alt="Tamash Parmar Portrait"
+              alt="Yashraj Parmar Portrait"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           </div>
@@ -365,11 +365,11 @@ function TeamSection() {
               Founder & Solo Creator
             </span>
             <h3 className="text-white font-bold font-podium text-3xl sm:text-4xl mb-4">
-              Tamash Parmar
+              Yashraj Parmar
             </h3>
             
             <p className="text-white/60 text-sm leading-relaxed mb-6">
-              Hi! I&rsquo;m Tamash, a multi-disciplinary creator specializing in brand identity design, high-end video editing, and motion graphics. With years of experience working with global clients, I help businesses elevate their aesthetics and tell stories that resonate. I also run online bootcamps and share creative resources to empower the next generation of designers and editors.
+              Hi! I&rsquo;m Yashraj, a multi-disciplinary creator specializing in brand identity design, high-end video editing, and motion graphics. With years of experience working with global clients, I help businesses elevate their aesthetics and tell stories that resonate. I also run online bootcamps and share creative resources to empower the next generation of designers and editors.
             </p>
 
             <div className="gradient-line my-6 opacity-30" />

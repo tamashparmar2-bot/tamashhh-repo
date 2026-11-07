@@ -14,7 +14,7 @@ const NAV_LINKS = [
 ];
 
 const OFFERS = [
-  "🔥 Limited Time Offer: Save 25% on Brand Identity Design & Video Editing. Code: TAMASHHH25",
+  "🔥 Limited Time Offer: Save 25% on Brand Identity Design & Video Editing. Code: YASHFX25",
   "🎓 Learn Creative Skills: Enroll in our UI/UX Masterclass & Video Bootcamp for 20% off. Code: STUDY20",
   "⚡ Premium Assets Hub: Download templates, presets, and color LUTs for free!"
 ];
@@ -58,7 +58,7 @@ export default function Navbar() {
             to="/"
             className="flex items-center"
           >
-            <img src="/favicon.png" alt="TAMASHHH Logo" className="h-8 w-auto object-contain" />
+            <img src="/favicon.png" alt="yashfx Logo" className="h-8 w-auto object-contain" />
           </Link>
 
           {/* Desktop Links */}
@@ -107,7 +107,7 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between px-6 sm:px-10 py-4">
           <Link to="/" onClick={() => setMenuOpen(false)} className="flex items-center">
-            <img src="/favicon.png" alt="TAMASHHH Logo" className="h-8 w-auto object-contain" />
+            <img src="/favicon.png" alt="yashfx Logo" className="h-8 w-auto object-contain" />
           </Link>
           <button onClick={() => setMenuOpen(false)} className="text-white" aria-label="Close menu">
             <X className="w-7 h-7" />

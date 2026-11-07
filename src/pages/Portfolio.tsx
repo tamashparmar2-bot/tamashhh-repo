@@ -58,7 +58,7 @@ const projects: Project[] = [
     videoUrl: "/portfolio/cgi-saregama.mp4"
   },
   {
-    title: "Tamashhh Brand Film",
+    title: "yashfx Brand Film",
     category: "Editing",
     gradient: "from-blue-600 via-purple-600 to-red-500",
     videoUrl: "/portfolio/obsidian-draft-1.mp4"

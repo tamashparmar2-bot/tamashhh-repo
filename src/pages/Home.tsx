@@ -62,7 +62,7 @@ function Hero() {
       {/* background image */}
       <img
         src="/hero-bg.jpg"
-        alt="Tamashhh Creative Hero Background"
+        alt="yashfx Creative Hero Background"
         className="absolute inset-0 w-full h-full object-cover object-right md:object-center"
       />
 
@@ -220,7 +220,7 @@ function PortfolioPreview() {
   const items = [
     { videoUrl: "/portfolio/cgi-saregama.mp4", category: "CGI & Ad", title: "CGI Saregama Ad" },
     { videoUrl: "/portfolio/tracking.mp4", category: "VFX & Tracking", title: "Tracking VFX Showcase" },
-    { videoUrl: "/portfolio/obsidian-draft-1.mp4", category: "Brand Film", title: "Tamashhh Brand Film" },
+    { videoUrl: "/portfolio/obsidian-draft-1.mp4", category: "Brand Film", title: "yashfx Brand Film" },
   ];
 
   return (
@@ -339,7 +339,7 @@ function Testimonials() {
   const testimonials = [
     {
       quote:
-        "Tamashhh transformed our entire brand presence. His design instincts are unmatched — every deliverable exceeded expectations.",
+        "yashfx transformed our entire brand presence. His design instincts are unmatched — every deliverable exceeded expectations.",
       name: "Priya Sharma",
       role: "CEO, Luxora Brands",
     },
@@ -351,7 +351,7 @@ function Testimonials() {
     },
     {
       quote:
-        "Tamash's courses gave my team the confidence and skills to level up our in-house creative work. Worth every penny.",
+        "Yash's courses gave my team the confidence and skills to level up our in-house creative work. Worth every penny.",
       name: "Ananya Patel",
       role: "Creative Director, Nomad Studio",
     },

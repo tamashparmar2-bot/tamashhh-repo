@@ -30,7 +30,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
     return () => clearInterval(interval);
   }, []);
 
-  const brandText = "TAMASHHH";
+  const brandText = "YASHFX";
 
   return (
     <AnimatePresence onExitComplete={onComplete}>
