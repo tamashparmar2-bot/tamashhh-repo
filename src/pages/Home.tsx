@@ -61,184 +61,196 @@ function SectionHeader({
 /* ═══════════════════════════════════════════════════════════════════════
    HERO VISUAL ANIMATION COMPONENT
    ═══════════════════════════════════════════════════════════════════════ */
+/* 5 most-recently-added portfolio videos */
+const HERO_VIDEOS = [
+  { src: "/portfolio/yps-restroo.mp4",        label: "RESTAURANT BRAND REEL",  tag: "4K" },
+  { src: "/portfolio/fronx-car-delivery.mp4", label: "COMMERCIAL // CAR DELIVERY", tag: "60 FPS" },
+  { src: "/portfolio/navratri-project.mp4",   label: "EVENT SHOWCASE",         tag: "4K" },
+  { src: "/portfolio/dice-animation.mp4",     label: "MOTION DESIGN",          tag: "CGI" },
+  { src: "/portfolio/priya-web-promo.mp4",    label: "WEB PROMO",              tag: "CINEMATIC" },
+];
+
 function HeroVisual() {
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [progress, setProgress] = useState(0);
   const waveformBars = [40, 75, 50, 90, 65, 85, 45, 95, 70, 55, 80, 60, 88, 45, 70, 55];
+  const VIDEO_DURATION = 8; // seconds per video before switching
+
+  /* Auto-advance timer & progress bar */
+  useEffect(() => {
+    setProgress(0);
+    const interval = setInterval(() => {
+      setProgress((p) => {
+        if (p >= 100) {
+          setActiveIdx((i) => (i + 1) % HERO_VIDEOS.length);
+          return 0;
+        }
+        return p + 100 / (VIDEO_DURATION * 20); // 20 ticks/sec
+      });
+    }, 50);
+    return () => clearInterval(interval);
+  }, [activeIdx]);
+
+  const current = HERO_VIDEOS[activeIdx];
 
   return (
-    <div className="relative w-full flex items-center justify-center">
-      {/* Background Rotating Animated Blueprint Geometry */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        {/* Outer Rotating Dashed Ring */}
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          className="w-[300px] h-[300px] rounded-full border border-dashed border-blue-400/25"
-        />
-        {/* Inner Counter-Rotating Ring */}
-        <motion.div
-          animate={{ rotate: -360 }}
-          transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-          className="w-[200px] h-[200px] rounded-full border border-dashed border-blue-500/20"
-        />
-        {/* Central Ambient Glow */}
-        <div className="w-64 h-64 rounded-full bg-blue-500/15 blur-3xl pointer-events-none" />
-      </div>
+    <div className="relative w-full h-full flex flex-col gap-4">
 
-      {/* Main Studio Suite Window Card */}
+      {/* ── Main Cinematic Video Player ── */}
       <motion.div
-        animate={{ y: [0, -10, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="relative z-10 w-full bg-white/95 backdrop-blur-xl border border-slate-200/90 rounded-3xl shadow-2xl shadow-blue-500/10 overflow-hidden"
+        key={activeIdx}
+        initial={{ opacity: 0, scale: 0.97 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="relative w-full rounded-2xl overflow-hidden shadow-2xl shadow-blue-500/15 border border-slate-200/80 bg-slate-950 flex-1 min-h-0"
+        style={{ aspectRatio: "16/10" }}
       >
-        {/* Window Titlebar */}
-        <div className="px-4 py-3 bg-slate-50/90 border-b border-slate-200/80 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-rose-400/90 inline-block" />
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-400/90 inline-block" />
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/90 inline-block" />
-            <span className="text-[11px] font-mono text-slate-500 ml-2 font-medium">
-              yashfx_render_engine.mp4
-            </span>
+        {/* Video */}
+        <video
+          key={current.src}
+          src={current.src}
+          autoPlay
+          muted
+          playsInline
+          preload="auto"
+          loop
+          onLoadedData={(e) => e.currentTarget.play().catch(() => {})}
+          className="w-full h-full object-cover"
+        />
+
+        {/* Gradient overlay — bottom fade */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
+
+        {/* Top bar: macOS dots + live badge */}
+        <div className="absolute top-0 inset-x-0 flex items-center justify-between px-4 py-3 bg-black/30 backdrop-blur-sm">
+          <div className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-400/90" />
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-400/90" />
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/90" />
+            <span className="text-[10px] font-mono text-white/70 ml-2">yashfx_studio.mp4</span>
           </div>
-          <div className="flex items-center gap-1.5 text-[10px] font-semibold tracking-wider text-blue-600 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full uppercase">
+          <div className="flex items-center gap-1.5 text-[9px] font-bold tracking-widest text-blue-300 bg-blue-900/60 border border-blue-500/40 px-2 py-0.5 rounded-full uppercase">
             <span className="relative flex h-1.5 w-1.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-600" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-400" />
             </span>
-            4K Live
+            {current.tag}
           </div>
         </div>
 
-        {/* Video Monitor Area */}
-        <div className="relative aspect-video bg-slate-950 overflow-hidden">
-          <video
-            src="/portfolio/fronx-car-delivery.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            onLoadedData={(e) => e.currentTarget.play().catch(() => {})}
-            className="w-full h-full object-cover opacity-90"
-          />
-
-          {/* Video Corner Overlay Chips */}
-          <div className="absolute top-3 left-3 px-2 py-1 rounded bg-black/60 backdrop-blur-md text-white text-[9px] font-mono tracking-widest uppercase">
-            COMMERCIAL // CAR DELIVERY
-          </div>
-          <div className="absolute top-3 right-3 px-2 py-1 rounded bg-blue-600/90 backdrop-blur-md text-white text-[9px] font-mono font-bold tracking-wider">
-            60 FPS
-          </div>
+        {/* Bottom label */}
+        <div className="absolute bottom-14 left-4 text-[10px] font-mono tracking-widest text-white/80 uppercase bg-black/40 backdrop-blur-sm px-2.5 py-1 rounded">
+          {current.label}
         </div>
 
-        {/* Live Timeline & Waveform Scrub Deck */}
-        <div className="p-4 sm:p-5 bg-white border-t border-slate-100 space-y-3">
-          {/* Animated Timeline Scrub Track */}
-          <div className="space-y-1.5">
-            <div className="flex items-center justify-between text-[10px] font-mono text-slate-500">
-              <span className="flex items-center gap-1 text-slate-700 font-semibold">
-                <Play className="w-2.5 h-2.5 text-blue-600 fill-current" />
-                PLAYING SEQUENCE
-              </span>
-              <span>00:14 / 00:30</span>
-            </div>
-            <div className="relative h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-              <motion.div
-                animate={{ width: ["15%", "95%", "15%"] }}
-                transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
-                className="h-full bg-blue-600 rounded-full relative"
-              >
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-white shadow" />
-              </motion.div>
-            </div>
+        {/* Progress bar + waveform at bottom */}
+        <div className="absolute bottom-0 inset-x-0 p-3 bg-black/50 backdrop-blur-sm space-y-2">
+          {/* Timeline scrub */}
+          <div className="relative h-1 w-full bg-white/20 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-blue-500 rounded-full transition-none"
+              style={{ width: `${progress}%` }}
+            />
           </div>
-
-          {/* Audio Waveform Equalizer + Track Meta */}
-          <div className="flex items-center justify-between pt-1">
-            <div className="flex items-end gap-1 h-5">
+          {/* Waveform + meta */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-end gap-0.5 h-4">
               {waveformBars.map((h, i) => (
                 <motion.div
                   key={i}
-                  animate={{ scaleY: [0.25, 1, 0.35, 0.85, 0.25] }}
-                  transition={{
-                    duration: 1.1 + (i % 4) * 0.2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: i * 0.05,
-                  }}
-                  className="w-1 bg-blue-500 rounded-full origin-bottom"
+                  animate={{ scaleY: [0.2, 1, 0.3, 0.9, 0.2] }}
+                  transition={{ duration: 1.0 + (i % 4) * 0.2, repeat: Infinity, ease: "easeInOut", delay: i * 0.04 }}
+                  className="w-0.5 bg-blue-400/80 rounded-full origin-bottom"
                   style={{ height: `${h}%` }}
                 />
               ))}
             </div>
-
-            <div className="flex items-center gap-1.5 text-[9px] font-mono">
-              <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">
-                V1: 4K S-Log3
-              </span>
-              <span className="px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 font-semibold">
-                DaVinci LUT
-              </span>
+            <div className="flex items-center gap-2 text-[9px] font-mono text-white/60">
+              <span>{activeIdx + 1} / {HERO_VIDEOS.length}</span>
+              <span className="text-blue-400">•</span>
+              <span>DaVinci LUT</span>
             </div>
           </div>
         </div>
-      </motion.div>
 
-      {/* Floating Card 1: Top-Right (Color Grading) */}
-      <motion.div
-        animate={{ y: [0, -8, 0] }}
-        transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-0 -right-2 z-20 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl p-3 sm:p-3.5 shadow-xl shadow-blue-500/10 flex items-center gap-3"
-      >
-        <div className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0">
-          <Sparkles className="w-4 h-4" />
-        </div>
-        <div>
-          <div className="flex items-center gap-1.5">
-            <span className="text-xs font-bold text-slate-900 leading-tight">
-              Color Grading
-            </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+        {/* Floating badge: Color Grading */}
+        <motion.div
+          animate={{ y: [0, -6, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-14 right-3 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-xl p-2.5 shadow-xl shadow-blue-500/10 flex items-center gap-2"
+        >
+          <div className="w-7 h-7 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0">
+            <Sparkles className="w-3.5 h-3.5" />
           </div>
-          <p className="text-[10px] text-slate-500 font-mono">
-            DaVinci • S-Log3
-          </p>
-        </div>
-      </motion.div>
-
-      {/* Floating Card 2: Bottom-Left (Vibe Coding) */}
-      <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-        className="absolute bottom-0 -left-2 z-20 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl p-3 sm:p-3.5 shadow-xl shadow-blue-500/10 flex items-center gap-3"
-      >
-        <div className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0">
-          <Code className="w-4 h-4" />
-        </div>
-        <div>
-          <div className="flex items-center gap-1.5">
-            <span className="text-xs font-bold text-slate-900 leading-tight">
-              Vibe Coding
-            </span>
-            <span className="text-[8px] font-bold px-1.5 py-0.2 rounded bg-blue-100 text-blue-700 font-mono">
-              100%
-            </span>
+          <div>
+            <div className="flex items-center gap-1">
+              <span className="text-[10px] font-bold text-slate-900 leading-tight">Color Grading</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            </div>
+            <p className="text-[9px] text-slate-500 font-mono">DaVinci • S-Log3</p>
           </div>
-          <p className="text-[10px] text-slate-500 font-mono">
-            React • Vite • Tailwind
-          </p>
-        </div>
+        </motion.div>
       </motion.div>
 
-      {/* Floating Card 3: Bottom-Right Tag (Turnaround Time) */}
-      <motion.div
-        animate={{ y: [-3, 5, -3] }}
-        transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute bottom-2 right-4 z-20 bg-blue-600 text-white shadow-lg shadow-blue-500/30 px-3.5 py-1.5 rounded-full text-[10px] font-bold font-mono tracking-wider flex items-center gap-1.5"
-      >
-        <CheckCircle2 className="w-3.5 h-3.5 text-blue-200" />
-        48-72h Sprints
-      </motion.div>
+      {/* ── Video Thumbnail Strip ── */}
+      <div className="flex gap-2">
+        {HERO_VIDEOS.map((v, i) => (
+          <button
+            key={v.src}
+            onClick={() => { setActiveIdx(i); setProgress(0); }}
+            className={`relative flex-1 rounded-xl overflow-hidden border-2 transition-all duration-300 cursor-pointer ${
+              i === activeIdx
+                ? "border-blue-500 shadow-lg shadow-blue-500/25"
+                : "border-slate-200/80 opacity-60 hover:opacity-90"
+            }`}
+            style={{ aspectRatio: "16/9" }}
+          >
+            <video
+              src={v.src}
+              muted
+              playsInline
+              preload="metadata"
+              className="w-full h-full object-cover pointer-events-none"
+            />
+            {i === activeIdx && (
+              <div className="absolute inset-0 bg-blue-600/20 flex items-center justify-center">
+                <div className="w-5 h-5 rounded-full bg-blue-600/90 flex items-center justify-center">
+                  <Play className="w-2.5 h-2.5 text-white fill-current ml-0.5" />
+                </div>
+              </div>
+            )}
+          </button>
+        ))}
+      </div>
+
+      {/* ── Floating chips row ── */}
+      <div className="flex items-center gap-2 flex-wrap">
+        <motion.div
+          animate={{ y: [0, -4, 0] }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+          className="flex items-center gap-2 bg-white border border-slate-200/80 rounded-full px-3 py-1.5 shadow-sm"
+        >
+          <Code className="w-3.5 h-3.5 text-blue-600" />
+          <span className="text-[10px] font-bold text-slate-800 font-mono">Vibe Coding</span>
+          <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 font-bold">100%</span>
+        </motion.div>
+        <motion.div
+          animate={{ y: [0, -4, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          className="flex items-center gap-2 bg-blue-600 text-white rounded-full px-3 py-1.5 shadow-md shadow-blue-500/30"
+        >
+          <CheckCircle2 className="w-3.5 h-3.5 text-blue-200" />
+          <span className="text-[10px] font-bold font-mono">48–72h Sprints</span>
+        </motion.div>
+        <motion.div
+          animate={{ y: [0, -4, 0] }}
+          transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="flex items-center gap-2 bg-white border border-slate-200/80 rounded-full px-3 py-1.5 shadow-sm"
+        >
+          <Film className="w-3.5 h-3.5 text-blue-600" />
+          <span className="text-[10px] font-bold text-slate-800 font-mono">4K Cinematic</span>
+        </motion.div>
+      </div>
     </div>
   );
 }
@@ -254,7 +266,7 @@ function Hero() {
   ];
 
   return (
-    <section className="relative min-h-[90vh] flex items-center bg-gradient-to-b from-blue-50/40 via-white to-slate-50/50 py-16 lg:py-24">
+    <section className="relative min-h-screen flex items-stretch bg-gradient-to-b from-blue-50/40 via-white to-slate-50/50">
       {/* Background Hero Subtle Artwork & Grid */}
       <img
         src="/hero-bg.jpg"
@@ -268,14 +280,14 @@ function Hero() {
       <div className="absolute bottom-0 left-10 w-[350px] h-[350px] rounded-full bg-blue-400/10 blur-3xl pointer-events-none" />
 
       {/* Hero Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-20 lg:py-28">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center min-h-[calc(100vh-160px)]">
           {/* Left Column: Heading, Badge, Subtext, CTAs, Stats */}
           <motion.div
             variants={stagger}
             initial="hidden"
             animate="show"
-            className="lg:col-span-7 flex flex-col justify-center"
+            className="lg:col-span-6 flex flex-col justify-center"
           >
             {/* Badge */}
             <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-6 bg-blue-50 border border-blue-200/80 px-4 py-1.5 rounded-full shadow-sm self-start">
@@ -345,7 +357,7 @@ function Hero() {
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-5 relative mt-12 lg:mt-0 pt-8 pb-8 px-8"
+            className="lg:col-span-6 relative mt-12 lg:mt-0 flex flex-col"
           >
             <HeroVisual />
           </motion.div>
