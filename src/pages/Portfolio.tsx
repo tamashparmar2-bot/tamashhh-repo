@@ -16,6 +16,12 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: "YP's Restroo",
+    category: "Editing",
+    gradient: "from-orange-600 via-amber-500 to-red-600",
+    videoUrl: "/portfolio/yps-restroo.mp4"
+  },
+  {
     title: "Fronx Car Delivery",
     category: "Editing",
     gradient: "from-blue-600 via-cyan-600 to-indigo-900",
