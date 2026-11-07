@@ -23,9 +23,9 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         // Let user see 100% for a brief moment before fading out
         setTimeout(() => {
           setIsDone(true);
-        }, 600);
+        }, 500);
       }
-    }, 80);
+    }, 60);
 
     return () => clearInterval(interval);
   }, []);
@@ -39,20 +39,20 @@ export default function Preloader({ onComplete }: PreloaderProps) {
           initial={{ opacity: 1 }}
           exit={{ 
             opacity: 0,
-            y: -40,
-            transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } 
+            y: -30,
+            transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] } 
           }}
-          className="fixed inset-0 z-[9999] bg-[#0a0a0f] flex flex-col items-center justify-center select-none"
+          className="fixed inset-0 z-[9999] bg-white flex flex-col items-center justify-center select-none"
         >
-          {/* Subtle background glow */}
-          <div className="absolute w-[350px] h-[350px] rounded-full bg-blue-600/5 blur-3xl pointer-events-none" />
+          {/* Subtle background blue glow */}
+          <div className="absolute w-[400px] h-[400px] rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
 
-          <div className="w-full max-w-[280px] sm:max-w-[360px] flex flex-col items-center gap-6 relative">
-            {/* Monospaced counter */}
+          <div className="w-full max-w-[280px] sm:max-w-[340px] flex flex-col items-center gap-6 relative">
+            {/* Monospaced large background counter */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 0.15 }}
-              className="absolute -top-16 font-mono text-[10vw] font-bold text-white tracking-tighter"
+              animate={{ opacity: 0.06 }}
+              className="absolute -top-16 font-mono text-[12vw] font-bold text-slate-900 tracking-tighter pointer-events-none"
             >
               {progress.toString().padStart(3, "0")}
             </motion.div>
@@ -65,36 +65,36 @@ export default function Preloader({ onComplete }: PreloaderProps) {
                   initial={{ y: "100%", opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{
-                    duration: 0.8,
-                    delay: index * 0.08,
+                    duration: 0.6,
+                    delay: index * 0.06,
                     ease: [0.215, 0.61, 0.355, 1],
                   }}
-                  className="font-podium text-3xl sm:text-4xl lg:text-5xl font-bold tracking-widest text-white"
+                  className="font-podium text-3xl sm:text-4xl lg:text-5xl font-bold tracking-widest text-slate-900"
                 >
                   {char}
                 </motion.span>
               ))}
             </div>
 
-            {/* Thin Minimalist Progress bar container */}
-            <div className="w-full h-[1px] bg-white/5 rounded-full overflow-hidden relative mt-2">
+            {/* Minimalist Blue Progress bar */}
+            <div className="w-full h-[2px] bg-slate-100 rounded-full overflow-hidden relative mt-1">
               <motion.div
-                className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-500 via-purple-500 to-red-500"
+                className="absolute top-0 left-0 h-full bg-blue-600"
                 style={{ width: `${progress}%` }}
                 transition={{ ease: "easeOut" }}
               />
             </div>
 
             {/* Loading text with percentage */}
-            <div className="w-full flex items-center justify-between mt-1 text-[10px] font-mono tracking-widest uppercase text-white/30">
+            <div className="w-full flex items-center justify-between mt-1 text-[11px] font-mono tracking-widest uppercase text-slate-400">
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
+                transition={{ delay: 0.2 }}
               >
-                System Loading
+                Loading System
               </motion.span>
-              <span>{progress}%</span>
+              <span className="text-blue-600 font-bold">{progress}%</span>
             </div>
           </div>
         </motion.div>

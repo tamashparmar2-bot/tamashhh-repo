@@ -38,8 +38,8 @@ interface ResourceFile {
 const DEFAULT_RESOURCES: ResourceFile[] = [
   {
     id: "1",
-    title: "yashfx Intro Template",
-    description: "Premiere Pro intro sequence template with modern motion graphics and title presets.",
+    title: "YASHFX Intro Sequence Template",
+    description: "Premiere Pro intro sequence template with modern motion graphics, sound design, and title presets.",
     category: "video",
     fileName: "yashfx-intro-v1.prproj",
     fileSize: "84.5 MB",
@@ -49,10 +49,10 @@ const DEFAULT_RESOURCES: ResourceFile[] = [
   },
   {
     id: "2",
-    title: "Luminara Design System Assets",
+    title: "Minimal Design System Assets",
     description: "Full logo vector kit, typography configurations, color palette exports, and Figma design system components.",
     category: "design",
-    fileName: "luminara-design-kit.zip",
+    fileName: "yashfx-design-kit.zip",
     fileSize: "14.2 MB",
     fileType: "zip",
     downloads: 321,
@@ -61,7 +61,7 @@ const DEFAULT_RESOURCES: ResourceFile[] = [
   {
     id: "3",
     title: "Vite + Tailwind Boilerplate",
-    description: "Starter template configured with ESLint, Prettier, TypeScript, absolute paths, and pre-built layout wrappers.",
+    description: "Starter template configured with ESLint, Prettier, TypeScript, absolute paths, and pre-built minimal layout wrappers.",
     category: "code",
     fileName: "vite-tailwind-starter.zip",
     fileSize: "2.1 MB",
@@ -83,7 +83,7 @@ const DEFAULT_RESOURCES: ResourceFile[] = [
   {
     id: "7",
     title: "Zara Kai Fashion Portfolio Source",
-    description: "Sleek, fully responsive model portfolio template featuring a custom interactive cursor, custom typography, and native HSL styling.",
+    description: "Sleek, fully responsive model portfolio template featuring a custom interactive cursor, custom typography, and native styling.",
     category: "vibe-coding",
     fileName: "fashion_portfolio_modern.html",
     fileSize: "26 KB",
@@ -105,7 +105,7 @@ const DEFAULT_RESOURCES: ResourceFile[] = [
   {
     id: "6",
     title: "Cinematic Color Grading LUTs",
-    description: "Professional LUT cube files designed for Sony S-Log3 and LOG footage to achieve warm shadow tones and clean skin.",
+    description: "Professional LUT cube files designed for Sony S-Log3 and LOG footage to achieve clean skin tones and cinematic contrast.",
     category: "video",
     fileName: "yashfx-cinematic-luts.cube",
     fileSize: "12.8 MB",
@@ -128,7 +128,6 @@ export default function Resources() {
     if (saved) {
       try {
         const parsed = JSON.parse(saved) as ResourceFile[];
-        // Merge in any default resources that are not present in localStorage
         const missing = DEFAULT_RESOURCES.filter(
           (def) => !parsed.some((p) => p.id === def.id)
         );
@@ -197,12 +196,10 @@ export default function Resources() {
     addToast("info", "Admin session ended.");
   };
 
-  // Sync to localStorage
   useEffect(() => {
     localStorage.setItem("yashfx_resources", JSON.stringify(files));
   }, [files]);
 
-  // --- Toast Actions ---
   const addToast = (type: "success" | "info" | "error", message: string) => {
     const id = Math.random().toString(36).substring(2, 9);
     setToasts((prev) => [...prev, { id, type, message }]);
@@ -215,7 +212,6 @@ export default function Resources() {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   };
 
-  // --- Helper Functions ---
   const formatBytes = (bytes: number, decimals = 1) => {
     if (bytes === 0) return "0 Bytes";
     const k = 1024;
@@ -230,26 +226,26 @@ export default function Resources() {
       case "zip":
       case "rar":
       case "7z":
-        return <Layers className="w-6 h-6 text-blue-400" />;
+        return <Layers className="w-5 h-5 text-blue-600" />;
       case "prproj":
       case "aep":
       case "mp4":
       case "mov":
       case "cube":
-        return <Video className="w-6 h-6 text-purple-400" />;
+        return <Video className="w-5 h-5 text-blue-600" />;
       case "pdf":
       case "doc":
       case "docx":
-        return <FileText className="w-6 h-6 text-red-400" />;
+        return <FileText className="w-5 h-5 text-blue-600" />;
       case "json":
       case "js":
       case "ts":
       case "tsx":
       case "css":
       case "html":
-        return <FileCode className="w-6 h-6 text-emerald-400" />;
+        return <FileCode className="w-5 h-5 text-blue-600" />;
       default:
-        return <File className="w-6 h-6 text-zinc-400" />;
+        return <File className="w-5 h-5 text-slate-500" />;
     }
   };
 
@@ -269,7 +265,6 @@ export default function Resources() {
     return formatBytes(totalBytes);
   };
 
-  // --- File Drag & Drop Handlers ---
   const handleDrag = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -304,7 +299,6 @@ export default function Resources() {
     }
   };
 
-  // --- Simulated Upload Flow ---
   const handleUploadSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedFile) {
@@ -316,7 +310,6 @@ export default function Resources() {
     setUploadProgress(0);
     setUploadStage("uploading");
 
-    // Random upload speed simulation
     const speed = (Math.random() * 8 + 3).toFixed(1);
     setUploadSpeed(`${speed} MB/s`);
 
@@ -325,16 +318,14 @@ export default function Resources() {
         if (prev >= 100) {
           clearInterval(interval);
           setUploadStage("scanning");
-          // Hold in scan mode briefly
           setTimeout(() => {
             setUploadStage("done");
             setTimeout(() => {
-              // Final creation
               const extension = selectedFile.name.split(".").pop() || "zip";
               const newFile: ResourceFile = {
                 id: Date.now().toString(),
                 title: title.trim() || selectedFile.name.replace(/\.[^/.]+$/, ""),
-                description: description.trim() || "yashfx deliverable package file.",
+                description: description.trim() || "YASHFX deliverable package file.",
                 category,
                 fileName: selectedFile.name,
                 fileSize: formatBytes(selectedFile.size),
@@ -346,7 +337,6 @@ export default function Resources() {
               setFiles((prevFiles) => [newFile, ...prevFiles]);
               addToast("success", `Resource "${newFile.title}" uploaded successfully!`);
 
-              // Reset Form
               setTitle("");
               setDescription("");
               setCategory("design");
@@ -354,20 +344,17 @@ export default function Resources() {
               setIsUploading(false);
               setUploadProgress(0);
             }, 600);
-          }, 1200);
+          }, 1000);
 
           return 100;
         }
-        // Increment progress randomly
         const increment = Math.floor(Math.random() * 12 + 6);
         return Math.min(prev + increment, 100);
       });
     }, 150);
   };
 
-  // --- Resource File Actions ---
   const handleDownload = (id: string, name: string, fileName: string) => {
-    // Increment download counter
     setFiles((prev) =>
       prev.map((f) => {
         if (f.id === id) {
@@ -378,7 +365,6 @@ export default function Resources() {
     );
     addToast("success", `Downloading: ${name}`);
 
-    // Download real file from server public directory
     const element = document.createElement("a");
     element.href = `/resources/${fileName}`;
     element.download = fileName;
@@ -405,7 +391,6 @@ export default function Resources() {
     addToast("info", `Resource "${title}" has been deleted.`);
   };
 
-  // --- Filtering & Sorting Logic ---
   const filteredFiles = files.filter((f) => {
     const matchesCategory = filter === "all" || f.category === filter;
     const matchesSearch =
@@ -429,10 +414,9 @@ export default function Resources() {
   });
 
   return (
-    <div className="relative min-h-screen bg-dark overflow-hidden pb-24">
-      {/* Background Decorative Gradients */}
-      <div className="absolute top-24 left-1/4 w-[40rem] h-[40rem] bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-24 right-1/4 w-[40rem] h-[40rem] bg-red-600/5 rounded-full blur-3xl pointer-events-none" />
+    <div className="relative min-h-screen bg-white text-slate-900 pb-24">
+      {/* Ambient background glow */}
+      <div className="absolute top-24 left-1/4 w-[36rem] h-[36rem] bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
 
       {/* Floating Toast Notification Containers */}
       <div className="fixed top-24 right-6 z-50 flex flex-col gap-3 pointer-events-none">
@@ -443,25 +427,25 @@ export default function Resources() {
               initial={{ opacity: 0, x: 50, y: -20 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               exit={{ opacity: 0, x: 50, scale: 0.9 }}
-              className="pointer-events-auto flex items-center justify-between gap-4 bg-zinc-900/95 border border-white/10 p-4 rounded-xl shadow-2xl backdrop-blur-md min-w-[280px] max-w-sm"
+              className="pointer-events-auto flex items-center justify-between gap-4 bg-white/95 border border-slate-200 p-4 rounded-xl shadow-xl backdrop-blur-md min-w-[280px] max-w-sm"
             >
               <div className="flex items-center gap-3">
                 <div
-                  className={`w-2 h-2 rounded-full ${
+                  className={`w-2.5 h-2.5 rounded-full ${
                     toast.type === "success"
-                      ? "bg-green-500 animate-pulse"
+                      ? "bg-emerald-500 animate-pulse"
                       : toast.type === "error"
-                      ? "bg-red-500 animate-pulse"
-                      : "bg-blue-500 animate-pulse"
+                      ? "bg-rose-500 animate-pulse"
+                      : "bg-blue-600 animate-pulse"
                   }`}
                 />
-                <p className="text-xs font-semibold uppercase tracking-wider text-white">
+                <p className="text-xs font-semibold uppercase tracking-wider text-slate-800">
                   {toast.message}
                 </p>
               </div>
               <button
                 onClick={() => removeToast(toast.id)}
-                className="text-white/40 hover:text-white transition-colors"
+                className="text-slate-400 hover:text-slate-700 transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -471,58 +455,58 @@ export default function Resources() {
       </div>
 
       {/* Hero Header */}
-      <section className="py-24 relative overflow-hidden">
+      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-blue-50/50 via-white to-slate-50/40 border-b border-slate-100">
         <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-center">
-          <motion.p
+          <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-blue-500 text-xs tracking-[0.3em] uppercase font-semibold mb-4"
+            className="text-blue-600 text-xs tracking-[0.25em] uppercase font-semibold mb-4 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 inline-block"
           >
-            YASHFX STORAGE
-          </motion.p>
+            YASHFX ASSET HUB
+          </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold font-podium uppercase tracking-wider gradient-text-h"
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold font-podium uppercase tracking-wider text-slate-900"
           >
-            Creative Resources Hub
+            Creative <span className="gradient-text">Resources Hub</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="mt-4 text-white/50 max-w-xl mx-auto text-sm sm:text-base"
+            className="mt-4 text-slate-600 max-w-xl mx-auto text-sm sm:text-base"
           >
-            A dedicated system for uploading, tracking, and distributing resource files, assets, presets, and tutorials.
+            A minimal distribution hub for downloading presets, source code, project boilerplates, and creative assets.
           </motion.p>
         </div>
       </section>
 
-      {/* Dynamic Statistics Metrics Banner */}
-      <section className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 mb-16">
+      {/* Statistics Metrics Banner */}
+      <section className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 -mt-8 mb-16 relative z-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          <div className="glass-card p-6 flex flex-col justify-between">
-            <span className="text-[10px] uppercase tracking-widest text-white/40">Total Files</span>
-            <span className="text-3xl font-bold mt-2 font-podium tracking-wide text-white">
+          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+            <span className="text-[10px] uppercase tracking-widest text-slate-400 font-semibold">Total Files</span>
+            <span className="text-3xl font-bold mt-2 font-podium tracking-wide text-slate-900">
               {files.length}
             </span>
           </div>
-          <div className="glass-card p-6 flex flex-col justify-between">
-            <span className="text-[10px] uppercase tracking-widest text-white/40">Bandwidth / Storage</span>
-            <span className="text-3xl font-bold mt-2 font-podium tracking-wide gradient-text">
+          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+            <span className="text-[10px] uppercase tracking-widest text-slate-400 font-semibold">Bandwidth / Storage</span>
+            <span className="text-3xl font-bold mt-2 font-podium tracking-wide text-blue-600">
               {getTotalStorage()}
             </span>
           </div>
-          <div className="glass-card p-6 flex flex-col justify-between">
-            <span className="text-[10px] uppercase tracking-widest text-white/40">Total Downloads</span>
-            <span className="text-3xl font-bold mt-2 font-podium tracking-wide text-white">
+          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+            <span className="text-[10px] uppercase tracking-widest text-slate-400 font-semibold">Total Downloads</span>
+            <span className="text-3xl font-bold mt-2 font-podium tracking-wide text-slate-900">
               {files.reduce((acc, f) => acc + f.downloads, 0)}
             </span>
           </div>
-          <div className="glass-card p-6 flex flex-col justify-between">
-            <span className="text-[10px] uppercase tracking-widest text-white/40">System Health</span>
-            <span className="text-3xl font-bold mt-2 font-podium tracking-wide text-green-400 flex items-center gap-2">
+          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+            <span className="text-[10px] uppercase tracking-widest text-slate-400 font-semibold">System Health</span>
+            <span className="text-3xl font-bold mt-2 font-podium tracking-wide text-emerald-600 flex items-center gap-2">
               ONLINE
             </span>
           </div>
@@ -532,25 +516,25 @@ export default function Resources() {
       {/* Main Panel grid layout */}
       <section className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* LEFT: Upload Form or Visitor Intro */}
+          {/* LEFT: Upload Form or Owner Login */}
           <div className="lg:col-span-4 space-y-6">
             {isAdmin ? (
               <>
                 <div className="flex justify-between items-center">
-                  <h2 className="text-lg font-bold font-podium uppercase tracking-wider text-white/80">
+                  <h2 className="text-base font-bold font-podium uppercase tracking-wider text-slate-900">
                     Upload New Asset
                   </h2>
                   <button
                     onClick={handleLogout}
                     type="button"
-                    className="text-[10px] text-red-400 hover:text-red-300 font-semibold uppercase tracking-wider flex items-center gap-1 transition-colors animate-fade-in"
+                    className="text-xs text-rose-600 hover:text-rose-700 font-semibold uppercase tracking-wider flex items-center gap-1 transition-colors"
                   >
                     <Unlock className="w-3.5 h-3.5" />
                     Sign Out
                   </button>
                 </div>
 
-                <form onSubmit={handleUploadSubmit} className="glass-card p-6 space-y-5 relative animate-fade-in">
+                <form onSubmit={handleUploadSubmit} className="bg-white border border-slate-200 shadow-sm rounded-2xl p-6 space-y-5 relative">
                   {/* Drag and Drop Zone */}
                   <div
                     onDragEnter={handleDrag}
@@ -560,8 +544,8 @@ export default function Resources() {
                     onClick={() => !isUploading && fileInputRef.current?.click()}
                     className={`relative border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 ${
                       dragActive
-                        ? "border-blue-500 bg-blue-500/10 scale-[1.02]"
-                        : "border-white/10 bg-white/[0.01] hover:bg-white/[0.03] hover:border-white/20"
+                        ? "border-blue-600 bg-blue-50"
+                        : "border-slate-300 bg-slate-50/70 hover:bg-slate-100 hover:border-blue-400"
                     } ${isUploading ? "opacity-50 pointer-events-none" : ""}`}
                   >
                     <input
@@ -571,25 +555,25 @@ export default function Resources() {
                       className="hidden"
                       disabled={isUploading}
                     />
-                    <Upload className="w-8 h-8 text-white/40 mb-3 animate-pulse" />
+                    <Upload className="w-8 h-8 text-blue-600 mb-3" />
                     {selectedFile ? (
                       <div className="space-y-1">
-                        <p className="text-xs font-semibold text-white break-all max-w-[200px] mx-auto">
+                        <p className="text-xs font-semibold text-slate-900 break-all max-w-[200px] mx-auto">
                           {selectedFile.name}
                         </p>
-                        <p className="text-[10px] text-white/40">{formatBytes(selectedFile.size)}</p>
+                        <p className="text-[10px] text-slate-500">{formatBytes(selectedFile.size)}</p>
                       </div>
                     ) : (
                       <div>
-                        <p className="text-xs font-semibold text-white">Drag & drop asset package</p>
-                        <p className="text-[10px] text-white/40 mt-1">or click to browse local files</p>
+                        <p className="text-xs font-semibold text-slate-900">Drag &amp; drop asset package</p>
+                        <p className="text-[10px] text-slate-500 mt-1">or click to browse local files</p>
                       </div>
                     )}
                   </div>
 
                   {/* Title input */}
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase tracking-wider text-white/40 block font-semibold">
+                    <label className="text-[10px] uppercase tracking-wider text-slate-500 block font-semibold">
                       Resource Name
                     </label>
                     <input
@@ -598,21 +582,21 @@ export default function Resources() {
                       onChange={(e) => setTitle(e.target.value)}
                       placeholder="e.g., Motion Pack 2026"
                       disabled={isUploading}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl p-3.5 text-xs text-white placeholder-white/25 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all"
                       required
                     />
                   </div>
 
                   {/* Category input */}
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase tracking-wider text-white/40 block font-semibold">
+                    <label className="text-[10px] uppercase tracking-wider text-slate-500 block font-semibold">
                       Category
                     </label>
                     <select
                       value={category}
                       onChange={(e) => setCategory(e.target.value as any)}
                       disabled={isUploading}
-                      className="w-full bg-zinc-900 border border-white/10 rounded-xl p-3.5 text-xs text-white focus:outline-none focus:border-blue-500 transition-all"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-900 focus:bg-white focus:outline-none focus:border-blue-500 transition-all"
                     >
                       <option value="design">Design Assets</option>
                       <option value="video">Video Projects</option>
@@ -624,7 +608,7 @@ export default function Resources() {
 
                   {/* Description input */}
                   <div className="space-y-2">
-                    <label className="text-[10px] uppercase tracking-wider text-white/40 block font-semibold">
+                    <label className="text-[10px] uppercase tracking-wider text-slate-500 block font-semibold">
                       Short Description
                     </label>
                     <textarea
@@ -633,7 +617,7 @@ export default function Resources() {
                       placeholder="Explain what is included in this asset..."
                       disabled={isUploading}
                       rows={3}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl p-3.5 text-xs text-white placeholder-white/25 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all resize-none"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all resize-none"
                     />
                   </div>
 
@@ -641,9 +625,9 @@ export default function Resources() {
                   <button
                     type="submit"
                     disabled={isUploading || !selectedFile}
-                    className={`w-full flex items-center justify-center gap-2 p-3.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all duration-300 ${
+                    className={`w-full flex items-center justify-center gap-2 p-3.5 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all duration-300 ${
                       isUploading || !selectedFile
-                        ? "bg-white/5 text-white/20 border border-white/5 cursor-not-allowed"
+                        ? "bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed"
                         : "btn-gradient hover:shadow-lg"
                     }`}
                   >
@@ -658,40 +642,40 @@ export default function Resources() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="absolute inset-0 bg-dark/95 backdrop-blur-sm rounded-2xl p-6 flex flex-col justify-center items-center text-center"
+                        className="absolute inset-0 bg-white/95 backdrop-blur-sm rounded-2xl p-6 flex flex-col justify-center items-center text-center"
                       >
                         <div className="w-full max-w-[200px] space-y-4">
                           {uploadStage === "uploading" ? (
                             <>
-                              <div className="flex justify-between text-xs text-white/50">
+                              <div className="flex justify-between text-xs text-slate-600 font-semibold">
                                 <span>Uploading...</span>
                                 <span>{uploadProgress}%</span>
                               </div>
-                              <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                              <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
                                 <motion.div
-                                  className="h-full bg-gradient-to-r from-blue-600 via-purple-600 to-red-500"
+                                  className="h-full bg-blue-600"
                                   style={{ width: `${uploadProgress}%` }}
                                 />
                               </div>
-                              <p className="text-[10px] text-white/40">{uploadSpeed}</p>
+                              <p className="text-[10px] text-slate-400">{uploadSpeed}</p>
                             </>
                           ) : uploadStage === "scanning" ? (
                             <div className="space-y-3">
                               <div className="flex justify-center">
-                                <span className="w-8 h-8 rounded-full border-2 border-t-blue-500 border-r-transparent border-l-transparent border-b-transparent animate-spin" />
+                                <span className="w-8 h-8 rounded-full border-2 border-t-blue-600 border-r-transparent border-l-transparent border-b-transparent animate-spin" />
                               </div>
-                              <p className="text-xs text-blue-400 font-semibold tracking-wider animate-pulse">
-                                SCANNING FOR THREATS...
+                              <p className="text-xs text-blue-600 font-semibold tracking-wider">
+                                SCANNING FOR INTEGRITY...
                               </p>
-                              <p className="text-[10px] text-white/30">Securing cloud architecture</p>
+                              <p className="text-[10px] text-slate-400">Securing cloud architecture</p>
                             </div>
                           ) : (
                             <div className="space-y-3">
-                              <Check className="w-8 h-8 text-green-500 mx-auto bg-green-500/10 p-1.5 rounded-full animate-bounce" />
-                              <p className="text-xs text-green-400 font-bold tracking-wider">
+                              <Check className="w-8 h-8 text-emerald-600 mx-auto bg-emerald-50 p-1.5 rounded-full" />
+                              <p className="text-xs text-emerald-600 font-bold tracking-wider">
                                 COMPLETE!
                               </p>
-                              <p className="text-[10px] text-white/40">Registering resource metadata</p>
+                              <p className="text-[10px] text-slate-400">Registering resource metadata</p>
                             </div>
                           )}
                         </div>
@@ -701,16 +685,16 @@ export default function Resources() {
                 </form>
               </>
             ) : (
-              <div className="glass-card p-6 text-center space-y-6 animate-fade-in">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-600 via-purple-600 to-red-500 flex items-center justify-center mx-auto shadow-lg shadow-blue-500/20">
-                  <Lock className="w-5 h-5 text-white" />
+              <div className="bg-white border border-slate-200 shadow-sm p-6 rounded-2xl text-center space-y-5">
+                <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mx-auto border border-blue-100">
+                  <Lock className="w-5 h-5" />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-white">
-                    yashfx Deliverables
+                  <h3 className="text-base font-bold font-podium uppercase tracking-wider text-slate-900">
+                    YASHFX Deliverables
                   </h3>
-                  <p className="text-xs text-white/50 leading-relaxed">
-                    Filter, search, and download content creative assets, layouts, plugins, and courses packages created by yashfx.
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Filter, search, and download production-ready creative assets, boilerplates, templates, and courses published by YASHFX.
                   </p>
                 </div>
                 <button
@@ -718,7 +702,7 @@ export default function Resources() {
                   type="button"
                   className="w-full btn-outline flex items-center justify-center gap-2 p-3 text-xs"
                 >
-                  <Lock className="w-3.5 h-3.5 text-blue-400" />
+                  <Lock className="w-3.5 h-3.5 text-blue-600" />
                   Owner Access Login
                 </button>
               </div>
@@ -729,30 +713,30 @@ export default function Resources() {
           <div className="lg:col-span-8 space-y-6">
             {/* Filter controls headers */}
             <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
-              <h2 className="text-lg font-bold font-podium uppercase tracking-wider text-white/80">
+              <h2 className="text-base font-bold font-podium uppercase tracking-wider text-slate-900">
                 Asset Registry ({sortedFiles.length})
               </h2>
 
               <div className="flex items-center gap-3 w-full sm:w-auto">
                 {/* Search query field */}
                 <div className="relative flex-grow sm:flex-grow-0 sm:w-64">
-                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search resources..."
-                    className="w-full bg-white/5 border border-white/10 rounded-full pl-10 pr-4 py-2 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/10 transition-all"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-full pl-10 pr-4 py-2 text-xs text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all"
                   />
                 </div>
 
-                {/* View layout Mode Toggles */}
-                <div className="flex items-center bg-white/5 border border-white/10 rounded-full p-1">
+                {/* View Mode Toggles */}
+                <div className="flex items-center bg-slate-100 border border-slate-200 rounded-full p-1">
                   <button
                     type="button"
                     onClick={() => setViewMode("grid")}
                     className={`p-1.5 rounded-full transition-all ${
-                      viewMode === "grid" ? "bg-white/10 text-white" : "text-white/40 hover:text-white"
+                      viewMode === "grid" ? "bg-white text-blue-600 shadow-sm" : "text-slate-500 hover:text-slate-900"
                     }`}
                     aria-label="Grid layout"
                   >
@@ -762,7 +746,7 @@ export default function Resources() {
                     type="button"
                     onClick={() => setViewMode("list")}
                     className={`p-1.5 rounded-full transition-all ${
-                      viewMode === "list" ? "bg-white/10 text-white" : "text-white/40 hover:text-white"
+                      viewMode === "list" ? "bg-white text-blue-600 shadow-sm" : "text-slate-500 hover:text-slate-900"
                     }`}
                     aria-label="List layout"
                   >
@@ -779,17 +763,17 @@ export default function Resources() {
                 { id: "design", label: "Design" },
                 { id: "video", label: "Video Projects" },
                 { id: "vibe-coding", label: "Vibe Coding" },
-                { id: "code", label: "Code templates" },
+                { id: "code", label: "Code Templates" },
                 { id: "docs", label: "Documents" },
               ].map((pill) => (
                 <button
                   key={pill.id}
                   type="button"
                   onClick={() => setFilter(pill.id)}
-                  className={`px-4 py-1.5 rounded-full text-[10px] font-semibold uppercase tracking-wider transition-all ${
+                  className={`px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all ${
                     filter === pill.id
-                      ? "bg-gradient-to-r from-blue-600 via-purple-600 to-red-500 text-white"
-                      : "bg-white/5 text-white/40 hover:bg-white/10 hover:text-white"
+                      ? "bg-blue-600 text-white shadow-sm shadow-blue-500/20"
+                      : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
                   }`}
                 >
                   {pill.label}
@@ -798,42 +782,36 @@ export default function Resources() {
             </div>
 
             {/* Sorting pill selection & Count indicator */}
-            <div className="flex items-center gap-2 text-xs text-white/40 pb-2 border-b border-white/5 justify-between">
+            <div className="flex items-center gap-2 text-xs text-slate-500 pb-2 border-b border-slate-200 justify-between">
               <span className="text-[10px] uppercase tracking-widest font-semibold">
                 Sorted by {sortBy}
               </span>
-              <div className="flex items-center gap-1.5 cursor-pointer hover:text-white transition-colors">
-                <ArrowUpDown className="w-3.5 h-3.5" />
+              <div className="flex items-center gap-1.5 cursor-pointer hover:text-slate-900 transition-colors">
+                <ArrowUpDown className="w-3.5 h-3.5 text-blue-600" />
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="bg-transparent border-none outline-none text-xs text-white/70 font-semibold uppercase tracking-wider cursor-pointer focus:ring-0 p-0 animate-fade-in"
+                  className="bg-transparent border-none outline-none text-xs text-slate-700 font-semibold uppercase tracking-wider cursor-pointer focus:ring-0 p-0"
                 >
-                  <option value="newest" className="bg-zinc-900 text-white">
-                    Newest First
-                  </option>
-                  <option value="size" className="bg-zinc-900 text-white">
-                    Largest Size
-                  </option>
-                  <option value="downloads" className="bg-zinc-900 text-white">
-                    Popularity
-                  </option>
+                  <option value="newest">Newest First</option>
+                  <option value="size">Largest Size</option>
+                  <option value="downloads">Popularity</option>
                 </select>
               </div>
             </div>
 
-            {/* Render empty state */}
+            {/* Empty state */}
             {sortedFiles.length === 0 && (
-              <div className="glass-card p-12 text-center flex flex-col items-center justify-center animate-fade-in">
-                <AlertCircle className="w-12 h-12 text-white/20 mb-4 animate-bounce" />
-                <h3 className="text-sm font-semibold text-white">No files found</h3>
-                <p className="text-xs text-white/40 mt-1 max-w-xs">
-                  We couldn't find any resources matching current filters or search terms. Try uploading some files.
+              <div className="bg-white border border-slate-200 rounded-2xl p-12 text-center flex flex-col items-center justify-center">
+                <AlertCircle className="w-10 h-10 text-slate-300 mb-3" />
+                <h3 className="text-sm font-semibold text-slate-900">No resources found</h3>
+                <p className="text-xs text-slate-500 mt-1 max-w-xs">
+                  We couldn't find any resources matching your search or filters.
                 </p>
               </div>
             )}
 
-            {/* Render Grid layout */}
+            {/* Grid layout */}
             {viewMode === "grid" ? (
               <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <AnimatePresence mode="popLayout">
@@ -845,60 +823,45 @@ export default function Resources() {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.3 }}
-                      className="group glass-card p-5 flex flex-col justify-between hover:scale-[1.01] duration-300"
+                      className="group bg-white border border-slate-200 rounded-2xl p-5 flex flex-col justify-between hover:shadow-lg hover:border-blue-400/50 duration-300"
                     >
                       <div>
                         {/* Tag & Icon header */}
                         <div className="flex items-center justify-between mb-4">
-                          <div className="p-2 rounded-xl bg-white/5 border border-white/5">
+                          <div className="p-2.5 rounded-xl bg-blue-50 border border-blue-100">
                             {getFileIcon(file.fileType)}
                           </div>
-                          <span
-                            className={`text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${
-                              file.category === "design"
-                                ? "text-blue-400 bg-blue-500/10 border-blue-500/20"
-                                : file.category === "video"
-                                ? "text-purple-400 bg-purple-500/10 border-purple-500/20"
-                                : file.category === "vibe-coding"
-                                ? "text-red-400 bg-red-500/10 border-red-500/20"
-                                : file.category === "code"
-                                ? "text-emerald-400 bg-emerald-500/10 border-emerald-500/20"
-                                : "text-amber-400 bg-amber-500/10 border-amber-500/20"
-                            }`}
-                          >
+                          <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-blue-50 text-blue-600 border border-blue-200">
                             {file.category}
                           </span>
                         </div>
 
                         {/* Title & info */}
-                        <h3 className="text-sm font-bold text-white tracking-wide group-hover:text-blue-400 transition-colors">
+                        <h3 className="text-sm font-bold text-slate-900 tracking-wide group-hover:text-blue-600 transition-colors">
                           {file.title}
                         </h3>
-                        <p className="text-xs text-white/50 mt-1.5 line-clamp-2 h-8">
+                        <p className="text-xs text-slate-600 mt-1.5 line-clamp-2 h-8 leading-relaxed">
                           {file.description}
                         </p>
 
                         {/* File metrics */}
-                        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-[10px] text-white/40">
-                          <span className="flex items-center gap-1">
-                            <span className="font-semibold text-white/60">Type:</span>{" "}
-                            {file.fileType.toUpperCase()}
+                        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-[10px] text-slate-500 font-medium">
+                          <span>
+                            <strong className="text-slate-700">Type:</strong> {file.fileType.toUpperCase()}
                           </span>
-                          <span className="flex items-center gap-1">
-                            <span className="font-semibold text-white/60">Size:</span>{" "}
-                            {file.fileSize}
+                          <span>
+                            <strong className="text-slate-700">Size:</strong> {file.fileSize}
                           </span>
-                          <span className="flex items-center gap-1">
-                            <span className="font-semibold text-white/60">Downloads:</span>{" "}
-                            {file.downloads}
+                          <span>
+                            <strong className="text-slate-700">Downloads:</strong> {file.downloads}
                           </span>
                         </div>
                       </div>
 
                       {/* Action trigger row */}
-                      <div className="mt-5 pt-4 border-t border-white/5 flex items-center justify-between">
-                        <span className="text-[9px] text-white/30 flex items-center gap-1.5">
-                          <Calendar className="w-3 h-3" />
+                      <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <span className="text-[10px] text-slate-400 flex items-center gap-1.5">
+                          <Calendar className="w-3 h-3 text-slate-400" />
                           {file.createdAt}
                         </span>
 
@@ -906,7 +869,7 @@ export default function Resources() {
                           <button
                             type="button"
                             onClick={() => handleCopyLink(file.fileName)}
-                            className="p-2 bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 text-white rounded-lg transition-all"
+                            className="p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-all"
                             title="Copy share link"
                           >
                             <Copy className="w-3.5 h-3.5" />
@@ -915,7 +878,7 @@ export default function Resources() {
                             <button
                               type="button"
                               onClick={() => handleDelete(file.id, file.title)}
-                              className="p-2 bg-white/5 border border-white/5 hover:bg-red-500/10 hover:border-red-500/20 text-white/60 hover:text-red-400 rounded-lg transition-all"
+                              className="p-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-lg transition-all"
                               title="Delete file"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
@@ -924,7 +887,7 @@ export default function Resources() {
                           <button
                             type="button"
                             onClick={() => handleDownload(file.id, file.title, file.fileName)}
-                            className="p-2 bg-gradient-to-r from-blue-600 via-purple-600 to-red-500 text-white rounded-lg hover:shadow-lg transition-all"
+                            className="p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-sm shadow-blue-500/20 transition-all"
                             title="Download resource"
                           >
                             <Download className="w-3.5 h-3.5" />
@@ -936,7 +899,7 @@ export default function Resources() {
                 </AnimatePresence>
               </motion.div>
             ) : (
-              /* Render List layout */
+              /* List layout */
               <motion.div layout className="space-y-3">
                 <AnimatePresence mode="popLayout">
                   {sortedFiles.map((file) => (
@@ -947,37 +910,25 @@ export default function Resources() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.2 }}
-                      className="group glass-card p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                      className="group bg-white border border-slate-200 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:shadow-md hover:border-blue-400/50 transition-all"
                     >
                       <div className="flex items-center gap-4">
-                        <div className="p-2.5 rounded-xl bg-white/5 border border-white/5 flex-shrink-0">
+                        <div className="p-2.5 rounded-xl bg-blue-50 border border-blue-100 flex-shrink-0">
                           {getFileIcon(file.fileType)}
                         </div>
 
                         <div>
                           <div className="flex flex-wrap items-center gap-2">
-                            <h3 className="text-sm font-bold text-white">{file.title}</h3>
-                            <span
-                              className={`text-[8px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${
-                                file.category === "design"
-                                  ? "text-blue-400 bg-blue-500/10 border-blue-500/20"
-                                  : file.category === "video"
-                                  ? "text-purple-400 bg-purple-500/10 border-purple-500/20"
-                                  : file.category === "vibe-coding"
-                                  ? "text-red-400 bg-red-500/10 border-red-500/20"
-                                  : file.category === "code"
-                                  ? "text-emerald-400 bg-emerald-500/10 border-emerald-500/20"
-                                  : "text-amber-400 bg-amber-500/10 border-amber-500/20"
-                              }`}
-                            >
+                            <h3 className="text-sm font-bold text-slate-900">{file.title}</h3>
+                            <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 border border-blue-200">
                               {file.category}
                             </span>
                           </div>
-                          <p className="text-xs text-white/40 mt-1 line-clamp-1">
+                          <p className="text-xs text-slate-600 mt-1 line-clamp-1">
                             {file.description}
                           </p>
 
-                          <div className="mt-2 flex gap-4 text-[10px] text-white/30">
+                          <div className="mt-2 flex gap-4 text-[10px] text-slate-500 font-medium">
                             <span>Size: {file.fileSize}</span>
                             <span>Downloads: {file.downloads}</span>
                             <span>Uploaded: {file.createdAt}</span>
@@ -985,12 +936,12 @@ export default function Resources() {
                         </div>
                       </div>
 
-                      {/* Right button alignments */}
+                      {/* Right buttons */}
                       <div className="flex items-center gap-2 justify-end">
                         <button
                           type="button"
                           onClick={() => handleCopyLink(file.fileName)}
-                          className="p-2 bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 text-white rounded-lg transition-all"
+                          className="p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-all"
                           title="Copy share link"
                         >
                           <Copy className="w-3.5 h-3.5" />
@@ -999,7 +950,7 @@ export default function Resources() {
                           <button
                             type="button"
                             onClick={() => handleDelete(file.id, file.title)}
-                            className="p-2 bg-white/5 border border-white/5 hover:bg-red-500/10 hover:border-red-500/20 text-white/60 hover:text-red-400 rounded-lg transition-all"
+                            className="p-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-lg transition-all"
                             title="Delete file"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -1008,7 +959,7 @@ export default function Resources() {
                         <button
                           type="button"
                           onClick={() => handleDownload(file.id, file.title, file.fileName)}
-                          className="p-2 bg-gradient-to-r from-blue-600 via-purple-600 to-red-500 text-white rounded-lg hover:shadow-lg transition-all"
+                          className="p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-sm shadow-blue-500/20 transition-all"
                           title="Download resource"
                         >
                           <Download className="w-3.5 h-3.5" />
@@ -1023,22 +974,20 @@ export default function Resources() {
         </div>
       </section>
 
-      {/* Admin Passcode Login Modal */}
+      {/* Admin Passcode Modal */}
       <AnimatePresence>
         {showAuthModal && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-dark/80 backdrop-blur-md px-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-md px-4"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className={`w-full max-w-md glass-card p-8 space-y-6 relative overflow-hidden border border-white/10 ${
-                authError ? "animate-pulse-glow" : ""
-              }`}
+              className="w-full max-w-md bg-white border border-slate-200 rounded-3xl p-8 space-y-6 relative overflow-hidden shadow-2xl"
             >
               <button
                 type="button"
@@ -1047,24 +996,26 @@ export default function Resources() {
                   setPasscode("");
                   setAuthError(false);
                 }}
-                className="absolute top-4 right-4 text-white/40 hover:text-white transition-colors"
+                className="absolute top-5 right-5 text-slate-400 hover:text-slate-700 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
 
               <div className="text-center space-y-2">
-                <Lock className="w-10 h-10 text-blue-500 mx-auto" />
-                <h3 className="text-lg font-bold font-podium uppercase tracking-wider text-white">
+                <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mx-auto border border-blue-100">
+                  <Lock className="w-6 h-6" />
+                </div>
+                <h3 className="text-lg font-bold font-podium uppercase tracking-wider text-slate-900">
                   Owner Authentication
                 </h3>
-                <p className="text-xs text-white/40 max-w-xs mx-auto">
+                <p className="text-xs text-slate-600 max-w-xs mx-auto">
                   Please enter your passcode to unlock upload, editing, and delete actions.
                 </p>
               </div>
 
               <form onSubmit={handleLoginSubmit} className="space-y-4">
                 <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-wider text-white/40 block font-semibold">
+                  <label className="text-[10px] uppercase tracking-wider text-slate-500 block font-semibold">
                     Admin Passcode
                   </label>
                   <input
@@ -1072,12 +1023,12 @@ export default function Resources() {
                     value={passcode}
                     onChange={(e) => setPasscode(e.target.value)}
                     placeholder="Enter owner passcode"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl p-3.5 text-xs text-center tracking-widest text-white focus:outline-none focus:border-blue-500 transition-all"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-xs text-center tracking-widest text-slate-900 focus:bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
                     required
                     autoFocus
                   />
                   {authError && (
-                    <p className="text-[10px] text-red-400 font-semibold uppercase text-center mt-1 animate-pulse">
+                    <p className="text-[10px] text-rose-600 font-semibold uppercase text-center mt-1">
                       Passcode incorrect. Hint: yashfx2026
                     </p>
                   )}
@@ -1085,7 +1036,7 @@ export default function Resources() {
 
                 <button
                   type="submit"
-                  className="w-full btn-gradient flex items-center justify-center gap-2 p-3.5 rounded-full text-xs font-semibold tracking-wider uppercase"
+                  className="w-full btn-gradient flex items-center justify-center gap-2 p-3.5 rounded-xl text-xs font-semibold tracking-wider uppercase text-white"
                 >
                   Verify Access
                 </button>

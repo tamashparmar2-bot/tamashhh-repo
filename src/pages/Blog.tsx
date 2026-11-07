@@ -4,70 +4,58 @@ import { Calendar, Clock, ArrowRight } from "lucide-react";
 
 const articles = [
   {
-    title: "The Future of Brand Design in 2025",
+    title: "The Future of Brand Design in 2026",
     excerpt:
-      "Explore the emerging trends shaping brand identities — from AI-driven visuals to sustainable design systems.",
+      "Explore the emerging trends shaping brand identities — from AI-driven visuals to sustainable, minimal design systems.",
     category: "Design",
     date: "Dec 15",
     readTime: "5 min",
-    gradient: "from-blue-600 to-cyan-400",
-    categoryColor: "text-blue-400",
-    badgeBg: "bg-blue-500/20",
+    gradient: "from-blue-600 to-blue-800",
   },
   {
     title: "Color Grading Techniques for Cinematic Look",
     excerpt:
-      "Learn professional color grading workflows that give your footage that cinematic, blockbuster quality.",
+      "Learn professional color grading workflows that give your footage that clean cinematic, blockbuster quality.",
     category: "Editing",
     date: "Nov 28",
     readTime: "8 min",
-    gradient: "from-purple-600 to-pink-400",
-    categoryColor: "text-purple-400",
-    badgeBg: "bg-purple-500/20",
+    gradient: "from-blue-700 to-slate-900",
   },
   {
-    title: "Building a Personal Brand Online",
+    title: "Building a Modern Personal Brand Online",
     excerpt:
-      "A step-by-step guide to crafting an authentic personal brand that stands out in the digital landscape.",
+      "A step-by-step guide to crafting an authentic personal brand that stands out with modern minimalism in the digital landscape.",
     category: "Strategy",
     date: "Nov 10",
     readTime: "6 min",
-    gradient: "from-emerald-600 to-teal-400",
-    categoryColor: "text-emerald-400",
-    badgeBg: "bg-emerald-500/20",
+    gradient: "from-blue-500 to-blue-700",
   },
   {
     title: "UI/UX Trends You Can't Ignore",
     excerpt:
-      "Stay ahead of the curve with these cutting-edge interface design trends reshaping digital experiences.",
+      "Stay ahead of the curve with cutting-edge interface design trends, 80-20 color architecture, and high-conversion layouts.",
     category: "Design",
     date: "Oct 22",
     readTime: "4 min",
-    gradient: "from-orange-600 to-amber-400",
-    categoryColor: "text-blue-400",
-    badgeBg: "bg-blue-500/20",
+    gradient: "from-blue-600 to-indigo-700",
   },
   {
-    title: "How to Start Freelancing in Design",
+    title: "How to Scale as a Freelance Creative",
     excerpt:
-      "Everything you need to know about launching a successful freelance design career from scratch.",
+      "Everything you need to know about launching, positioning, and scaling a high-ticket freelance creative studio.",
     category: "Career",
     date: "Oct 5",
     readTime: "7 min",
-    gradient: "from-red-600 to-rose-400",
-    categoryColor: "text-red-400",
-    badgeBg: "bg-red-500/20",
+    gradient: "from-slate-800 to-blue-900",
   },
   {
-    title: "Motion Graphics: A Beginner's Guide",
+    title: "Motion Graphics & Visual Rhythm",
     excerpt:
-      "Dive into the world of motion design — from basic principles to creating your first animated project.",
+      "Dive into the principles of motion design — from keyframing dynamics to pacing and audio-visual synchronicity.",
     category: "Editing",
     date: "Sep 18",
     readTime: "10 min",
-    gradient: "from-indigo-600 to-violet-400",
-    categoryColor: "text-purple-400",
-    badgeBg: "bg-purple-500/20",
+    gradient: "from-blue-600 to-sky-600",
   },
 ];
 
@@ -93,43 +81,43 @@ export default function Blog() {
   };
 
   return (
-    <main className="min-h-screen bg-dark text-white">
+    <main className="min-h-screen bg-white text-slate-900">
       {/* ───── Hero Banner ───── */}
-      <section className="relative py-32 lg:py-40 overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-500/10 rounded-full blur-[120px] pointer-events-none" />
+      <section className="relative py-28 lg:py-36 overflow-hidden bg-gradient-to-b from-blue-50/50 via-white to-slate-50/40 border-b border-slate-100">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-blue-400/10 rounded-full blur-[120px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-block text-xs font-semibold tracking-[0.3em] text-white/40 uppercase mb-6"
+            className="inline-block text-xs font-semibold tracking-[0.25em] text-blue-600 uppercase mb-4 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200"
           >
-            Insights
+            Insights &amp; Articles
           </motion.span>
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-podium font-bold gradient-text-h leading-tight"
+            className="text-4xl md:text-6xl font-podium font-bold text-slate-900 leading-tight"
           >
-            My blog
+            Creative Insights <span className="gradient-text">&amp; Thoughts</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-6 text-lg md:text-xl text-white/60 max-w-2xl mx-auto"
+            className="mt-5 text-base md:text-lg text-slate-600 max-w-2xl mx-auto"
           >
-            Creative insights, tips, and industry trends
+            Actionable breakdowns on branding, video editing, vibe coding, and digital design philosophy.
           </motion.p>
         </div>
       </section>
 
       {/* ───── Blog Grid ───── */}
-      <section className="py-12 pb-24">
+      <section className="py-20 pb-24">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             variants={container}
@@ -142,52 +130,52 @@ export default function Blog() {
               <motion.article
                 key={idx}
                 variants={item}
-                className="glass-card rounded-xl overflow-hidden group cursor-pointer"
+                className="bg-white rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-400/50 group cursor-pointer transition-all duration-300 flex flex-col justify-between"
                 whileHover={{ y: -6 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                {/* Image Area */}
-                <div className="relative">
-                  <div
-                    className={`aspect-video bg-gradient-to-br ${article.gradient} rounded-t-xl flex items-center justify-center`}
-                  >
-                    <span className="text-5xl font-podium font-bold text-white/10 select-none">
-                      {String(idx + 1).padStart(2, "0")}
+                <div>
+                  {/* Image Header Area */}
+                  <div className="relative">
+                    <div
+                      className={`aspect-video bg-gradient-to-br ${article.gradient} rounded-t-2xl flex items-center justify-center`}
+                    >
+                      <span className="text-5xl font-podium font-bold text-white/20 select-none">
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                    <span className="absolute top-4 left-4 bg-white/95 text-blue-600 text-xs font-semibold px-3 py-1 rounded-full shadow-sm border border-slate-200/80">
+                      {article.category}
                     </span>
                   </div>
-                  <span
-                    className={`absolute top-4 left-4 ${article.badgeBg} backdrop-blur-md text-white text-xs font-semibold px-3 py-1 rounded-full border border-white/10`}
-                  >
-                    {article.category}
-                  </span>
+
+                  {/* Content Area */}
+                  <div className="p-6">
+                    <h3 className="text-lg font-bold text-slate-900 mt-1 group-hover:text-blue-600 transition-colors leading-snug">
+                      {article.title}
+                    </h3>
+
+                    <p className="text-slate-600 text-sm mt-2.5 line-clamp-2 leading-relaxed">
+                      {article.excerpt}
+                    </p>
+                  </div>
                 </div>
 
-                {/* Content */}
-                <div className="p-6">
-                  <span
-                    className={`text-xs uppercase tracking-wider ${article.categoryColor} font-semibold`}
-                  >
-                    {article.category}
-                  </span>
-
-                  <h3 className="text-lg font-bold text-white mt-2 group-hover:text-white/90 transition-colors">
-                    {article.title}
-                  </h3>
-
-                  <p className="text-white/50 text-sm mt-2 line-clamp-2 leading-relaxed">
-                    {article.excerpt}
-                  </p>
-
-                  <div className="flex items-center gap-4 text-white/30 text-xs mt-4">
+                {/* Footer Meta */}
+                <div className="px-6 pb-6 pt-0 border-t border-slate-100 flex items-center justify-between text-slate-400 text-xs mt-2">
+                  <div className="flex items-center gap-4">
                     <span className="flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5" />
+                      <Calendar className="w-3.5 h-3.5 text-blue-500" />
                       {article.date}
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5" />
+                      <Clock className="w-3.5 h-3.5 text-blue-500" />
                       {article.readTime}
                     </span>
                   </div>
+                  <span className="text-blue-600 group-hover:translate-x-1 transition-transform flex items-center gap-1 font-semibold">
+                    Read <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
                 </div>
               </motion.article>
             ))}
@@ -196,21 +184,23 @@ export default function Blog() {
       </section>
 
       {/* ───── Newsletter CTA ───── */}
-      <section className="py-24 bg-dark-50">
+      <section className="py-20 bg-slate-50 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="glass-card max-w-2xl mx-auto p-10 rounded-2xl text-center"
+            className="bg-white max-w-2xl mx-auto p-10 sm:p-12 rounded-3xl text-center border border-slate-200 shadow-sm"
           >
-            <h2 className="text-2xl font-bold gradient-text">
-              Stay in the loop
+            <span className="text-xs font-semibold tracking-wider text-blue-600 uppercase bg-blue-50 border border-blue-200 px-3 py-1 rounded-full">
+              Weekly Letter
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-bold font-podium text-slate-900 mt-4">
+              Stay ahead with YASHFX
             </h2>
-            <p className="text-white/50 mt-3 text-sm leading-relaxed">
-              Get the latest articles, tutorials, and creative resources
-              delivered straight to your inbox. No spam, ever.
+            <p className="text-slate-600 mt-3 text-sm leading-relaxed max-w-lg mx-auto">
+              Get the latest articles, design templates, and creative insights delivered straight to your inbox. No fluff, no spam.
             </p>
 
             <form
@@ -220,10 +210,10 @@ export default function Blog() {
               <input
                 type="email"
                 required
-                placeholder="Enter your email"
+                placeholder="Enter your email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-white placeholder:text-white/30 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 outline-none transition-colors duration-200"
+                className="flex-1 w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-3.5 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all duration-200 text-sm"
               />
               <button
                 type="submit"
@@ -238,9 +228,9 @@ export default function Blog() {
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-green-400 text-sm mt-4 font-medium"
+                className="text-emerald-600 text-sm mt-4 font-semibold"
               >
-                🎉 You're subscribed! Check your inbox.
+                🎉 You're subscribed! Check your inbox for confirmation.
               </motion.p>
             )}
           </motion.div>

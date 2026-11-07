@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
   *,
   *::before,
@@ -21,128 +20,117 @@
   }
 
   body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: #0a0a0f;
-    color: #ffffff;
+    background: #ffffff;
+    color: #0f172a; /* Slate 900 for high legibility */
   }
 
   ::selection {
-    background: rgba(59,130,246,0.3);
-    color: #fff;
+    background: rgba(37, 99, 235, 0.15);
+    color: #1d4ed8;
   }
 }
 
 @layer components {
-  /* Glass card */
+  /* Modern Minimal Glass Card (80% clean white, 20% blue hover accent) */
   .glass-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 16px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
     backdrop-filter: blur(12px);
-    transition: all 0.4s cubic-bezier(0.25,0.1,0.25,1);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .glass-card:hover {
-    background: rgba(255,255,255,0.06);
-    border-color: rgba(255,255,255,0.15);
-    transform: translateY(-4px);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    border-color: #93c5fd;
+    box-shadow: 0 16px 36px -4px rgba(37, 99, 235, 0.1);
+    transform: translateY(-3px);
   }
 
-  /* Gradient text */
+  /* Blue & Slate Typography Accents */
   .gradient-text {
-    background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ef4444);
+    background: linear-gradient(135deg, #0f172a 15%, #1d4ed8 75%, #2563eb 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .gradient-text-h {
-    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ef4444);
+    background: linear-gradient(90deg, #0f172a 20%, #1d4ed8 75%, #2563eb 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Gradient border */
-  .gradient-border {
-    position: relative;
-  }
-
-  .gradient-border::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ef4444);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-  }
-
-  /* Gradient divider line */
+  /* Minimal Accent Divider Line */
   .gradient-line {
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, #ef4444, transparent);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #2563eb, transparent);
+    opacity: 0.25;
   }
 
-  /* Gradient button */
+  /* Modern Primary Blue Button (20% rule active pop) */
   .btn-gradient {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 14px 32px;
-    background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ef4444);
-    color: #fff;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    color: #ffffff !important;
     font-weight: 600;
     font-size: 13px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     border-radius: 999px;
     border: none;
     cursor: pointer;
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+    transition: all 0.25s ease;
     position: relative;
     overflow: hidden;
   }
 
   .btn-gradient:hover {
+    background: linear-gradient(135deg, #1e40af, #1d4ed8);
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(59,130,246,0.3), 0 8px 30px rgba(239,68,68,0.2);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
   }
 
+  /* Modern Clean Outline Button */
   .btn-outline {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 14px 32px;
-    background: transparent;
-    color: #fff;
+    padding: 12px 28px;
+    background: #ffffff;
+    color: #0f172a;
     font-weight: 600;
     font-size: 13px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid #cbd5e1;
     cursor: pointer;
-    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: all 0.25s ease;
   }
 
   .btn-outline:hover {
-    border-color: rgba(255,255,255,0.5);
-    background: rgba(255,255,255,0.05);
+    border-color: #2563eb;
+    color: #2563eb;
+    background: #eff6ff;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
   }
 }
 
 @layer utilities {
   /* ── Keyframes ── */
   @keyframes fade-up {
-    from { opacity: 0; transform: translateY(30px); }
+    from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
@@ -152,41 +140,25 @@
   }
 
   @keyframes scale-in {
-    from { opacity: 0; transform: scale(0.9); }
+    from { opacity: 0; transform: scale(0.95); }
     to   { opacity: 1; transform: scale(1); }
   }
 
   @keyframes float {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+    50% { transform: translateY(-10px); }
   }
 
   @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 20px rgba(59,130,246,0.2); }
-    50% { box-shadow: 0 0 40px rgba(59,130,246,0.4), 0 0 60px rgba(239,68,68,0.2); }
+    0%, 100% { box-shadow: 0 0 20px rgba(37, 99, 235, 0.15); }
+    50% { box-shadow: 0 0 35px rgba(37, 99, 235, 0.3); }
   }
 
   .animate-fade-up {
-    animation: fade-up 0.8s ease-out forwards;
-  }
-  .animate-fade-up-delay-1 {
-    opacity: 0;
-    animation: fade-up 0.8s ease-out 0.15s forwards;
-  }
-  .animate-fade-up-delay-2 {
-    opacity: 0;
-    animation: fade-up 0.8s ease-out 0.3s forwards;
-  }
-  .animate-fade-up-delay-3 {
-    opacity: 0;
-    animation: fade-up 0.8s ease-out 0.45s forwards;
-  }
-  .animate-fade-up-delay-4 {
-    opacity: 0;
-    animation: fade-up 0.8s ease-out 0.6s forwards;
+    animation: fade-up 0.7s ease-out forwards;
   }
   .animate-fade-in {
-    animation: fade-in 0.8s ease-out forwards;
+    animation: fade-in 0.7s ease-out forwards;
   }
   .animate-float {
     animation: float 6s ease-in-out infinite;

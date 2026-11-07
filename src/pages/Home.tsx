@@ -5,16 +5,16 @@ import { Crown, ArrowUpRight, Layers, Film, Code, Quote, Star } from "lucide-rea
 
 /* ──────────────────────── animation variants ──────────────────────── */
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 24 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
 const stagger = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.15 } },
+  show: { transition: { staggerChildren: 0.12 } },
 };
 
-/* ──────────────────────── tiny reusable pieces ──────────────────────── */
+/* ──────────────────────── reusable section header ──────────────────────── */
 function SectionHeader({
   label,
   title,
@@ -26,20 +26,20 @@ function SectionHeader({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
       className="text-center mb-16"
     >
-      <span className="text-blue-500 text-xs tracking-[0.3em] uppercase font-inter">
+      <span className="text-blue-600 text-xs tracking-[0.25em] uppercase font-inter font-bold">
         {label}
       </span>
-      <h2 className="gradient-text-h text-3xl sm:text-4xl lg:text-5xl font-bold font-podium mt-3">
+      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-podium text-slate-900 mt-2 tracking-tight">
         {title}
       </h2>
       {subtitle && (
-        <p className="text-white/50 max-w-xl mx-auto mt-4 text-sm sm:text-base">
+        <p className="text-slate-600 max-w-xl mx-auto mt-4 text-sm sm:text-base leading-relaxed">
           {subtitle}
         </p>
       )}
@@ -58,51 +58,53 @@ function Hero() {
   ];
 
   return (
-    <section className="relative h-screen min-h-[700px] flex items-center overflow-hidden">
-      {/* background image */}
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-b from-blue-50/40 via-white to-slate-50/50 py-20 lg:py-28">
+      {/* Background Hero Subtle Artwork & Grid */}
       <img
         src="/hero-bg.jpg"
         alt="yashfx Creative Hero Background"
-        className="absolute inset-0 w-full h-full object-cover object-right md:object-center"
+        className="absolute inset-0 w-full h-full object-cover object-right md:object-center opacity-15"
       />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/80 to-white pointer-events-none" />
 
-      {/* overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-950/60 via-[#0a0a0f]/50 to-dark" />
+      {/* Decorative Subtle Blue Ambient Glows */}
+      <div className="absolute -top-24 right-1/4 w-[450px] h-[450px] rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-10 w-[350px] h-[350px] rounded-full bg-blue-400/10 blur-3xl pointer-events-none" />
 
-      {/* content */}
+      {/* Hero Content */}
       <motion.div
         variants={stagger}
         initial="hidden"
         animate="show"
-        className="relative z-10 w-full px-6 sm:px-10 lg:px-16"
+        className="relative z-10 w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16"
       >
-        {/* badge */}
-        <motion.div variants={fadeUp} className="flex items-center gap-2 mb-8">
-          <Crown className="w-4 h-4 text-white/60" />
-          <span className="text-white/60 text-xs tracking-[0.3em] uppercase font-inter">
+        {/* Badge */}
+        <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-6 bg-blue-50 border border-blue-200/80 px-4 py-1.5 rounded-full shadow-sm">
+          <Crown className="w-4 h-4 text-blue-600" />
+          <span className="text-blue-700 text-xs tracking-[0.2em] uppercase font-inter font-bold">
             World-Class Digital Creator
           </span>
         </motion.div>
 
-        {/* heading */}
+        {/* Heading */}
         <motion.h1
           variants={fadeUp}
-          className="font-podium text-[clamp(2.8rem,8vw,7rem)] leading-[0.95] text-white font-bold"
+          className="font-podium text-[clamp(3.2rem,8.5vw,7.5rem)] leading-[0.92] text-slate-900 font-bold tracking-tight"
         >
           Design.
           <br />
-          Disrupt.
+          <span className="text-blue-600">Disrupt.</span>
           <br />
           Conquer.
         </motion.h1>
 
-        {/* subtext */}
+        {/* Subtext */}
         <motion.p
           variants={fadeUp}
-          className="text-white/60 max-w-md mt-6 text-sm sm:text-base leading-relaxed"
+          className="text-slate-600 max-w-lg mt-6 text-base sm:text-lg leading-relaxed font-normal"
         >
-          I build fierce brand identities, cinematic edits, and digital
-          experiences that dominate industries and turn heads.
+          I build fierce brand identities, cinematic video edits, and modern
+          vibe coding web applications that dominate markets and captivate users.
         </motion.p>
 
         {/* CTAs */}
@@ -112,7 +114,7 @@ function Hero() {
             <ArrowUpRight className="w-4 h-4" />
           </Link>
           <a
-            href="https://wa.me/919773135547"
+            href="https://wa.me/919773135547?text=Hello%20yashfx!"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-outline inline-flex items-center gap-2"
@@ -121,17 +123,17 @@ function Hero() {
           </a>
         </motion.div>
 
-        {/* stats */}
+        {/* Stats Strip */}
         <motion.div
           variants={fadeUp}
-          className="flex flex-wrap gap-10 mt-14 border-t border-white/10 pt-8"
+          className="flex flex-wrap gap-8 sm:gap-14 mt-14 border-t border-slate-200/90 pt-8"
         >
           {stats.map((s) => (
             <div key={s.label}>
-              <span className="text-2xl sm:text-4xl font-bold text-white font-podium">
+              <span className="text-3xl sm:text-4xl font-bold text-slate-900 font-podium">
                 {s.value}
               </span>
-              <p className="text-white/40 text-xs tracking-widest uppercase mt-1 font-inter">
+              <p className="text-slate-500 text-xs tracking-wider uppercase mt-1 font-inter font-semibold">
                 {s.label}
               </p>
             </div>
@@ -149,61 +151,53 @@ function ServicesPreview() {
   const services = [
     {
       Icon: Layers,
-      color: "#3b82f6",
       title: "Design",
-      desc: "Brand identities, UI/UX, and visual systems crafted to make your brand unforgettable.",
+      desc: "Brand identities, UI/UX systems, packaging, and visual design crafted to make your brand instantly recognizable.",
     },
     {
       Icon: Film,
-      color: "#8b5cf6",
       title: "Editing",
-      desc: "Cinematic video editing, motion graphics, and post-production that captivates audiences.",
+      desc: "High-end cinematic video editing, 3D motion graphics, VFX tracking, and reels engineered for virality.",
     },
     {
       Icon: Code,
-      color: "#10b981",
       title: "Vibe Coding",
-      desc: "Building software, interactive web apps, and creative tools at high speed and zero friction.",
+      desc: "Interactive web applications, portfolios, and dynamic digital tools built rapidly with cutting-edge tech.",
     },
   ];
 
   return (
-    <section className="py-24 lg:py-32 px-6 sm:px-10 lg:px-16">
+    <section className="py-24 lg:py-32 px-6 sm:px-10 lg:px-16 bg-white">
       <SectionHeader
         label="WHAT I DO"
         title="Services I offer"
-        subtitle="From concept to creation, I deliver end-to-end creative solutions that set brands apart."
+        subtitle="From concept to execution, I deliver end-to-end creative solutions that set ambitious brands apart."
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {services.map((s, i) => (
           <motion.div
             key={s.title}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: i * 0.1 }}
+            transition={{ duration: 0.5, delay: i * 0.1 }}
           >
-            <Link to="/services" className="glass-card block p-8 h-full group">
-              {/* icon */}
-              <div
-                className="w-12 h-12 rounded-full flex items-center justify-center mb-6"
-                style={{
-                  background: `linear-gradient(135deg, ${s.color}33, ${s.color}11)`,
-                }}
-              >
-                <s.Icon className="w-5 h-5" style={{ color: s.color }} />
+            <Link to="/services" className="glass-card block p-8 sm:p-10 h-full group bg-white border border-slate-200/90 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300">
+              {/* Icon */}
+              <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                <s.Icon className="w-6 h-6" />
               </div>
 
-              <h3 className="text-xl font-bold text-white font-podium mb-3">
+              <h3 className="text-2xl font-bold text-slate-900 font-podium mb-3 group-hover:text-blue-600 transition-colors">
                 {s.title}
               </h3>
-              <p className="text-white/60 text-sm leading-relaxed mb-6">
+              <p className="text-slate-600 text-sm leading-relaxed mb-6 font-normal">
                 {s.desc}
               </p>
-              <span className="text-sm font-medium text-white/80 group-hover:text-white transition-colors inline-flex items-center gap-1">
+              <span className="text-xs font-bold uppercase tracking-wider text-blue-600 group-hover:text-blue-700 transition-colors inline-flex items-center gap-1.5">
                 Learn More
-                <ArrowUpRight className="w-3.5 h-3.5" />
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </span>
             </Link>
           </motion.div>
@@ -218,27 +212,27 @@ function ServicesPreview() {
    ═══════════════════════════════════════════════════════════════════════ */
 function PortfolioPreview() {
   const items = [
-    { videoUrl: "/portfolio/cgi-saregama.mp4", category: "CGI & Ad", title: "CGI Saregama Ad" },
-    { videoUrl: "/portfolio/tracking.mp4", category: "VFX & Tracking", title: "Tracking VFX Showcase" },
-    { videoUrl: "/portfolio/obsidian-draft-1.mp4", category: "Brand Film", title: "yashfx Brand Film" },
+    { videoUrl: "/portfolio/fronx-car-delivery.mp4", category: "Commercial", title: "Fronx Car Delivery" },
+    { videoUrl: "/portfolio/navratri-project.mp4", category: "Culture & Reel", title: "Navratri Project" },
+    { videoUrl: "/portfolio/yps-restroo.mp4", category: "Hospitality", title: "YP's Restroo" },
   ];
 
   return (
-    <section className="py-24 lg:py-32 bg-dark-50 px-6 sm:px-10 lg:px-16">
-      <SectionHeader label="SELECTED WORK" title="My portfolio" />
+    <section className="py-24 lg:py-32 bg-slate-50/70 border-y border-slate-200/80 px-6 sm:px-10 lg:px-16">
+      <SectionHeader label="SELECTED WORK" title="Featured Portfolio" subtitle="A quick glimpse of recent editing and visual productions." />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {items.map((p, i) => (
           <motion.div
             key={p.title}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: i * 0.1 }}
+            transition={{ duration: 0.5, delay: i * 0.1 }}
           >
             <Link
               to="/portfolio"
-              className="block rounded-2xl overflow-hidden relative group aspect-[4/5] bg-zinc-950"
+              className="block rounded-2xl overflow-hidden relative group aspect-[4/5] bg-slate-900 shadow-sm border border-slate-200/90 hover:shadow-xl hover:border-blue-400 transition-all duration-300"
               onMouseEnter={(e) => {
                 const video = e.currentTarget.querySelector("video");
                 if (video) video.play().catch(() => {});
@@ -257,14 +251,14 @@ function PortfolioPreview() {
                 muted
                 loop
                 playsInline
-                className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-all duration-300"
+                className="absolute inset-0 w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-all duration-300 group-hover:scale-105"
               />
               {/* hover overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
-                <span className="text-xs tracking-widest uppercase text-blue-400 mb-2 font-inter font-semibold">
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                <span className="text-xs tracking-widest uppercase text-blue-400 mb-1 font-inter font-bold">
                   {p.category}
                 </span>
-                <h3 className="text-lg font-bold text-white font-podium">
+                <h3 className="text-xl font-bold text-white font-podium">
                   {p.title}
                 </h3>
               </div>
@@ -277,7 +271,7 @@ function PortfolioPreview() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.3 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
         className="text-center mt-12"
       >
         <Link
@@ -297,37 +291,33 @@ function PortfolioPreview() {
    ═══════════════════════════════════════════════════════════════════════ */
 function Stats() {
   const data = [
-    { value: "150+", label: "Projects" },
-    { value: "50+", label: "Clients" },
-    { value: "5+", label: "Years" },
-    { value: "3", label: "Services" },
+    { value: "150+", label: "Projects Delivered" },
+    { value: "50+", label: "Global Clients" },
+    { value: "5+", label: "Years Experience" },
+    { value: "100%", label: "Satisfaction Rate" },
   ];
 
   return (
-    <section className="py-24 bg-dark relative">
-      <div className="gradient-line" />
-
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16 py-16">
+    <section className="py-20 bg-white relative">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
         {data.map((d, i) => (
           <motion.div
             key={d.label}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
+            transition={{ duration: 0.5, delay: i * 0.08 }}
             className="text-center"
           >
-            <span className="text-5xl lg:text-6xl font-bold gradient-text font-podium">
+            <span className="text-5xl lg:text-6xl font-bold text-blue-600 font-podium">
               {d.value}
             </span>
-            <p className="text-white/40 text-xs tracking-widest uppercase mt-3 font-inter">
+            <p className="text-slate-500 text-xs tracking-wider uppercase mt-2 font-inter font-semibold">
               {d.label}
             </p>
           </motion.div>
         ))}
       </div>
-
-      <div className="gradient-line" />
     </section>
   );
 }
@@ -370,42 +360,42 @@ function Testimonials() {
   const t = testimonials[active];
 
   return (
-    <section className="py-24 lg:py-32 bg-dark-50 px-6 sm:px-10 lg:px-16">
+    <section className="py-24 lg:py-32 bg-slate-50/60 border-t border-slate-200/80 px-6 sm:px-10 lg:px-16">
       <SectionHeader label="TESTIMONIALS" title="What clients say" />
 
       <motion.div
         key={active}
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="glass-card max-w-3xl mx-auto p-10 text-center"
+        transition={{ duration: 0.4 }}
+        className="glass-card max-w-3xl mx-auto p-8 sm:p-12 text-center bg-white border border-slate-200/90 shadow-md shadow-slate-200/50"
       >
-        <Quote className="w-10 h-10 mx-auto mb-6 gradient-text opacity-60" />
-        <p className="text-lg sm:text-xl text-white/80 italic leading-relaxed mb-8">
+        <Quote className="w-10 h-10 mx-auto mb-6 text-blue-600/70" />
+        <p className="text-lg sm:text-xl text-slate-700 italic leading-relaxed mb-8 font-normal">
           &ldquo;{t.quote}&rdquo;
         </p>
         <div className="flex items-center justify-center gap-1 mb-2">
           {[...Array(5)].map((_, i) => (
             <Star
               key={i}
-              className="w-4 h-4 text-yellow-500 fill-yellow-500"
+              className="w-4 h-4 text-amber-500 fill-amber-500"
             />
           ))}
         </div>
-        <p className="text-white font-bold font-podium">{t.name}</p>
-        <p className="text-white/50 text-sm">{t.role}</p>
+        <p className="text-slate-900 font-bold font-podium text-xl">{t.name}</p>
+        <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider">{t.role}</p>
       </motion.div>
 
-      {/* dots */}
+      {/* Dots */}
       <div className="flex justify-center gap-2 mt-8">
         {testimonials.map((_, i) => (
           <button
             key={i}
             onClick={() => setActive(i)}
-            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+            className={`h-2 rounded-full transition-all duration-300 ${
               i === active
-                ? "bg-blue-500 w-6"
-                : "bg-white/20 hover:bg-white/40"
+                ? "bg-blue-600 w-6"
+                : "bg-slate-300 hover:bg-slate-400 w-2"
             }`}
             aria-label={`Testimonial ${i + 1}`}
           />
@@ -420,24 +410,22 @@ function Testimonials() {
    ═══════════════════════════════════════════════════════════════════════ */
 function CtaSection() {
   return (
-    <section className="py-24 lg:py-32 relative overflow-hidden">
-      {/* decorative orbs */}
-      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-blue-600/20 blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-red-600/20 blur-3xl pointer-events-none" />
+    <section className="py-24 lg:py-32 relative overflow-hidden bg-gradient-to-b from-white to-blue-50/50 border-t border-slate-100">
+      {/* Decorative Orbs */}
+      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
 
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.7 }}
-        className="relative z-10 text-center px-6"
+        transition={{ duration: 0.6 }}
+        className="relative z-10 text-center px-6 max-w-4xl mx-auto"
       >
-        <h2 className="text-3xl sm:text-5xl font-bold gradient-text-h font-podium">
+        <h2 className="text-4xl sm:text-6xl font-bold font-podium text-slate-900 tracking-tight">
           Ready to elevate your brand?
         </h2>
-        <p className="text-white/50 max-w-lg mx-auto mt-4 text-sm sm:text-base">
-          Let&rsquo;s craft something extraordinary together. Your next chapter
-          starts here.
+        <p className="text-slate-600 max-w-lg mx-auto mt-4 text-base sm:text-lg leading-relaxed">
+          Let&rsquo;s craft something extraordinary together. Premium design, cinematic storytelling, and modern code.
         </p>
         <div className="flex flex-wrap justify-center gap-4 mt-8">
           <Link to="/contact" className="btn-gradient inline-flex items-center gap-2">
@@ -458,7 +446,7 @@ function CtaSection() {
    ═══════════════════════════════════════════════════════════════════════ */
 export default function Home() {
   return (
-    <main className="bg-dark text-white overflow-x-hidden">
+    <main className="bg-white text-slate-900 overflow-x-hidden">
       <Hero />
       <ServicesPreview />
       <PortfolioPreview />

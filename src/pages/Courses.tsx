@@ -14,76 +14,73 @@ import {
 
 const courses = [
   {
-    title: "UI/UX Design Masterclass",
+    title: "UI/UX & Product Design Masterclass",
     description:
-      "Learn end-to-end product design — from user research and wireframing to high-fidelity prototypes and handoff.",
+      "Learn end-to-end product design — from user research and wireframing to high-fidelity minimal design systems and design handoff.",
     duration: "12 Hours",
     level: "Intermediate",
     price: "₹4,999",
     badge: "Popular",
-    gradient: "from-blue-600 to-blue-400",
-    badgeColor: "bg-blue-500",
+    gradient: "from-blue-600 to-blue-800",
   },
   {
-    title: "Video Editing Bootcamp",
+    title: "Cinematic Video Editing Bootcamp",
     description:
-      "Master professional video editing workflows using industry-standard tools. Color grading, sound design & more.",
+      "Master professional video editing workflows using Premiere Pro, After Effects, and DaVinci Resolve. Color grading, pacing & sound design.",
     duration: "18 Hours",
     level: "All Levels",
     price: "₹5,999",
-    badge: "New",
-    gradient: "from-purple-600 to-purple-400",
-    badgeColor: "bg-purple-500",
+    badge: "Featured",
+    gradient: "from-blue-700 to-slate-900",
   },
   {
-    title: "Social Media Design",
+    title: "Modern Brand Identity & Typography",
     description:
-      "Create scroll-stopping social media content that drives engagement. Templates, strategies & brand systems.",
+      "Create bold, memorable brand identities that drive results. Learn layout grids, typography hierarchies, and cohesive brand systems.",
     duration: "8 Hours",
     level: "Beginner",
     price: "₹2,999",
-    badge: "Popular",
-    gradient: "from-red-600 to-red-400",
-    badgeColor: "bg-red-500",
+    badge: "Best Seller",
+    gradient: "from-blue-500 to-blue-700",
   },
 ];
 
 const features = [
   {
     icon: GraduationCap,
-    title: "Expert Instructors",
+    title: "Expert Mentorship",
     description:
-      "Learn from seasoned professionals with years of real-world industry experience.",
+      "Learn directly from real-world projects with practical, production-ready design practices.",
   },
   {
     icon: Rocket,
     title: "Hands-On Projects",
     description:
-      "Build a portfolio of stunning projects that showcase your skills to clients and employers.",
+      "Build a portfolio of stunning client-ready work to land high-value creative opportunities.",
   },
   {
     icon: Infinity,
     title: "Lifetime Access",
     description:
-      "Enroll once and access all course materials, updates, and resources forever.",
+      "Enroll once and access all course materials, exercise files, and updates forever.",
   },
   {
     icon: Users,
-    title: "Community",
+    title: "Creative Network",
     description:
-      "Join a thriving community of creatives to collaborate, share work, and grow together.",
+      "Connect with driven creators, share project feedback, and grow in a focused community.",
   },
   {
     icon: Award,
-    title: "Certificate",
+    title: "Verified Certificate",
     description:
-      "Earn a verified certificate of completion to validate your skills and boost your profile.",
+      "Earn a recognized certificate of completion to validate your expertise on LinkedIn and resumes.",
   },
   {
     icon: MessageCircle,
-    title: "1-on-1 Support",
+    title: "1-on-1 Feedback",
     description:
-      "Get personalized feedback and mentorship from instructors whenever you need it.",
+      "Get actionable design critiques and personal guidance to refine your work.",
   },
 ];
 
@@ -91,27 +88,27 @@ const faqs = [
   {
     question: "What payment options are available?",
     answer:
-      "I accept all major credit and debit cards, UPI, net banking, and popular wallets. You can also pay via EMI options on select cards. International payments are supported through Stripe.",
+      "All major credit and debit cards, UPI, net banking, and popular wallets are accepted. International payments are supported securely via Stripe.",
   },
   {
     question: "Are there any prerequisites for the courses?",
     answer:
-      "Most of my courses are designed for beginners and require no prior experience. For intermediate and advanced courses, I recommend basic familiarity with the subject. Each course page lists specific prerequisites if any.",
+      "Most courses are structured from the fundamentals up and require zero prior experience. Advanced sections build progressively on foundational modules.",
   },
   {
-    question: "How long do I have access to the course?",
+    question: "How long do I retain access to the course content?",
     answer:
-      "Once enrolled, you get lifetime access to the course content, including all future updates and additions. You can learn at your own pace and revisit the material anytime.",
+      "You receive lifetime access to all video lessons, project files, and future curriculum additions. Learn completely at your own pace.",
   },
   {
-    question: "Do I get a certificate after completion?",
+    question: "Do I receive a certificate upon finishing?",
     answer:
-      "Yes! Upon completing all modules and assignments, you'll receive a verified digital certificate that you can share on LinkedIn, your portfolio, or with potential employers.",
+      "Yes! After completing all modules and the capstone project, you will be issued a verified certificate of completion.",
   },
   {
-    question: "What is the refund policy?",
+    question: "What is your refund policy?",
     answer:
-      "I offer a 7-day money-back guarantee on all courses. If you're not satisfied with the content, simply reach out to me within 7 days of purchase for a full refund — no questions asked.",
+      "A 7-day money-back guarantee applies to all courses. If you are not satisfied, simply email support within 7 days for a full refund.",
   },
 ];
 
@@ -133,45 +130,43 @@ export default function Courses() {
   };
 
   return (
-    <main className="min-h-screen bg-dark text-white">
+    <main className="min-h-screen bg-white text-slate-900">
       {/* ───── Hero Banner ───── */}
-      <section className="relative py-32 lg:py-40 overflow-hidden">
-        {/* ambient glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
+      <section className="relative py-28 lg:py-36 overflow-hidden bg-gradient-to-b from-blue-50/50 via-white to-slate-50/40 border-b border-slate-100">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-blue-400/10 rounded-full blur-[120px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-block text-xs font-semibold tracking-[0.3em] text-white/40 uppercase mb-6"
+            className="inline-block text-xs font-semibold tracking-[0.25em] text-blue-600 uppercase mb-4 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200"
           >
-            Learn &amp; Grow
+            Learn &amp; Master
           </motion.span>
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-podium font-bold gradient-text-h leading-tight"
+            className="text-4xl md:text-6xl font-podium font-bold text-slate-900 leading-tight"
           >
-            Master creative skills
+            Master High-Impact <span className="gradient-text">Creative Skills</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-6 text-lg md:text-xl text-white/60 max-w-2xl mx-auto"
+            className="mt-5 text-base md:text-lg text-slate-600 max-w-2xl mx-auto"
           >
-            Practical, project-based courses designed by industry professionals
-            to accelerate your creative career.
+            Practical, project-driven masterclasses built to fast-track your design, editing, and creative career.
           </motion.p>
         </div>
       </section>
 
       {/* ───── Course Cards ───── */}
-      <section className="py-24">
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             variants={container}
@@ -184,54 +179,52 @@ export default function Courses() {
               <motion.div
                 key={idx}
                 variants={item}
-                className="glass-card rounded-xl overflow-hidden group"
+                className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:border-blue-400/50 transition-all duration-300 flex flex-col justify-between"
               >
-                {/* Image Area */}
-                <div className="relative">
-                  <div
-                    className={`aspect-video bg-gradient-to-br ${course.gradient} rounded-t-xl flex items-center justify-center`}
-                  >
-                    <span className="text-4xl font-podium font-bold text-white/20 select-none">
-                      0{idx + 1}
+                <div>
+                  {/* Image Banner */}
+                  <div className="relative">
+                    <div
+                      className={`aspect-video bg-gradient-to-br ${course.gradient} flex items-center justify-center`}
+                    >
+                      <span className="text-4xl font-podium font-bold text-white/20 select-none">
+                        0{idx + 1}
+                      </span>
+                    </div>
+                    <span className="absolute top-4 right-4 bg-white/95 text-blue-600 text-xs font-bold px-3 py-1 rounded-full shadow-sm border border-slate-200/80">
+                      {course.badge}
                     </span>
                   </div>
-                  <span
-                    className={`absolute top-4 right-4 ${course.badgeColor} text-white text-xs font-semibold px-3 py-1 rounded-full`}
-                  >
-                    {course.badge}
-                  </span>
+
+                  {/* Content */}
+                  <div className="p-6">
+                    <div className="flex items-center gap-4 text-xs font-semibold text-slate-500 mb-3">
+                      <span className="flex items-center gap-1.5">
+                        <Clock className="w-4 h-4 text-blue-600" />
+                        {course.duration}
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <BarChart className="w-4 h-4 text-blue-600" />
+                        {course.level}
+                      </span>
+                    </div>
+
+                    <h3 className="text-xl font-bold text-slate-900 leading-snug">
+                      {course.title}
+                    </h3>
+                    <p className="text-slate-600 text-sm mt-2 leading-relaxed">
+                      {course.description}
+                    </p>
+                  </div>
                 </div>
 
-                {/* Content */}
-                <div className="p-6">
-                  {/* Meta */}
-                  <div className="flex items-center gap-4 text-sm text-white/40 mb-3">
-                    <span className="flex items-center gap-1.5">
-                      <Clock className="w-4 h-4" />
-                      {course.duration}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <BarChart className="w-4 h-4" />
-                      {course.level}
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl font-bold text-white">
-                    {course.title}
-                  </h3>
-                  <p className="text-white/50 text-sm mt-2 leading-relaxed">
-                    {course.description}
-                  </p>
-
-                  {/* Price + CTA */}
-                  <div className="flex items-center justify-between mt-6">
-                    <span className="text-2xl font-bold gradient-text">
-                      {course.price}
-                    </span>
-                    <button className="btn-gradient px-5 py-2.5 rounded-xl text-sm font-semibold">
-                      Enroll Now
-                    </button>
-                  </div>
+                <div className="p-6 pt-0 border-t border-slate-100 flex items-center justify-between mt-4">
+                  <span className="text-2xl font-bold font-podium text-blue-600">
+                    {course.price}
+                  </span>
+                  <button className="btn-gradient px-5 py-2.5 rounded-xl text-sm font-semibold text-white">
+                    Enroll Now
+                  </button>
                 </div>
               </motion.div>
             ))}
@@ -239,21 +232,18 @@ export default function Courses() {
         </div>
       </section>
 
-      {/* ───── Why Learn With Us ───── */}
-      <section className="py-24 bg-dark-50">
+      {/* ───── Why Choose Section ───── */}
+      <section className="py-20 bg-slate-50 border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-5xl font-podium font-bold gradient-text-h">
-              Why choose my courses
+          <div className="text-center mb-16">
+            <span className="text-xs font-semibold tracking-[0.25em] text-blue-600 uppercase bg-blue-50 border border-blue-200 px-3.5 py-1.5 rounded-full">
+              Benefits
+            </span>
+            <h2 className="text-3xl md:text-4xl font-podium font-bold text-slate-900 mt-4">
+              Why Learn With YASHFX
             </h2>
-            <div className="gradient-line mx-auto mt-6" />
-          </motion.div>
+            <div className="gradient-line mx-auto mt-4" />
+          </div>
 
           <motion.div
             variants={container}
@@ -268,13 +258,13 @@ export default function Courses() {
                 <motion.div
                   key={idx}
                   variants={item}
-                  className="glass-card rounded-xl p-6"
+                  className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:border-blue-400/50 hover:shadow-md transition-all duration-300"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-red-500/20 flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-blue-400" />
+                  <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 border border-blue-100">
+                    <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-lg font-bold text-white">{feat.title}</h3>
-                  <p className="text-white/50 text-sm mt-2 leading-relaxed">
+                  <h3 className="text-lg font-bold text-slate-900">{feat.title}</h3>
+                  <p className="text-slate-600 text-sm mt-2 leading-relaxed">
                     {feat.description}
                   </p>
                 </motion.div>
@@ -285,50 +275,36 @@ export default function Courses() {
       </section>
 
       {/* ───── FAQ Section ───── */}
-      <section className="py-24">
+      <section className="py-20">
         <div className="max-w-3xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-5xl font-podium font-bold gradient-text-h">
-              Frequently asked questions
+          <div className="text-center mb-14">
+            <span className="text-xs font-semibold tracking-[0.25em] text-blue-600 uppercase bg-blue-50 border border-blue-200 px-3.5 py-1.5 rounded-full">
+              Got Questions?
+            </span>
+            <h2 className="text-3xl md:text-4xl font-podium font-bold text-slate-900 mt-4">
+              Frequently Asked Questions
             </h2>
-            <div className="gradient-line mx-auto mt-6" />
-          </motion.div>
+            <div className="gradient-line mx-auto mt-4" />
+          </div>
 
-          <motion.div
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="space-y-4"
-          >
+          <div className="space-y-4">
             {faqs.map((faq, idx) => {
               const isOpen = openFaq === idx;
               return (
-                <motion.div
+                <div
                   key={idx}
-                  variants={item}
-                  className="glass-card rounded-xl overflow-hidden"
+                  className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm transition-all"
                 >
                   <button
                     onClick={() => toggleFaq(idx)}
-                    className="w-full flex items-center justify-between p-6 text-left"
+                    className="w-full flex items-center justify-between p-5 text-left font-semibold text-slate-900 hover:text-blue-600 transition-colors"
                   >
-                    <span className="font-semibold text-white pr-4">
-                      {faq.question}
-                    </span>
-                    <motion.span
-                      animate={{ rotate: isOpen ? 180 : 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="shrink-0"
-                    >
-                      <ChevronDown className="w-5 h-5 text-white/40" />
-                    </motion.span>
+                    <span>{faq.question}</span>
+                    <ChevronDown
+                      className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-300 ${
+                        isOpen ? "rotate-180 text-blue-600" : ""
+                      }`}
+                    />
                   </button>
 
                   <AnimatePresence initial={false}>
@@ -337,19 +313,19 @@ export default function Courses() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        transition={{ duration: 0.3 }}
                         className="overflow-hidden"
                       >
-                        <p className="px-6 pb-6 text-white/60 leading-relaxed">
+                        <p className="px-5 pb-5 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-3">
                           {faq.answer}
                         </p>
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </motion.div>
+                </div>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </section>
     </main>
