@@ -1,7 +1,18 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Crown, ArrowUpRight, Layers, Film, Code, Quote, Star } from "lucide-react";
+import {
+  Crown,
+  ArrowUpRight,
+  Layers,
+  Film,
+  Code,
+  Quote,
+  Star,
+  Sparkles,
+  CheckCircle2,
+  Play
+} from "lucide-react";
 
 /* ──────────────────────── animation variants ──────────────────────── */
 const fadeUp = {
@@ -48,6 +59,191 @@ function SectionHeader({
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
+   HERO VISUAL ANIMATION COMPONENT
+   ═══════════════════════════════════════════════════════════════════════ */
+function HeroVisual() {
+  const waveformBars = [40, 75, 50, 90, 65, 85, 45, 95, 70, 55, 80, 60, 88, 45, 70, 55];
+
+  return (
+    <div className="relative w-full max-w-lg mx-auto lg:max-w-none flex items-center justify-center pt-4 lg:pt-0">
+      {/* Background Rotating Animated Blueprint Geometry */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        {/* Outer Rotating Dashed Ring */}
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+          className="w-[360px] h-[360px] sm:w-[460px] sm:h-[460px] rounded-full border border-dashed border-blue-400/25"
+        />
+        {/* Inner Counter-Rotating Ring */}
+        <motion.div
+          animate={{ rotate: -360 }}
+          transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+          className="w-[260px] h-[260px] sm:w-[330px] sm:h-[330px] rounded-full border border-dashed border-blue-500/20"
+        />
+        {/* Central Ambient Glow */}
+        <div className="w-64 h-64 rounded-full bg-blue-500/15 blur-3xl pointer-events-none" />
+      </div>
+
+      {/* Main Studio Suite Window Card */}
+      <motion.div
+        animate={{ y: [0, -10, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        className="relative z-10 w-full bg-white/95 backdrop-blur-xl border border-slate-200/90 rounded-3xl shadow-2xl shadow-blue-500/10 overflow-hidden"
+      >
+        {/* Window Titlebar */}
+        <div className="px-4 py-3 bg-slate-50/90 border-b border-slate-200/80 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-400/90 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-400/90 inline-block" />
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/90 inline-block" />
+            <span className="text-[11px] font-mono text-slate-500 ml-2 font-medium">
+              yashfx_render_engine.mp4
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 text-[10px] font-semibold tracking-wider text-blue-600 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full uppercase">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-600" />
+            </span>
+            4K Live
+          </div>
+        </div>
+
+        {/* Video Monitor Area */}
+        <div className="relative aspect-video bg-slate-950 overflow-hidden">
+          <video
+            src="/portfolio/fronx-car-delivery.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            onLoadedData={(e) => e.currentTarget.play().catch(() => {})}
+            className="w-full h-full object-cover opacity-90"
+          />
+
+          {/* Video Corner Overlay Chips */}
+          <div className="absolute top-3 left-3 px-2 py-1 rounded bg-black/60 backdrop-blur-md text-white text-[9px] font-mono tracking-widest uppercase">
+            COMMERCIAL // CAR DELIVERY
+          </div>
+          <div className="absolute top-3 right-3 px-2 py-1 rounded bg-blue-600/90 backdrop-blur-md text-white text-[9px] font-mono font-bold tracking-wider">
+            60 FPS
+          </div>
+        </div>
+
+        {/* Live Timeline & Waveform Scrub Deck */}
+        <div className="p-4 sm:p-5 bg-white border-t border-slate-100 space-y-3">
+          {/* Animated Timeline Scrub Track */}
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between text-[10px] font-mono text-slate-500">
+              <span className="flex items-center gap-1 text-slate-700 font-semibold">
+                <Play className="w-2.5 h-2.5 text-blue-600 fill-current" />
+                PLAYING SEQUENCE
+              </span>
+              <span>00:14 / 00:30</span>
+            </div>
+            <div className="relative h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+              <motion.div
+                animate={{ width: ["15%", "95%", "15%"] }}
+                transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
+                className="h-full bg-blue-600 rounded-full relative"
+              >
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-white shadow" />
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Audio Waveform Equalizer + Track Meta */}
+          <div className="flex items-center justify-between pt-1">
+            <div className="flex items-end gap-1 h-5">
+              {waveformBars.map((h, i) => (
+                <motion.div
+                  key={i}
+                  animate={{ scaleY: [0.25, 1, 0.35, 0.85, 0.25] }}
+                  transition={{
+                    duration: 1.1 + (i % 4) * 0.2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: i * 0.05,
+                  }}
+                  className="w-1 bg-blue-500 rounded-full origin-bottom"
+                  style={{ height: `${h}%` }}
+                />
+              ))}
+            </div>
+
+            <div className="flex items-center gap-1.5 text-[9px] font-mono">
+              <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">
+                V1: 4K S-Log3
+              </span>
+              <span className="px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 font-semibold">
+                DaVinci LUT
+              </span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Floating Card 1: Top-Right (Color Grading) */}
+      <motion.div
+        animate={{ y: [0, -8, 0] }}
+        transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -top-6 -right-2 sm:-right-4 z-20 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl p-3 sm:p-3.5 shadow-xl shadow-blue-500/10 flex items-center gap-3"
+      >
+        <div className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0">
+          <Sparkles className="w-4 h-4" />
+        </div>
+        <div>
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs font-bold text-slate-900 leading-tight">
+              Color Grading
+            </span>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          </div>
+          <p className="text-[10px] text-slate-500 font-mono">
+            DaVinci • S-Log3
+          </p>
+        </div>
+      </motion.div>
+
+      {/* Floating Card 2: Bottom-Left (Vibe Coding) */}
+      <motion.div
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        className="absolute -bottom-6 -left-2 sm:-left-6 z-20 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl p-3 sm:p-3.5 shadow-xl shadow-blue-500/10 flex items-center gap-3"
+      >
+        <div className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0">
+          <Code className="w-4 h-4" />
+        </div>
+        <div>
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs font-bold text-slate-900 leading-tight">
+              Vibe Coding
+            </span>
+            <span className="text-[8px] font-bold px-1.5 py-0.2 rounded bg-blue-100 text-blue-700 font-mono">
+              100%
+            </span>
+          </div>
+          <p className="text-[10px] text-slate-500 font-mono">
+            React • Vite • Tailwind
+          </p>
+        </div>
+      </motion.div>
+
+      {/* Floating Card 3: Bottom-Right Tag (Turnaround Time) */}
+      <motion.div
+        animate={{ y: [-3, 5, -3] }}
+        transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        className="absolute -bottom-4 right-4 sm:right-8 z-20 bg-blue-600 text-white shadow-lg shadow-blue-500/30 px-3.5 py-1.5 rounded-full text-[10px] font-bold font-mono tracking-wider flex items-center gap-1.5"
+      >
+        <CheckCircle2 className="w-3.5 h-3.5 text-blue-200" />
+        48-72h Sprints
+      </motion.div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
    HERO
    ═══════════════════════════════════════════════════════════════════════ */
 function Hero() {
@@ -58,7 +254,7 @@ function Hero() {
   ];
 
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-b from-blue-50/40 via-white to-slate-50/50 py-20 lg:py-28">
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-b from-blue-50/40 via-white to-slate-50/50 py-16 lg:py-24">
       {/* Background Hero Subtle Artwork & Grid */}
       <img
         src="/hero-bg.jpg"
@@ -72,74 +268,89 @@ function Hero() {
       <div className="absolute bottom-0 left-10 w-[350px] h-[350px] rounded-full bg-blue-400/10 blur-3xl pointer-events-none" />
 
       {/* Hero Content */}
-      <motion.div
-        variants={stagger}
-        initial="hidden"
-        animate="show"
-        className="relative z-10 w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16"
-      >
-        {/* Badge */}
-        <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-6 bg-blue-50 border border-blue-200/80 px-4 py-1.5 rounded-full shadow-sm">
-          <Crown className="w-4 h-4 text-blue-600" />
-          <span className="text-blue-700 text-xs tracking-[0.2em] uppercase font-inter font-bold">
-            World-Class Digital Creator
-          </span>
-        </motion.div>
-
-        {/* Heading */}
-        <motion.h1
-          variants={fadeUp}
-          className="font-podium text-[clamp(3.2rem,8.5vw,7.5rem)] leading-[0.92] text-slate-900 font-bold tracking-tight"
-        >
-          Design.
-          <br />
-          <span className="text-blue-600">Disrupt.</span>
-          <br />
-          Conquer.
-        </motion.h1>
-
-        {/* Subtext */}
-        <motion.p
-          variants={fadeUp}
-          className="text-slate-600 max-w-lg mt-6 text-base sm:text-lg leading-relaxed font-normal"
-        >
-          I build fierce brand identities, cinematic video edits, and modern
-          vibe coding web applications that dominate markets and captivate users.
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div variants={fadeUp} className="flex flex-wrap gap-4 mt-8">
-          <Link to="/portfolio" className="btn-gradient inline-flex items-center gap-2">
-            SEE MY WORK
-            <ArrowUpRight className="w-4 h-4" />
-          </Link>
-          <a
-            href="https://wa.me/919773135547?text=Hello%20yashfx!"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-outline inline-flex items-center gap-2"
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          {/* Left Column: Heading, Badge, Subtext, CTAs, Stats */}
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            animate="show"
+            className="lg:col-span-7 flex flex-col justify-center"
           >
-            START A PROJECT
-          </a>
-        </motion.div>
-
-        {/* Stats Strip */}
-        <motion.div
-          variants={fadeUp}
-          className="flex flex-wrap gap-8 sm:gap-14 mt-14 border-t border-slate-200/90 pt-8"
-        >
-          {stats.map((s) => (
-            <div key={s.label}>
-              <span className="text-3xl sm:text-4xl font-bold text-slate-900 font-podium">
-                {s.value}
+            {/* Badge */}
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-6 bg-blue-50 border border-blue-200/80 px-4 py-1.5 rounded-full shadow-sm self-start">
+              <Crown className="w-4 h-4 text-blue-600" />
+              <span className="text-blue-700 text-xs tracking-[0.2em] uppercase font-inter font-bold">
+                World-Class Digital Creator
               </span>
-              <p className="text-slate-500 text-xs tracking-wider uppercase mt-1 font-inter font-semibold">
-                {s.label}
-              </p>
-            </div>
-          ))}
-        </motion.div>
-      </motion.div>
+            </motion.div>
+
+            {/* Heading */}
+            <motion.h1
+              variants={fadeUp}
+              className="font-podium text-[clamp(3.2rem,7.5vw,6.5rem)] leading-[0.92] text-slate-900 font-bold tracking-tight"
+            >
+              Design.
+              <br />
+              <span className="text-blue-600">Disrupt.</span>
+              <br />
+              Conquer.
+            </motion.h1>
+
+            {/* Subtext */}
+            <motion.p
+              variants={fadeUp}
+              className="text-slate-600 max-w-lg mt-6 text-base sm:text-lg leading-relaxed font-normal"
+            >
+              I build fierce brand identities, cinematic video edits, and modern
+              vibe coding web applications that dominate markets and captivate users.
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div variants={fadeUp} className="flex flex-wrap gap-4 mt-8">
+              <Link to="/portfolio" className="btn-gradient inline-flex items-center gap-2">
+                SEE MY WORK
+                <ArrowUpRight className="w-4 h-4" />
+              </Link>
+              <a
+                href="https://wa.me/919773135547?text=Hello%20yashfx!"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-outline inline-flex items-center gap-2"
+              >
+                START A PROJECT
+              </a>
+            </motion.div>
+
+            {/* Stats Strip */}
+            <motion.div
+              variants={fadeUp}
+              className="flex flex-wrap gap-8 sm:gap-14 mt-12 border-t border-slate-200/90 pt-8"
+            >
+              {stats.map((s) => (
+                <div key={s.label}>
+                  <span className="text-3xl sm:text-4xl font-bold text-slate-900 font-podium">
+                    {s.value}
+                  </span>
+                  <p className="text-slate-500 text-xs tracking-wider uppercase mt-1 font-inter font-semibold">
+                    {s.label}
+                  </p>
+                </div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* Right Column: Hero Visual Studio Showcase & Floating Animations */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="lg:col-span-5 relative mt-4 lg:mt-0"
+          >
+            <HeroVisual />
+          </motion.div>
+        </div>
+      </div>
     </section>
   );
 }
