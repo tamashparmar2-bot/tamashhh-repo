@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Play, X } from "lucide-react";
+import { ArrowUpRight, Play, X, Volume2 } from "lucide-react";
 
 const categories = ["All", "Editing", "Vibe Coding"];
 
@@ -156,6 +156,28 @@ export default function Portfolio() {
     setSelectedTitle(null);
   };
 
+  const handleMouseEnterVideo = (e: React.MouseEvent<HTMLElement>) => {
+    // Mute any other videos
+    document.querySelectorAll("video").forEach((v) => {
+      if (v !== e.currentTarget.querySelector("video")) {
+        v.muted = true;
+      }
+    });
+    const video = e.currentTarget.querySelector("video");
+    if (video) {
+      video.muted = false;
+      video.volume = 1;
+      video.play().catch(() => {});
+    }
+  };
+
+  const handleMouseLeaveVideo = (e: React.MouseEvent<HTMLElement>) => {
+    const video = e.currentTarget.querySelector("video");
+    if (video) {
+      video.muted = true;
+    }
+  };
+
   const filtered = filter === "All" ? projects : projects.filter((p) => p.category === filter);
 
   return (
@@ -225,6 +247,8 @@ export default function Portfolio() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
+                onMouseEnter={project.videoUrl ? handleMouseEnterVideo : undefined}
+                onMouseLeave={project.videoUrl ? handleMouseLeaveVideo : undefined}
                 onClick={() => {
                   if (project.projectUrl) {
                     window.open(project.projectUrl, "_blank");
@@ -256,10 +280,18 @@ export default function Portfolio() {
                     />
                   ) : (
                     <div
-                      className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-80`}
+                      className={`absolute inset-0 bg-gradient-br ${project.gradient} opacity-80`}
                     />
                   )}
                   <div className="absolute inset-0 bg-slate-950/20 pointer-events-none" />
+
+                  {/* Audio indicator when video has sound */}
+                  {project.videoUrl && (
+                    <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-600/90 text-white text-[10px] font-mono shadow-md backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                      <Volume2 className="w-3.5 h-3.5 animate-pulse text-blue-200" />
+                      <span className="font-semibold tracking-wider">AUDIO ON</span>
+                    </div>
+                  )}
 
                   {/* Hover overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-6 pointer-events-none">

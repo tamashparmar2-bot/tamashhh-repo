@@ -11,7 +11,8 @@ import {
   Star,
   Sparkles,
   CheckCircle2,
-  Play
+  Play,
+  Volume2
 } from "lucide-react";
 
 /* ──────────────────────── animation variants ──────────────────────── */
@@ -440,6 +441,27 @@ function PortfolioPreview() {
     { videoUrl: "/portfolio/yps-restroo.mp4", category: "Hospitality", title: "YP's Restroo" },
   ];
 
+  const handleMouseEnterVideo = (e: React.MouseEvent<HTMLElement>) => {
+    document.querySelectorAll("video").forEach((v) => {
+      if (v !== e.currentTarget.querySelector("video")) {
+        v.muted = true;
+      }
+    });
+    const video = e.currentTarget.querySelector("video");
+    if (video) {
+      video.muted = false;
+      video.volume = 1;
+      video.play().catch(() => {});
+    }
+  };
+
+  const handleMouseLeaveVideo = (e: React.MouseEvent<HTMLElement>) => {
+    const video = e.currentTarget.querySelector("video");
+    if (video) {
+      video.muted = true;
+    }
+  };
+
   return (
     <section className="py-24 lg:py-32 bg-slate-50/70 border-y border-slate-200/80 px-6 sm:px-10 lg:px-16">
       <SectionHeader label="SELECTED WORK" title="Featured Portfolio" subtitle="A quick glimpse of recent editing and visual productions." />
@@ -455,6 +477,8 @@ function PortfolioPreview() {
           >
             <Link
               to="/portfolio"
+              onMouseEnter={handleMouseEnterVideo}
+              onMouseLeave={handleMouseLeaveVideo}
               className="block rounded-2xl overflow-hidden relative group aspect-[4/5] bg-slate-900 shadow-sm border border-slate-200/90 hover:shadow-xl hover:border-blue-400 transition-all duration-300"
             >
               <video
@@ -467,6 +491,11 @@ function PortfolioPreview() {
                 onLoadedData={(e) => e.currentTarget.play().catch(() => {})}
                 className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-105"
               />
+              {/* Audio on indicator */}
+              <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-600/90 text-white text-[10px] font-mono shadow-md backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                <Volume2 className="w-3.5 h-3.5 animate-pulse text-blue-200" />
+                <span className="font-semibold tracking-wider">AUDIO ON</span>
+              </div>
               {/* hover overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
                 <span className="text-xs tracking-widest uppercase text-blue-400 mb-1 font-inter font-bold">
