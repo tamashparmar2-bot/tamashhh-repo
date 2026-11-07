@@ -16,6 +16,12 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: "Navratri Project",
+    category: "Editing",
+    gradient: "from-amber-500 via-orange-500 to-rose-600",
+    videoUrl: "/portfolio/navratri-project.mp4"
+  },
+  {
     title: "Dice 3D Animation",
     category: "Editing",
     gradient: "from-pink-500 via-red-500 to-yellow-500",
