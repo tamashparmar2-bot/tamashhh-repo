@@ -1,158 +1,360 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ArrowUpRight, X, Menu } from "lucide-react";
+import {
+  ArrowUpRight,
+  X,
+  Menu,
+  Mail,
+  Phone,
+  Clock,
+  FolderOpen
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { IconInstagram, IconTwitterX, IconYoutube, IconLinkedin } from "./SocialIcons";
 
 const NAV_LINKS = [
   { label: "Home", to: "/" },
   { label: "About", to: "/about" },
   { label: "Services", to: "/services" },
-  { label: "Portfolio", to: "/portfolio" },
+  { label: "Portfolio", to: "/portfolio", badge: "NEW" },
   { label: "Blog", to: "/blog" },
-  { label: "Resources", to: "/resources" },
-  { label: "Portal", to: "/portal" },
+  { label: "Resources", to: "/resources", badge: "FREE" },
+  { label: "Portal", to: "/portal", icon: FolderOpen },
 ];
 
-const OFFERS = [
-  "🔥 Limited Time Offer: Save 25% on Brand Identity Design & Video Editing. Code: YASHFX25",
-  "🎓 Learn Creative Skills: Enroll in our UI/UX Masterclass & Video Bootcamp for 20% off. Code: STUDY20",
-  "⚡ Premium Assets Hub: Download templates, presets, and color LUTs for free!"
+const ANNOUNCEMENTS = [
+  "🔥 Save 25% on Brand Identity Design & Video Editing — Use Code: YASHFX25",
+  "⚡ Free Assets Hub: Download video intro templates, LUTs, and React boilerplates",
+  "🚀 Fast Turnaround: 48-72h sprints for design and vibe coding deliverables"
 ];
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
-  const [currentOffer, setCurrentOffer] = useState(0);
+  const [announcementIdx, setAnnouncementIdx] = useState(0);
+  const [istTime, setIstTime] = useState("");
 
+  // Live IST Time
+  useEffect(() => {
+    const updateTime = () => {
+      try {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString("en-IN", {
+          timeZone: "Asia/Kolkata",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        });
+        setIstTime(timeStr);
+      } catch {
+        setIstTime("IST");
+      }
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Cycle Announcements
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentOffer((prev) => (prev + 1) % OFFERS.length);
-    }, 4500);
+      setAnnouncementIdx((prev) => (prev + 1) % ANNOUNCEMENTS.length);
+    }, 5000);
     return () => clearInterval(timer);
   }, []);
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-40 flex flex-col">
-        {/* Latest Offer Announcement Strip */}
-        <div className="bg-blue-600 text-white text-[10px] sm:text-xs font-semibold uppercase tracking-wider h-8 overflow-hidden select-none relative flex items-center justify-center shadow-sm">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentOffer}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="absolute w-full px-6 text-center text-ellipsis overflow-hidden whitespace-nowrap"
-            >
-              {OFFERS[currentOffer]}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Modern Minimal Navigation Bar (White & Blue) */}
-        <nav className="bg-white/90 backdrop-blur-xl border-b border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] w-full">
-          <div className="flex items-center justify-between px-6 sm:px-10 lg:px-16 py-4 lg:py-4.5">
-            {/* Logo */}
-            <Link
-              to="/"
-              className="flex items-center gap-2.5 group"
-            >
-              <img src="/favicon.png" alt="yashfx Logo" className="h-8 w-auto object-contain transition-transform group-hover:scale-105" />
-              <span className="font-podium text-2xl font-bold tracking-wider text-slate-900 group-hover:text-blue-600 transition-colors">
-                YASHFX
+      <header className="fixed top-0 left-0 right-0 z-40 flex flex-col bg-white">
+        {/* Top Details & Announcement Strip */}
+        <div className="bg-slate-900 text-white text-[11px] font-medium border-b border-slate-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 h-9 flex items-center justify-between gap-4">
+            {/* Left: Availability Status */}
+            <div className="hidden sm:flex items-center gap-2 text-slate-300 shrink-0">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-            </Link>
-
-            {/* Desktop Links */}
-            <div className="hidden lg:flex items-center gap-8">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className={`font-inter text-xs uppercase tracking-widest transition-colors duration-200 relative py-1 ${
-                    location.pathname === link.to
-                      ? "text-blue-600 font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-blue-600 after:rounded-full"
-                      : "text-slate-600 hover:text-blue-600 font-medium"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              <span className="font-semibold text-slate-200">Available for projects</span>
+              <span className="text-slate-500">•</span>
+              <span className="text-slate-400 flex items-center gap-1 font-mono text-[10px]">
+                <Clock className="w-3 h-3 text-blue-400" />
+                {istTime || "IST"} (GMT+5:30)
+              </span>
             </div>
 
-            {/* Desktop CTA */}
-            <Link
-              to="/contact"
-              className="hidden lg:flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 text-xs font-inter font-semibold uppercase tracking-wider rounded-full shadow-md shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-200"
-            >
-              Contact
-              <ArrowUpRight className="w-3.5 h-3.5" />
+            {/* Center: Rotating Announcements / Offers */}
+            <div className="flex-1 overflow-hidden h-full flex items-center justify-center relative min-w-0">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={announcementIdx}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-center truncate px-2 text-slate-200 text-[11px] tracking-wide"
+                >
+                  {ANNOUNCEMENTS[announcementIdx]}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Right: Direct Contact Details */}
+            <div className="hidden md:flex items-center gap-4 shrink-0 text-slate-300">
+              <a
+                href="mailto:contact@yashfx.in"
+                className="hover:text-blue-400 transition-colors flex items-center gap-1.5"
+                title="Send an email"
+              >
+                <Mail className="w-3 h-3 text-blue-400" />
+                <span>contact@yashfx.in</span>
+              </a>
+              <span className="text-slate-700">|</span>
+              <a
+                href="tel:+919773135547"
+                className="hover:text-blue-400 transition-colors flex items-center gap-1.5 font-mono text-[10px]"
+                title="Call directly"
+              >
+                <Phone className="w-3 h-3 text-emerald-400" />
+                <span>+91 97731 35547</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Navigation Bar */}
+        <nav className="bg-white/95 backdrop-blur-xl border-b border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.04)] w-full">
+          <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-8 lg:px-12 py-3.5">
+            {/* Logo + Tagline */}
+            <Link to="/" className="flex items-center gap-3 group">
+              <div className="relative">
+                <img
+                  src="/favicon.png"
+                  alt="YASHFX Logo"
+                  className="h-9 w-auto object-contain transition-transform group-hover:scale-105"
+                />
+              </div>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-podium text-2xl font-bold tracking-wider text-slate-900 group-hover:text-blue-600 transition-colors">
+                    YASHFX
+                  </span>
+                  <span className="hidden xl:inline-block text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded bg-blue-50 text-blue-600 border border-blue-200">
+                    STUDIO
+                  </span>
+                </div>
+                <span className="text-[9px] uppercase tracking-widest text-slate-500 font-semibold -mt-1 font-mono hidden sm:block">
+                  Design • Video • Code
+                </span>
+              </div>
             </Link>
 
-            {/* Hamburger */}
-            <button
-              onClick={() => setMenuOpen(true)}
-              className="flex lg:hidden text-slate-900 hover:text-blue-600 transition-colors p-1"
-              aria-label="Open menu"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
+            {/* Desktop Navigation Links */}
+            <div className="hidden lg:flex items-center gap-6 xl:gap-8">
+              {NAV_LINKS.map((link) => {
+                const isActive = location.pathname === link.to;
+                return (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className={`font-inter text-xs uppercase tracking-widest transition-all duration-200 relative py-1.5 flex items-center gap-1.5 ${
+                      isActive
+                        ? "text-blue-600 font-bold"
+                        : "text-slate-600 hover:text-blue-600 font-medium"
+                    }`}
+                  >
+                    <span>{link.label}</span>
+                    {link.badge && (
+                      <span className="text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-blue-600 text-white tracking-wider">
+                        {link.badge}
+                      </span>
+                    )}
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeNavIndicator"
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 rounded-full"
+                      />
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+
+            {/* Right Actions */}
+            <div className="flex items-center gap-3 sm:gap-4">
+              {/* Client Portal Quick Pill */}
+              <Link
+                to="/portal"
+                className="hidden sm:flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border border-slate-200 text-slate-700 hover:border-blue-300 hover:text-blue-600 hover:bg-blue-50/50 transition-all"
+              >
+                <FolderOpen className="w-3.5 h-3.5 text-blue-600" />
+                <span>Client Portal</span>
+              </Link>
+
+              {/* Primary Contact CTA */}
+              <Link
+                to="/contact"
+                className="hidden sm:flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 text-xs font-inter font-semibold uppercase tracking-wider rounded-full shadow-md shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-200"
+              >
+                <span>Let's Talk</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </Link>
+
+              {/* Hamburger Button for Mobile */}
+              <button
+                onClick={() => setMenuOpen(true)}
+                className="flex lg:hidden text-slate-800 hover:text-blue-600 transition-colors p-1.5 rounded-xl border border-slate-200 hover:border-blue-300"
+                aria-label="Open navigation menu"
+              >
+                <Menu className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </nav>
       </header>
 
-      {/* Mobile Menu */}
-      <div
-        className={`fixed inset-0 z-50 bg-white/98 backdrop-blur-xl transition-all duration-300 lg:hidden ${
-          menuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
-        }`}
-      >
-        <div className="flex items-center justify-between px-6 sm:px-10 py-4 border-b border-slate-100">
-          <Link to="/" onClick={() => setMenuOpen(false)} className="flex items-center gap-2">
-            <img src="/favicon.png" alt="yashfx Logo" className="h-8 w-auto object-contain" />
-            <span className="font-podium text-2xl font-bold tracking-wider text-slate-900">
-              YASHFX
-            </span>
-          </Link>
-          <button onClick={() => setMenuOpen(false)} className="text-slate-800 p-1" aria-label="Close menu">
-            <X className="w-7 h-7" />
-          </button>
-        </div>
-
-        <div className="flex flex-col items-center justify-center h-[calc(100%-72px)] gap-5">
-          {NAV_LINKS.map((link, i) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              onClick={() => setMenuOpen(false)}
-              className={`font-podium text-3xl sm:text-4xl uppercase tracking-wider transition-all duration-300 ${
-                location.pathname === link.to ? "text-blue-600" : "text-slate-800 hover:text-blue-600"
-              }`}
-              style={{
-                transitionDelay: `${i * 50 + 50}ms`,
-                opacity: menuOpen ? 1 : 0,
-                transform: menuOpen ? "translateY(0)" : "translateY(16px)",
-              }}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <Link
-            to="/contact"
-            onClick={() => setMenuOpen(false)}
-            className="mt-6 btn-gradient text-sm"
-            style={{
-              transitionDelay: `${NAV_LINKS.length * 50 + 50}ms`,
-              opacity: menuOpen ? 1 : 0,
-              transform: menuOpen ? "translateY(0)" : "translateY(16px)",
-            }}
+      {/* Full-featured Mobile Menu Drawer */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 bg-white/98 backdrop-blur-2xl lg:hidden flex flex-col"
           >
-            Contact Me
-            <ArrowUpRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </div>
+            {/* Top drawer header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
+              <Link
+                to="/"
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center gap-2.5"
+              >
+                <img src="/favicon.png" alt="YASHFX Logo" className="h-8 w-auto object-contain" />
+                <div className="flex flex-col">
+                  <span className="font-podium text-2xl font-bold tracking-wider text-slate-900">
+                    YASHFX
+                  </span>
+                  <span className="text-[9px] uppercase tracking-widest text-slate-500 font-semibold font-mono">
+                    Creative Studio
+                  </span>
+                </div>
+              </Link>
+              <button
+                onClick={() => setMenuOpen(false)}
+                className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+                aria-label="Close menu"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Scrollable menu body */}
+            <div className="flex-1 overflow-y-auto px-6 py-8 flex flex-col justify-between">
+              {/* Live availability banner */}
+              <div className="mb-6 p-3 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  <span className="text-xs font-semibold text-slate-800">
+                    Available for Q2 Projects
+                  </span>
+                </div>
+                <span className="text-[10px] font-mono text-slate-500">
+                  {istTime} IST
+                </span>
+              </div>
+
+              {/* Navigation links */}
+              <div className="flex flex-col gap-3">
+                {NAV_LINKS.map((link) => {
+                  const isActive = location.pathname === link.to;
+                  return (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      onClick={() => setMenuOpen(false)}
+                      className={`flex items-center justify-between py-2 px-3 rounded-xl transition-all ${
+                        isActive
+                          ? "bg-blue-600 text-white font-bold"
+                          : "text-slate-800 hover:bg-slate-100 hover:text-blue-600"
+                      }`}
+                    >
+                      <span className="font-podium text-xl uppercase tracking-wider">
+                        {link.label}
+                      </span>
+                      {link.badge && (
+                        <span
+                          className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${
+                            isActive
+                              ? "bg-white text-blue-600"
+                              : "bg-blue-50 text-blue-600 border border-blue-200"
+                          }`}
+                        >
+                          {link.badge}
+                        </span>
+                      )}
+                    </Link>
+                  );
+                })}
+              </div>
+
+              {/* Contact Details & Socials Card */}
+              <div className="mt-8 pt-6 border-t border-slate-200 space-y-4">
+                <div className="space-y-2 text-xs text-slate-600">
+                  <a
+                    href="mailto:contact@yashfx.in"
+                    className="flex items-center gap-2.5 p-2 rounded-xl bg-slate-50 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                  >
+                    <Mail className="w-4 h-4 text-blue-600" />
+                    <span className="font-medium">contact@yashfx.in</span>
+                  </a>
+                  <a
+                    href="tel:+919773135547"
+                    className="flex items-center gap-2.5 p-2 rounded-xl bg-slate-50 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                  >
+                    <Phone className="w-4 h-4 text-emerald-600" />
+                    <span className="font-mono font-medium">+91 97731 35547</span>
+                  </a>
+                </div>
+
+                {/* Social icons row */}
+                <div className="flex items-center justify-between pt-2">
+                  <div className="flex items-center gap-2">
+                    {[
+                      { Icon: IconInstagram, href: "https://instagram.com/shy_yshrj" },
+                      { Icon: IconTwitterX, href: "https://x.com" },
+                      { Icon: IconYoutube, href: "https://youtube.com" },
+                      { Icon: IconLinkedin, href: "https://linkedin.com" },
+                    ].map((item, i) => (
+                      <a
+                        key={i}
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-9 h-9 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-600 hover:text-blue-600 hover:border-blue-400 hover:bg-blue-50 transition-all shadow-sm"
+                      >
+                        <item.Icon className="w-4 h-4" />
+                      </a>
+                    ))}
+                  </div>
+
+                  <Link
+                    to="/contact"
+                    onClick={() => setMenuOpen(false)}
+                    className="btn-gradient py-2 px-4 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 text-white"
+                  >
+                    <span>Contact Me</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
