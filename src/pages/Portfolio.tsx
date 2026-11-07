@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Play, X } from "lucide-react";
 
-const categories = ["All", "Design", "Editing", "Vibe Coding"];
+const categories = ["All", "Editing", "Vibe Coding"];
 
 interface Project {
   title: string;
@@ -82,46 +82,6 @@ const projects: Project[] = [
     videoUrl: "/portfolio/v5.mp4"
   },
   {
-    title: "Luminara Brand Identity",
-    category: "Design",
-    gradient: "from-blue-600 to-blue-400"
-  },
-  {
-    title: "Aurora's Journey",
-    category: "Editing",
-    gradient: "from-purple-600 to-purple-400"
-  },
-  {
-    title: "Zenith Finance App",
-    category: "Design",
-    gradient: "from-blue-500 to-purple-500"
-  },
-  {
-    title: "Aurélien London",
-    category: "Design",
-    gradient: "from-red-600 to-red-400"
-  },
-  {
-    title: "Apex Sneakers Branding",
-    category: "Design",
-    gradient: "from-orange-600 to-red-500"
-  },
-  {
-    title: "Aura Cosmetics Packaging",
-    category: "Design",
-    gradient: "from-pink-400 to-rose-600"
-  },
-  {
-    title: "Nova Smartwatch UI",
-    category: "Design",
-    gradient: "from-cyan-500 to-blue-600"
-  },
-  {
-    title: "Vibe Builder AI",
-    category: "Vibe Coding",
-    gradient: "from-emerald-500 to-teal-400"
-  },
-  {
     title: "Zara Kai Fashion Portfolio",
     category: "Vibe Coding",
     gradient: "from-emerald-500 via-teal-500 to-lime-400",
@@ -134,22 +94,7 @@ const projects: Project[] = [
     gradient: "from-amber-100 via-orange-200 to-amber-300",
     imageUrl: "/portfolio/priya-portfolio.png",
     projectUrl: "https://priya-solanki-portfolio.vercel.app/"
-  },
-  {
-    title: "Vortex Music Festival",
-    category: "Design",
-    gradient: "from-amber-500 via-red-500 to-purple-600"
-  },
-  {
-    title: "Nebula Poster Series",
-    category: "Design",
-    gradient: "from-indigo-950 via-purple-800 to-pink-600"
-  },
-  {
-    title: "Motion Squad Showreel",
-    category: "Editing",
-    gradient: "from-purple-500 to-pink-500"
-  },
+  }
 ];
 
 // Helper mapping functions for asymmetrical layout grid
