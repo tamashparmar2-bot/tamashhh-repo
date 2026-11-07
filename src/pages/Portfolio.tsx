@@ -82,6 +82,13 @@ const projects: Project[] = [
     videoUrl: "/portfolio/v5.mp4"
   },
   {
+    title: "Creatikar Website",
+    category: "Vibe Coding",
+    gradient: "from-indigo-600 via-purple-600 to-blue-500",
+    imageUrl: "/portfolio/creatikar-portfolio.png",
+    projectUrl: "https://creatikar-website.vercel.app/"
+  },
+  {
     title: "Zara Kai Fashion Portfolio",
     category: "Vibe Coding",
     gradient: "from-emerald-500 via-teal-500 to-lime-400",
