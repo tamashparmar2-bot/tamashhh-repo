@@ -28,8 +28,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* About */}
           <div>
-            <Link to="/" className="font-podium text-2xl font-bold uppercase tracking-wider text-slate-900 hover:text-blue-600 transition-colors">
-              YASHFX
+            <Link to="/" className="inline-flex items-center gap-3 group">
+              <img src="/logo.png" alt="YASHFX Logo" className="h-9 w-9 object-contain rounded-xl shadow-sm transition-transform group-hover:scale-105" />
+              <span className="font-podium text-2xl font-bold uppercase tracking-wider text-slate-900 group-hover:text-blue-600 transition-colors">
+                YASHFX
+              </span>
             </Link>
             <p className="mt-4 text-sm text-slate-600 leading-relaxed">
               A modern creative studio crafting exceptional digital experiences through brand design,

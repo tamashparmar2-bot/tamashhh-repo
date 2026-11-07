@@ -129,9 +129,9 @@ export default function Navbar() {
             <Link to="/" className="flex items-center gap-3 group">
               <div className="relative">
                 <img
-                  src="/favicon.png"
+                  src="/logo.png"
                   alt="YASHFX Logo"
-                  className="h-9 w-auto object-contain transition-transform group-hover:scale-105"
+                  className="h-10 w-10 object-contain rounded-xl shadow-sm transition-transform group-hover:scale-105"
                 />
               </div>
               <div className="flex flex-col">
@@ -230,7 +230,7 @@ export default function Navbar() {
                 onClick={() => setMenuOpen(false)}
                 className="flex items-center gap-2.5"
               >
-                <img src="/favicon.png" alt="YASHFX Logo" className="h-8 w-auto object-contain" />
+                <img src="/logo.png" alt="YASHFX Logo" className="h-9 w-9 object-contain rounded-xl shadow-sm" />
                 <div className="flex flex-col">
                   <span className="font-podium text-2xl font-bold tracking-wider text-slate-900">
                     YASHFX

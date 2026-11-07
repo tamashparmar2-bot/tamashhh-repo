@@ -57,6 +57,16 @@ export default function Preloader({ onComplete }: PreloaderProps) {
               {progress.toString().padStart(3, "0")}
             </motion.div>
 
+            {/* Animated Brand Logo */}
+            <motion.img
+              src="/logo.png"
+              alt="YASHFX"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="w-16 h-16 rounded-2xl shadow-xl shadow-blue-500/20 object-contain"
+            />
+
             {/* Brand text with staggered letter fade-in */}
             <div className="flex overflow-hidden">
               {brandText.split("").map((char, index) => (
