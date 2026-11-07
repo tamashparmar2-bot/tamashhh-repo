@@ -139,9 +139,6 @@ export default function Navbar() {
                   <span className="font-podium text-2xl font-bold tracking-wider text-slate-900 group-hover:text-blue-600 transition-colors">
                     YASHFX
                   </span>
-                  <span className="hidden xl:inline-block text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded bg-blue-50 text-blue-600 border border-blue-200">
-                    STUDIO
-                  </span>
                 </div>
                 <span className="text-[9px] uppercase tracking-widest text-slate-500 font-semibold -mt-1 font-mono hidden sm:block">
                   Design • Video • Code
@@ -236,7 +233,7 @@ export default function Navbar() {
                     YASHFX
                   </span>
                   <span className="text-[9px] uppercase tracking-widest text-slate-500 font-semibold font-mono">
-                    Creative Studio
+                    Design • Video • Code
                   </span>
                 </div>
               </Link>

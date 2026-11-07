@@ -128,7 +128,7 @@ function HeroVisual() {
             <span className="w-2.5 h-2.5 rounded-full bg-rose-400/90" />
             <span className="w-2.5 h-2.5 rounded-full bg-amber-400/90" />
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/90" />
-            <span className="text-[10px] font-mono text-white/70 ml-2">yashfx_studio.mp4</span>
+            <span className="text-[10px] font-mono text-white/70 ml-2">yashfx_render.mp4</span>
           </div>
           <div className="flex items-center gap-1.5 text-[9px] font-bold tracking-widest text-blue-300 bg-blue-900/60 border border-blue-500/40 px-2 py-0.5 rounded-full uppercase">
             <span className="relative flex h-1.5 w-1.5">

@@ -35,7 +35,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="mt-4 text-sm text-slate-600 leading-relaxed">
-              A modern creative studio crafting exceptional digital experiences through brand design,
+              Crafting exceptional digital experiences through brand design,
               high-end editing, and vibe coding.
             </p>
             <div className="flex gap-3 mt-6">
