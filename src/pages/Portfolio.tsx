@@ -236,26 +236,17 @@ export default function Portfolio() {
               >
                 <div
                   className={`relative ${getAspectClass(idx)} overflow-hidden bg-slate-900`}
-                  onMouseEnter={(e) => {
-                    const video = e.currentTarget.querySelector("video");
-                    if (video) video.play().catch(() => {});
-                  }}
-                  onMouseLeave={(e) => {
-                    const video = e.currentTarget.querySelector("video");
-                    if (video) {
-                      video.pause();
-                      video.currentTime = 0;
-                    }
-                  }}
                 >
                   {project.videoUrl ? (
                     <video
                       src={project.videoUrl}
-                      preload="metadata"
+                      autoPlay
                       muted
                       loop
                       playsInline
-                      className="absolute inset-0 w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-all duration-300 group-hover:scale-105"
+                      preload="auto"
+                      onLoadedData={(e) => e.currentTarget.play().catch(() => {})}
+                      className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-105"
                     />
                   ) : project.imageUrl ? (
                     <img

@@ -233,25 +233,16 @@ function PortfolioPreview() {
             <Link
               to="/portfolio"
               className="block rounded-2xl overflow-hidden relative group aspect-[4/5] bg-slate-900 shadow-sm border border-slate-200/90 hover:shadow-xl hover:border-blue-400 transition-all duration-300"
-              onMouseEnter={(e) => {
-                const video = e.currentTarget.querySelector("video");
-                if (video) video.play().catch(() => {});
-              }}
-              onMouseLeave={(e) => {
-                const video = e.currentTarget.querySelector("video");
-                if (video) {
-                  video.pause();
-                  video.currentTime = 0;
-                }
-              }}
             >
               <video
                 src={p.videoUrl}
-                preload="metadata"
+                autoPlay
                 muted
                 loop
                 playsInline
-                className="absolute inset-0 w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-all duration-300 group-hover:scale-105"
+                preload="auto"
+                onLoadedData={(e) => e.currentTarget.play().catch(() => {})}
+                className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-105"
               />
               {/* hover overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">

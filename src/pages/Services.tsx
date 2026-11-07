@@ -155,7 +155,9 @@ export default function Services() {
                       loop
                       muted
                       playsInline
-                      className="absolute inset-0 w-full h-full object-cover opacity-85 hover:opacity-100 transition-opacity duration-300"
+                      preload="auto"
+                      onLoadedData={(e) => e.currentTarget.play().catch(() => {})}
+                      className="absolute inset-0 w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-300"
                     />
                   </div>
                 </div>
