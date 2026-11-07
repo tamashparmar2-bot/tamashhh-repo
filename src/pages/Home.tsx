@@ -438,7 +438,7 @@ function PortfolioPreview() {
   const items = [
     { videoUrl: "/portfolio/fronx-car-delivery.mp4", category: "Commercial", title: "Fronx Car Delivery" },
     { videoUrl: "/portfolio/navratri-project.mp4", category: "Culture & Reel", title: "Navratri Project" },
-    { videoUrl: "/portfolio/yps-restroo.mp4", category: "Hospitality", title: "YP's Restroo" },
+    { videoUrl: "/portfolio/tracking.mp4", category: "VFX & Motion", title: "Tracking VFX Showcase" },
   ];
 
   const handleMouseEnterVideo = (e: React.MouseEvent<HTMLElement>) => {
@@ -479,7 +479,7 @@ function PortfolioPreview() {
               to="/portfolio"
               onMouseEnter={handleMouseEnterVideo}
               onMouseLeave={handleMouseLeaveVideo}
-              className="block rounded-2xl overflow-hidden relative group aspect-[4/5] bg-slate-900 shadow-sm border border-slate-200/90 hover:shadow-xl hover:border-blue-400 transition-all duration-300"
+              className="block rounded-2xl overflow-hidden relative group aspect-video bg-slate-900 shadow-sm border border-slate-200/90 hover:shadow-xl hover:border-blue-400 transition-all duration-300"
             >
               <video
                 src={p.videoUrl}

@@ -12,6 +12,7 @@ interface Project {
   videoUrl?: string;
   imageUrl?: string;
   projectUrl?: string;
+  aspect: "9:16" | "16:9" | "16:10";
 }
 
 const projects: Project[] = [
@@ -19,136 +20,115 @@ const projects: Project[] = [
     title: "YP's Restroo",
     category: "Editing",
     gradient: "from-blue-600 via-indigo-600 to-slate-900",
-    videoUrl: "/portfolio/yps-restroo.mp4"
+    videoUrl: "/portfolio/yps-restroo.mp4",
+    aspect: "9:16"
   },
   {
     title: "Fronx Car Delivery",
     category: "Editing",
     gradient: "from-blue-600 via-cyan-600 to-indigo-900",
-    videoUrl: "/portfolio/fronx-car-delivery.mp4"
+    videoUrl: "/portfolio/fronx-car-delivery.mp4",
+    aspect: "16:9"
   },
   {
     title: "Navratri Project",
     category: "Editing",
     gradient: "from-blue-500 via-indigo-600 to-slate-900",
-    videoUrl: "/portfolio/navratri-project.mp4"
+    videoUrl: "/portfolio/navratri-project.mp4",
+    aspect: "16:9"
   },
   {
     title: "Dice 3D Animation",
     category: "Editing",
     gradient: "from-blue-600 via-sky-500 to-indigo-800",
-    videoUrl: "/portfolio/dice-animation.mp4"
+    videoUrl: "/portfolio/dice-animation.mp4",
+    aspect: "9:16"
   },
   {
     title: "Priya Web Promo",
     category: "Editing",
     gradient: "from-sky-500 via-blue-600 to-indigo-900",
-    videoUrl: "/portfolio/priya-web-promo.mp4"
+    videoUrl: "/portfolio/priya-web-promo.mp4",
+    aspect: "9:16"
   },
   {
     title: "Tracking VFX Showcase",
     category: "Editing",
     gradient: "from-blue-600 via-indigo-600 to-slate-900",
-    videoUrl: "/portfolio/tracking.mp4"
+    videoUrl: "/portfolio/tracking.mp4",
+    aspect: "16:9"
   },
   {
     title: "CGI Saregama Ad",
     category: "Editing",
     gradient: "from-blue-700 via-indigo-600 to-slate-900",
-    videoUrl: "/portfolio/cgi-saregama.mp4"
+    videoUrl: "/portfolio/cgi-saregama.mp4",
+    aspect: "9:16"
   },
   {
     title: "yashfx Brand Film",
     category: "Editing",
     gradient: "from-blue-600 via-indigo-600 to-slate-900",
-    videoUrl: "/portfolio/obsidian-draft-1.mp4"
+    videoUrl: "/portfolio/obsidian-draft-1.mp4",
+    aspect: "16:9"
   },
   {
     title: "Epic Journey Highlight",
     category: "Editing",
     gradient: "from-indigo-600 via-blue-600 to-slate-900",
-    videoUrl: "/portfolio/epic-journey.mp4"
+    videoUrl: "/portfolio/epic-journey.mp4",
+    aspect: "9:16"
   },
   {
     title: "Mango Social Reel",
     category: "Editing",
     gradient: "from-sky-500 via-blue-600 to-slate-900",
-    videoUrl: "/portfolio/mango-reel.mp4"
+    videoUrl: "/portfolio/mango-reel.mp4",
+    aspect: "9:16"
   },
   {
     title: "V5 Motion Showcase",
     category: "Editing",
     gradient: "from-blue-600 via-indigo-700 to-slate-900",
-    videoUrl: "/portfolio/v5.mp4"
+    videoUrl: "/portfolio/v5.mp4",
+    aspect: "9:16"
   },
   {
     title: "Creatikar Website",
     category: "Vibe Coding",
     gradient: "from-blue-600 via-indigo-600 to-slate-900",
     imageUrl: "/portfolio/creatikar-portfolio.png",
-    projectUrl: "https://creatikar-website.vercel.app/"
+    projectUrl: "https://creatikar-website.vercel.app/",
+    aspect: "16:10"
   },
   {
     title: "Zara Kai Fashion Portfolio",
     category: "Vibe Coding",
     gradient: "from-blue-600 via-indigo-600 to-slate-900",
     imageUrl: "/portfolio/fashion-portfolio.png",
-    projectUrl: "/fashion_portfolio_modern.html"
+    projectUrl: "/fashion_portfolio_modern.html",
+    aspect: "16:10"
   },
   {
     title: "Priya Solanki Portfolio",
     category: "Vibe Coding",
     gradient: "from-blue-600 via-indigo-600 to-slate-900",
     imageUrl: "/portfolio/priya-portfolio.png",
-    projectUrl: "https://priya-solanki-portfolio.vercel.app/"
+    projectUrl: "https://priya-solanki-portfolio.vercel.app/",
+    aspect: "16:10"
   }
 ];
-
-// Helper mapping functions for asymmetrical layout grid
-const getGridSpan = (idx: number) => {
-  const spans = [
-    "col-span-12 md:col-span-7",
-    "col-span-12 md:col-span-5",
-    "col-span-12 md:col-span-5",
-    "col-span-12 md:col-span-7",
-    "col-span-12 md:col-span-4",
-    "col-span-12 md:col-span-8",
-    "col-span-12 md:col-span-6",
-    "col-span-12 md:col-span-6",
-    "col-span-12 md:col-span-8",
-    "col-span-12 md:col-span-4",
-    "col-span-12 md:col-span-5",
-    "col-span-12 md:col-span-7",
-  ];
-  return spans[idx % spans.length];
-};
-
-const getAspectClass = (idx: number) => {
-  const aspects = [
-    "aspect-[16/10]",
-    "aspect-[4/5]",
-    "aspect-[4/3]",
-    "aspect-[16/9]",
-    "aspect-[4/3]",
-    "aspect-[16/10]",
-    "aspect-[4/5]",
-    "aspect-[16/10]",
-    "aspect-[16/9]",
-    "aspect-[4/3]",
-    "aspect-[4/5]",
-    "aspect-[16/10]",
-  ];
-  return aspects[idx % aspects.length];
-};
 
 export default function Portfolio() {
   const [filter, setFilter] = useState("All");
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
+  const [selectedAspect, setSelectedAspect] = useState<"9:16" | "16:9" | "16:10">("16:9");
 
-  const handleOpenVideo = (url: string, title: string) => {
+  const handleOpenVideo = (url: string, title: string, aspect: "9:16" | "16:9" | "16:10") => {
     setSelectedVideo(url);
     setSelectedTitle(title);
+    setSelectedAspect(aspect);
   };
 
   const handleCloseVideo = () => {
@@ -236,15 +216,14 @@ export default function Portfolio() {
           ))}
         </motion.div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 max-w-6xl mx-auto">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((project, idx) => (
+        {/* Grid - Masonry Columns perfectly matching 9:16 and 16:9 aspect ratios */}
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-6 max-w-7xl mx-auto [column-fill:_balance]">
+          <AnimatePresence>
+            {filtered.map((project) => (
               <motion.div
                 key={project.title}
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
                 onMouseEnter={project.videoUrl ? handleMouseEnterVideo : undefined}
@@ -253,13 +232,19 @@ export default function Portfolio() {
                   if (project.projectUrl) {
                     window.open(project.projectUrl, "_blank");
                   } else if (project.videoUrl) {
-                    handleOpenVideo(project.videoUrl, project.title);
+                    handleOpenVideo(project.videoUrl, project.title, project.aspect);
                   }
                 }}
-                className={`group glass-card overflow-hidden cursor-pointer bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 ${getGridSpan(idx)}`}
+                className="break-inside-avoid mb-6 group glass-card overflow-hidden cursor-pointer bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:shadow-2xl hover:border-blue-400 transition-all duration-300"
               >
                 <div
-                  className={`relative ${getAspectClass(idx)} overflow-hidden bg-slate-900`}
+                  className={`relative ${
+                    project.aspect === "9:16"
+                      ? "aspect-[9/16]"
+                      : project.aspect === "16:9"
+                      ? "aspect-[16/9]"
+                      : "aspect-[16/10]"
+                  } overflow-hidden bg-slate-950`}
                 >
                   {project.videoUrl ? (
                     <video
@@ -270,42 +255,49 @@ export default function Portfolio() {
                       playsInline
                       preload="auto"
                       onLoadedData={(e) => e.currentTarget.play().catch(() => {})}
-                      className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-105"
+                      className="absolute inset-0 w-full h-full object-cover opacity-95 group-hover:opacity-100 transition-all duration-300 group-hover:scale-[1.02]"
                     />
                   ) : project.imageUrl ? (
                     <img
                       src={project.imageUrl}
                       alt={project.title}
-                      className="absolute inset-0 w-full h-full object-cover opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                      className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-[1.02] transition-all duration-500"
                     />
                   ) : (
                     <div
-                      className={`absolute inset-0 bg-gradient-br ${project.gradient} opacity-80`}
+                      className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-80`}
                     />
                   )}
-                  <div className="absolute inset-0 bg-slate-950/20 pointer-events-none" />
+                  <div className="absolute inset-0 bg-slate-950/15 pointer-events-none" />
 
-                  {/* Audio indicator when video has sound */}
+                  {/* Format ratio pill tag (Top Left) */}
+                  <div className="absolute top-3.5 left-3.5 z-10 pointer-events-none">
+                    <span className="text-[10px] uppercase tracking-wider font-mono font-bold px-2.5 py-1 rounded-full bg-slate-950/75 text-white backdrop-blur-md border border-white/10 shadow-sm">
+                      {project.aspect === "9:16" ? "9:16 REEL" : project.aspect === "16:9" ? "16:9 CINEMATIC" : "WEB APP"}
+                    </span>
+                  </div>
+
+                  {/* Audio indicator when video has sound (Top Right) */}
                   {project.videoUrl && (
-                    <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-600/90 text-white text-[10px] font-mono shadow-md backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    <div className="absolute top-3.5 right-3.5 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-600/95 text-white text-[10px] font-mono shadow-md backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
                       <Volume2 className="w-3.5 h-3.5 animate-pulse text-blue-200" />
                       <span className="font-semibold tracking-wider">AUDIO ON</span>
                     </div>
                   )}
 
-                  {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-6 pointer-events-none">
+                  {/* Hover overlay with title & icon */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-5 pointer-events-none">
                     <span className="text-xs uppercase tracking-widest text-blue-400 font-bold mb-1">
                       {project.category}
                     </span>
                     <div className="flex items-center justify-between">
-                      <h3 className="text-xl font-bold text-white font-podium">{project.title}</h3>
+                      <h3 className="text-lg font-bold text-white font-podium leading-tight">{project.title}</h3>
                       {project.videoUrl ? (
-                        <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/30">
+                        <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/40">
                           <Play className="w-4 h-4 text-white fill-current translate-x-0.5" />
                         </div>
                       ) : (
-                        <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/30">
+                        <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/40">
                           <ArrowUpRight className="w-4 h-4 text-white" />
                         </div>
                       )}
@@ -313,22 +305,28 @@ export default function Portfolio() {
                   </div>
                 </div>
 
-                <div className="p-5 bg-white border-t border-slate-100">
-                  <div className="flex items-center justify-between">
+                <div className="p-4 bg-white border-t border-slate-100 flex items-center justify-between">
+                  <div>
                     <span className="text-[11px] uppercase tracking-wider font-semibold text-slate-500">
                       {project.category}
                     </span>
-                    {project.videoUrl ? (
-                      <span className="text-[10px] uppercase tracking-wider font-bold px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700">
-                        VIDEO
-                      </span>
-                    ) : project.projectUrl ? (
-                      <span className="text-[10px] uppercase tracking-wider font-bold px-2.5 py-0.5 rounded-full bg-blue-600 text-white shadow-sm">
-                        LIVE APP
-                      </span>
-                    ) : null}
+                    <h3 className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors mt-0.5">
+                      {project.title}
+                    </h3>
                   </div>
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors mt-1.5">{project.title}</h3>
+                  {project.videoUrl ? (
+                    <span className={`text-[10px] uppercase tracking-wider font-bold px-2.5 py-0.5 rounded-full ${
+                      project.aspect === "9:16"
+                        ? "bg-blue-50 text-blue-700 border border-blue-200"
+                        : "bg-slate-100 text-slate-700 border border-slate-200"
+                    }`}>
+                      {project.aspect}
+                    </span>
+                  ) : project.projectUrl ? (
+                    <span className="text-[10px] uppercase tracking-wider font-bold px-2.5 py-0.5 rounded-full bg-blue-600 text-white shadow-sm">
+                      LIVE APP
+                    </span>
+                  ) : null}
                 </div>
               </motion.div>
             ))}
@@ -354,7 +352,7 @@ export default function Portfolio() {
         </motion.div>
       </section>
 
-      {/* Video Lightbox Modal */}
+      {/* Video Lightbox Modal with responsive aspect-ratio fitting */}
       <AnimatePresence>
         {selectedVideo && (
           <motion.div
@@ -365,8 +363,10 @@ export default function Portfolio() {
             className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex flex-col items-center justify-center p-4 sm:p-6"
           >
             {/* Header info */}
-            <div className="absolute top-6 left-6 right-6 flex items-center justify-between pointer-events-none z-10 max-w-4xl mx-auto">
-              <h4 className="text-white font-bold font-podium text-lg sm:text-2xl uppercase tracking-wider">
+            <div className={`w-full flex items-center justify-between pointer-events-none z-10 mb-4 ${
+              selectedAspect === "9:16" ? "max-w-sm" : "max-w-4xl"
+            }`}>
+              <h4 className="text-white font-bold font-podium text-lg sm:text-xl uppercase tracking-wider">
                 {selectedTitle}
               </h4>
               <button
@@ -379,14 +379,18 @@ export default function Portfolio() {
               </button>
             </div>
 
-            {/* Video element wrapper */}
+            {/* Video element wrapper with adaptive 9:16 vs 16:9 ratio */}
             <motion.div
               initial={{ scale: 0.95, y: 16 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 16 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-4xl aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-black"
+              className={`relative w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-black ${
+                selectedAspect === "9:16"
+                  ? "max-w-sm aspect-[9/16] max-h-[80vh]"
+                  : "max-w-4xl aspect-video"
+              }`}
             >
               <video
                 src={selectedVideo}
