@@ -13,6 +13,7 @@ const footerLinks = {
     { label: "Selected Work", to: "/portfolio" },
     { label: "About Yashraj", to: "/about" },
     { label: "Disciplines", to: "/services" },
+    { label: "Video Editor in Anand", to: "/video-editor-anand" },
     { label: "Get a Custom Quote", to: "/contact" },
   ],
 };

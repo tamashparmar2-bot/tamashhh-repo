@@ -7,6 +7,7 @@ import Services from "./pages/Services";
 import Portfolio from "./pages/Portfolio";
 import ProjectDetail from "./pages/ProjectDetail";
 import Contact from "./pages/Contact";
+import VideoEditorAnand from "./pages/VideoEditorAnand";
 import Blog from "./pages/Blog";
 import Resources from "./pages/Resources";
 import ClientPortal from "./pages/ClientPortal";
@@ -29,6 +30,7 @@ export default function App() {
             <Route path="/work/:slug" element={<ProjectDetail />} />
             <Route path="/project/:slug" element={<ProjectDetail />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/video-editor-anand" element={<VideoEditorAnand />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/resources" element={<Resources />} />
             <Route path="/portal" element={<ClientPortal />} />

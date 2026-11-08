@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Layers,
@@ -126,6 +127,20 @@ export default function Services() {
           >
             From high-energy commercial edits to procedural 3D simulations and DaVinci color grading, I provide end-to-end visual finishing for ambitious brands.
           </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="mt-6 flex justify-center"
+          >
+            <Link
+              to="/video-editor-anand"
+              className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-700 hover:text-blue-600 hover:border-blue-400 shadow-sm transition-all"
+            >
+              <span>Based in Anand, Gujarat</span>
+              <span className="text-blue-600 font-bold">• Local Video Editing Services →</span>
+            </Link>
+          </motion.div>
         </div>
       </section>
 
