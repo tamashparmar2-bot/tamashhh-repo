@@ -19,11 +19,22 @@ export default function ProjectDetail() {
 
   const [isMuted, setIsMuted] = useState(true);
 
-  // Scroll to top on slug change
+  // Scroll to top and set page metadata on slug change
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setIsMuted(true);
-  }, [slug]);
+
+    if (project) {
+      document.title = `${project.title} | ${project.category} Portfolio – YASHFX`;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute(
+          "content",
+          `${project.tagline} Built with ${project.software.slice(0, 3).join(", ")} by Yashraj Parmar (YASHFX).`
+        );
+      }
+    }
+  }, [slug, project]);
 
   if (!project) {
     return (

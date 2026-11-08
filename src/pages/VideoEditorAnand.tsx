@@ -10,12 +10,52 @@ import {
   ArrowUpRight,
   Sparkles,
   Volume2,
-  Clock
+  Clock,
+  ArrowRight
 } from "lucide-react";
 import { PROJECTS } from "../data/projects";
 
 export default function VideoEditorAnand() {
-  // SEO dynamic head injection
+  const [activeFaq, setActiveFaq] = useState<number | null>(null);
+
+  const localProjects = PROJECTS.slice(0, 6);
+
+  const faqs = [
+    {
+      q: "Where in Anand are you located and how do we collaborate?",
+      a: "I am based in Anand, Gujarat, with educational roots at Sardar Patel University (SPU) and CVM University in Vallabh Vidyanagar. For local businesses, educational institutions, automotive showrooms, retail brands, and agencies in Anand, Vallabh Vidyanagar, Karamsad, and Nadiad, we can collaborate through in-person creative sessions or via secure high-speed cloud review links (Frame.io and Google Drive)."
+    },
+    {
+      q: "What video editing services do you provide in Anand?",
+      a: "I provide end-to-end commercial video editing services in Anand covering commercial brand films, social media reels (9:16 vertical for Instagram & YouTube Shorts), automotive delivery edits, festival & event recaps (such as Ganesha Aagman and Navratri celebrations), kinetic typography, 3D CGI product animations, and broadcast-standard DaVinci Resolve color grading."
+    },
+    {
+      q: "Why hire YASHFX as the best video editor in Anand instead of a traditional agency?",
+      a: "Traditional agencies often subcontract post-production to third-party vendors or route briefs through junior interns and slow account managers. Working directly with Yashraj Parmar gives you senior-level motion craftsmanship, frame-accurate musical pacing, rapid 48–72 hour delivery options, transparent direct communication, and significantly higher aesthetic quality without agency markups."
+    },
+    {
+      q: "How do I hire a freelance video editor in Anand for monthly social media reels?",
+      a: "You can hire me on a flexible per-project basis or on a dedicated monthly retainer. For local businesses, influencers, and brands in Anand and Vidyanagar needing consistent content, I offer batch video editing: you capture the raw footage, and I transform it into high-retention, color-graded reels complete with dynamic subtitles and custom foley sound design."
+    },
+    {
+      q: "Can you create 3D CGI animations and motion graphics for products in Anand?",
+      a: "Yes. As a 3D CGI artist and motion graphics designer in Anand, I craft photorealistic product visualizations, procedural texturing, rigid-body physics simulations, and exploded mechanical assemblies in Blender and Cinema 4D. This is ideal for manufacturing enterprises in the Vitthal Udyognagar GIDC belt, consumer brands, and tech companies seeking high-end visuals without expensive studio shoots."
+    },
+    {
+      q: "What is your typical turnaround time for an editing project?",
+      a: "Standard social media reels and short commercial edits are typically delivered within 48 to 72 hours. Comprehensive brand films, multi-camera event documentaries, or intricate 3D CGI simulations generally take 1 to 2 weeks, with milestone review cuts provided at every phase for your feedback."
+    },
+    {
+      q: "Can I provide my own raw footage, and what camera formats do you accept?",
+      a: "Yes. You can supply raw video files shot on any system—including Sony (S-Log3), Canon (C-Log), RED, Blackmagic RAW, Panasonic, DJI drone footage, or iPhone 4K ProRes. I also provide creative pre-production guidance, framing tips, and music curation prior to your shoot to ensure peak viewer retention."
+    },
+    {
+      q: "Do you serve clients outside Anand in Central Gujarat and internationally?",
+      a: "Yes. While Anand and Vallabh Vidyanagar are my primary creative base, I regularly partner with clients, agencies, and directors across Vadodara, Nadiad, Ahmedabad, Mumbai, and internationally across the United States, Europe, and the UAE using asynchronous cloud workflows."
+    }
+  ];
+
+  // Dynamic SEO metadata & Schema injection
   useEffect(() => {
     document.title = "Video Editor in Anand, Gujarat | Motion Graphics & CGI – YASHFX";
 
@@ -30,7 +70,6 @@ export default function VideoEditorAnand() {
       "Looking for a professional video editor in Anand? YASHFX offers premium video editing, motion graphics, 3D animation and CGI advertising for brands and businesses."
     );
 
-    // Canonical link
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement("link");
@@ -39,45 +78,63 @@ export default function VideoEditorAnand() {
     }
     canonical.setAttribute("href", "https://www.yashfx.in/video-editor-anand");
 
-    // JSON-LD LocalBusiness & Person Schema
+    // Comprehensive Structured Data Graph (Person + ProfessionalService + FAQPage)
     const schemaData = {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "YASHFX - Video Editor & Motion Designer in Anand",
-      "alternateName": "Yashraj Parmar Video Editing & Motion Graphics",
-      "url": "https://www.yashfx.in/video-editor-anand",
-      "logo": "https://www.yashfx.in/logo.png",
-      "image": "https://www.yashfx.in/creator-profile.jpg",
-      "telephone": "+919773135547",
-      "email": "contact@yashfx.in",
-      "founder": {
-        "@type": "Person",
-        "name": "Yashraj Parmar",
-        "jobTitle": "Motion Designer & Video Editor",
-        "alumniOf": [
-          "Sardar Patel University",
-          "CVM University",
-          "Arena Animation"
-        ]
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Anand",
-        "addressRegion": "Gujarat",
-        "addressCountry": "IN"
-      },
-      "areaServed": [
-        { "@type": "City", "name": "Anand" },
-        { "@type": "Place", "name": "Vallabh Vidyanagar" },
-        { "@type": "City", "name": "Nadiad" },
-        { "@type": "City", "name": "Vadodara" },
-        { "@type": "City", "name": "Ahmedabad" },
-        { "@type": "AdministrativeArea", "name": "Gujarat" }
-      ],
-      "priceRange": "$$",
-      "description": "Premium video editing, motion graphics, 3D CGI simulation, and color grading services based in Anand, Gujarat. Serving local brands and international productions.",
-      "sameAs": [
-        "https://www.instagram.com/yashhh.img"
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://www.yashfx.in/#person",
+          "name": "Yashraj Parmar",
+          "url": "https://www.yashfx.in/about",
+          "jobTitle": "Freelance Video Editor & Motion Graphics Designer",
+          "alumniOf": [
+            { "@type": "EducationalOrganization", "name": "Sardar Patel University" },
+            { "@type": "EducationalOrganization", "name": "CVM University" }
+          ],
+          "sameAs": [
+            "https://www.instagram.com/yashhh.img"
+          ]
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://www.yashfx.in/video-editor-anand#service",
+          "name": "YASHFX - Video Editor & Motion Graphics in Anand",
+          "alternateName": "YASHFX Post-Production & 3D CGI",
+          "url": "https://www.yashfx.in/video-editor-anand",
+          "image": "https://www.yashfx.in/creator-profile.jpg",
+          "telephone": "+919773135547",
+          "email": "contact@yashfx.in",
+          "founder": { "@id": "https://www.yashfx.in/#person" },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Anand",
+            "addressRegion": "Gujarat",
+            "addressCountry": "IN"
+          },
+          "areaServed": [
+            { "@type": "City", "name": "Anand" },
+            { "@type": "Place", "name": "Vallabh Vidyanagar" },
+            { "@type": "City", "name": "Nadiad" },
+            { "@type": "City", "name": "Vadodara" },
+            { "@type": "City", "name": "Ahmedabad" },
+            { "@type": "AdministrativeArea", "name": "Gujarat" }
+          ],
+          "priceRange": "$$",
+          "description": "Professional commercial video editing, 3D CGI animation, motion graphics, and DaVinci Resolve color grading by freelance creator Yashraj Parmar in Anand, Gujarat."
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://www.yashfx.in/video-editor-anand#faq",
+          "mainEntity": faqs.map((faq) => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": faq.a
+            }
+          }))
+        }
       ]
     };
 
@@ -91,14 +148,9 @@ export default function VideoEditorAnand() {
     scriptTag.textContent = JSON.stringify(schemaData);
 
     return () => {
-      // Clean up injected schema on unmount
       if (scriptTag) scriptTag.remove();
     };
   }, []);
-
-  const [activeFaq, setActiveFaq] = useState<number | null>(null);
-
-  const localProjects = PROJECTS.slice(0, 6);
 
   const handleMouseEnterVideo = (e: React.MouseEvent<HTMLElement>) => {
     document.querySelectorAll("video").forEach((v) => {
@@ -121,29 +173,6 @@ export default function VideoEditorAnand() {
     }
   };
 
-  const faqs = [
-    {
-      q: "Where in Anand are you located and how do we collaborate?",
-      a: "I am based right here in Anand, Gujarat (with educational roots at Sardar Patel University and CVM University in Vallabh Vidyanagar). For local businesses, educational institutions, automotive showrooms, and agencies in Anand, Vallabh Vidyanagar, and Nadiad, we can collaborate both in-person or via secure cloud review links (Frame.io/Google Drive)."
-    },
-    {
-      q: "What types of video editing services do you provide in Anand?",
-      a: "I handle commercial brand films, social media reels (9:16 vertical), automotive delivery videos, festival/cultural recaps (such as Ganesha Aagman and Navratri celebrations), product showcases, 3D CGI animations, kinetic typography, and DaVinci Resolve color grading."
-    },
-    {
-      q: "What is your typical turnaround time for a video project?",
-      a: "Standard social reels and short commercial edits are typically delivered within 48 to 72 hours. Larger commercial spots, multi-camera event films, or complex 3D CGI simulations generally take 1 to 2 weeks with regular milestone previews."
-    },
-    {
-      q: "Can I provide my own raw footage, or do you also help with direction?",
-      a: "You can supply raw camera footage from any camera system (Sony S-Log3, Canon Log, RED, iPhone ProRes, etc.). I also provide creative pre-production guidance, storyboard review, and music curation to ensure the edit achieves maximum viewer retention."
-    },
-    {
-      q: "Do you serve clients outside Anand in Gujarat?",
-      a: "Yes. While Anand and Vallabh Vidyanagar are my home base, I frequently work with clients, brands, and agencies across Vadodara, Nadiad, Ahmedabad, and globally across remote pipelines."
-    }
-  ];
-
   return (
     <article className="bg-white text-navy-900 overflow-x-hidden pt-4 pb-24">
       {/* ── 1. Breadcrumbs & Local Tag ── */}
@@ -161,7 +190,7 @@ export default function VideoEditorAnand() {
         </ol>
       </nav>
 
-      {/* ── 2. Hero Section ── */}
+      {/* ── 2. Hero Section (One Clear H1) ── */}
       <header className="relative py-16 lg:py-24 overflow-hidden bg-gradient-to-b from-blue-50/40 via-white to-slate-50/40 border-b border-slate-100">
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -180,8 +209,8 @@ export default function VideoEditorAnand() {
             <span className="text-blue-600">Motion Graphics & 3D CGI</span>
           </h1>
 
-          <p className="font-space text-slate-600 text-base sm:text-xl font-normal max-w-2xl mx-auto mt-6 leading-relaxed">
-            Looking for a professional video editor in Anand? YASHFX provides cinema-grade commercial editing, kinetic typography, 3D animation, and DaVinci color grading tailored for brands, entrepreneurs, and agencies across Gujarat.
+          <p className="font-space text-slate-600 text-base sm:text-xl font-normal max-w-3xl mx-auto mt-6 leading-relaxed">
+            Looking for the <strong>best video editor in Anand</strong>? YASHFX delivers cinema-grade commercial video editing services, kinetic motion graphics, 3D CGI product animation, and DaVinci color grading tailored for brands, entrepreneurs, and agencies across Anand, Vallabh Vidyanagar, and Central Gujarat.
           </p>
 
           {/* Quick CTAs */}
@@ -220,14 +249,14 @@ export default function VideoEditorAnand() {
         </div>
       </header>
 
-      {/* ── 3. Core Services in Anand (Semantic H2) ── */}
+      {/* ── 3. Core Services in Anand (Semantic H2 & H3) ── */}
       <section className="py-20 lg:py-28 max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 border-b border-slate-100">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-mono uppercase tracking-widest text-blue-600 font-bold block mb-2">
             SPECIALIZED POST-PRODUCTION
           </span>
           <h2 className="font-podium text-3xl sm:text-5xl font-bold text-navy-900 leading-tight uppercase">
-            Professional Video Editing & Motion Services in Anand
+            Video Editing Services in Anand & Central Gujarat
           </h2>
           <p className="font-space text-slate-600 mt-4 text-base leading-relaxed">
             From local business commercials in the Charotar region to high-octane social campaigns, I combine frame-accurate rhythmic cuts with cutting-edge visual effects.
@@ -241,10 +270,10 @@ export default function VideoEditorAnand() {
                 <Film className="w-6 h-6" />
               </div>
               <h3 className="font-podium text-2xl text-navy-900 font-bold mb-2">
-                Commercial Video Editing
+                Commercial Video Editing Services
               </h3>
               <p className="font-space text-slate-600 text-xs sm:text-sm leading-relaxed">
-                Automotive delivery films, brand teasers, and high-retention 9:16 Instagram Reels cut tightly to beats with custom sound design.
+                Automotive delivery films, brand commercials, YouTube edits, and high-retention 9:16 Instagram Reels cut tightly to beats with custom sound design.
               </p>
             </div>
             <span className="text-[11px] font-mono text-blue-600 font-bold mt-6 uppercase">
@@ -258,10 +287,10 @@ export default function VideoEditorAnand() {
                 <Layers className="w-6 h-6" />
               </div>
               <h3 className="font-podium text-2xl text-navy-900 font-bold mb-2">
-                Motion Graphics & Title Direction
+                Motion Graphics Designer in Anand
               </h3>
               <p className="font-space text-slate-600 text-xs sm:text-sm leading-relaxed">
-                Dynamic kinetic typography, custom logo reveals, lower thirds, and animated overlays that elevate your brand presentation.
+                Dynamic kinetic typography, custom logo reveals, lower thirds, and animated overlays that elevate your brand presentation above competitors.
               </p>
             </div>
             <span className="text-[11px] font-mono text-blue-600 font-bold mt-6 uppercase">
@@ -275,10 +304,10 @@ export default function VideoEditorAnand() {
                 <Box className="w-6 h-6" />
               </div>
               <h3 className="font-podium text-2xl text-navy-900 font-bold mb-2">
-                3D CGI & Product Animation
+                3D CGI Artist & Product Animation
               </h3>
               <p className="font-space text-slate-600 text-xs sm:text-sm leading-relaxed">
-                Photorealistic product reveals, mechanical simulations, and macro studio lighting rendered in Blender & Cinema 4D.
+                Photorealistic product reveals, mechanical simulations, and macro studio lighting rendered in Blender & Cinema 4D for local manufacturers and brands.
               </p>
             </div>
             <span className="text-[11px] font-mono text-blue-600 font-bold mt-6 uppercase">
@@ -292,7 +321,7 @@ export default function VideoEditorAnand() {
                 <Palette className="w-6 h-6" />
               </div>
               <h3 className="font-podium text-2xl text-navy-900 font-bold mb-2">
-                DaVinci Color Grading
+                DaVinci Resolve Color Grading
               </h3>
               <p className="font-space text-slate-600 text-xs sm:text-sm leading-relaxed">
                 Professional color management for Sony S-Log3, Canon Log, and RED footage, creating rich, saturated, cinematic film grades.
@@ -303,9 +332,20 @@ export default function VideoEditorAnand() {
             </span>
           </div>
         </div>
+
+        {/* Contextual Internal Link to Full Services */}
+        <div className="mt-12 text-center">
+          <Link
+            to="/services"
+            className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-blue-600 hover:text-blue-700 transition-colors"
+          >
+            <span>Explore All Post-Production Capabilities & Disciplines</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
       </section>
 
-      {/* ── 4. Real Work Showcase (Portfolio Grid with Audio Hover) ── */}
+      {/* ── 4. Real Work Showcase (Portfolio Grid with Correct H2/H3 Hierarchy) ── */}
       <section className="py-20 lg:py-28 bg-slate-50/70 border-b border-slate-200/80 px-6 sm:px-10 lg:px-16">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
@@ -358,9 +398,10 @@ export default function VideoEditorAnand() {
                       <span className="text-[10px] font-mono uppercase tracking-widest text-blue-400 font-bold">
                         {p.category}
                       </span>
-                      <h4 className="font-podium text-2xl text-white font-bold leading-tight mt-0.5 group-hover:text-blue-300 transition-colors">
+                      {/* Fixed: Semantic H3 directly under section H2 */}
+                      <h3 className="font-podium text-2xl text-white font-bold leading-tight mt-0.5 group-hover:text-blue-300 transition-colors">
                         {p.title}
-                      </h4>
+                      </h3>
                       <p className="text-xs text-slate-300 line-clamp-1 mt-1 font-space">
                         {p.client}
                       </p>
@@ -379,10 +420,18 @@ export default function VideoEditorAnand() {
               </div>
             ))}
           </div>
+
+          {/* Contextual Link to Full Portfolio */}
+          <div className="mt-12 text-center">
+            <Link to="/portfolio" className="btn-outline inline-flex items-center gap-2">
+              EXPLORE ALL 13+ PORTFOLIO CASE STUDIES
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* ── 5. Local Service Areas & Context (Semantic H2) ── */}
+      {/* ── 5. Local Service Areas & Context (Semantic H2 & H3) ── */}
       <section className="py-20 lg:py-28 max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 border-b border-slate-100">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           <div className="lg:col-span-6">
@@ -390,13 +439,16 @@ export default function VideoEditorAnand() {
               LOCAL REGIONAL COVERAGE
             </span>
             <h2 className="font-podium text-3xl sm:text-5xl font-bold text-navy-900 leading-tight uppercase mb-6">
-              Serving Anand, Vidyanagar & Central Gujarat
+              Freelance Video Editor in Anand, Vidyanagar & Regional Hubs
             </h2>
             <p className="font-space text-slate-600 text-base leading-relaxed mb-4">
-              As an independent video editor and motion designer with roots in Anand and educational background at <strong>Sardar Patel University (SPU)</strong> and <strong>CVM University in Vallabh Vidyanagar</strong>, I provide local businesses and marketing teams with direct, high-caliber creative partnerships without agency overhead.
+              As an independent <strong>freelance video editor in Anand</strong> with academic roots at <strong>Sardar Patel University (SPU)</strong> and <strong>CVM University in Vallabh Vidyanagar</strong>, I provide local businesses, institutions, and creative agencies with direct, high-caliber creative partnerships without agency overhead.
+            </p>
+            <p className="font-space text-slate-600 text-base leading-relaxed mb-4">
+              Whether you are an automotive dealership on 100 Feet Road, a college or coaching academy in Vidyanagar, a retail brand near Nana Bazar and Mota Bazar, or an industrial manufacturer in the Vitthal Udyognagar GIDC belt, I deliver broadcast-ready video assets tailored for your audience.
             </p>
             <p className="font-space text-slate-600 text-base leading-relaxed mb-6">
-              Whether you are an automotive dealership on 100 Feet Road, an educational institution in Vidyanagar, a retail brand in Anand city, or a manufacturing enterprise in the GIDC belt, I deliver broadcast-ready video assets tailored for your audience.
+              Need a dedicated creative partner? Learn more about my journey on the <Link to="/about" className="text-blue-600 font-semibold underline underline-offset-4 hover:text-blue-700">About Yashraj Parmar</Link> page or schedule a direct consultation.
             </p>
 
             <div className="grid grid-cols-2 gap-3 text-xs font-mono uppercase tracking-wider text-navy-900 font-semibold">
@@ -404,13 +456,13 @@ export default function VideoEditorAnand() {
                 • Anand City & Gamdi
               </div>
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-                • Vallabh Vidyanagar
+                • Vallabh Vidyanagar (V.V. Nagar)
               </div>
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-                • Nadiad & Kheda
+                • Nadiad & Kheda District
               </div>
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-                • Vadodara & Ahmedabad
+                • Vadodara & Ahmedabad Hubs
               </div>
             </div>
           </div>
@@ -418,7 +470,7 @@ export default function VideoEditorAnand() {
           <div className="lg:col-span-6">
             <div className="p-8 sm:p-10 rounded-3xl bg-blue-50/70 border border-blue-200 shadow-xl shadow-blue-500/5">
               <h3 className="font-podium text-3xl text-navy-900 font-bold mb-4">
-                Why Choose YASHFX for Local Projects?
+                Why Choose YASHFX for Local Projects in Anand?
               </h3>
               <ul className="space-y-4 text-sm font-space text-slate-700">
                 <li className="flex items-start gap-3">
@@ -451,7 +503,7 @@ export default function VideoEditorAnand() {
               FREQUENTLY ASKED QUESTIONS
             </span>
             <h2 className="font-podium text-3xl sm:text-5xl font-bold text-navy-900 leading-tight uppercase">
-              Frequently Asked Questions (Anand Video Editing)
+              Frequently Asked Questions (Anand Video Editing & Motion)
             </h2>
             <p className="font-space text-slate-600 mt-3 text-base">
               Clear answers regarding pricing, footage handling, turnaround, and collaboration.
@@ -495,7 +547,7 @@ export default function VideoEditorAnand() {
             START YOUR LOCAL PROJECT TODAY
           </span>
           <h2 className="font-podium text-4xl sm:text-6xl font-bold tracking-tight mb-4 uppercase">
-            Let&apos;s Create Something Impactful in Anand
+            Hire a Top Video Editor in Anand for Your Next Project
           </h2>
           <p className="font-space text-blue-100 text-base sm:text-lg max-w-2xl mx-auto mb-8 font-normal leading-relaxed">
             Reach out directly to discuss your footage, goals, timeline, and pricing. Average response time is under 12 hours.
@@ -510,12 +562,12 @@ export default function VideoEditorAnand() {
             >
               CHAT ON WHATSAPP (+91 97731 35547)
             </a>
-            <a
-              href="mailto:contact@yashfx.in?subject=Video%20Editing%20Inquiry%20from%20Anand"
-              className="px-8 py-3.5 rounded-full bg-blue-800/80 hover:bg-blue-800 text-white border border-blue-400/40 font-inter font-bold text-xs uppercase tracking-wider transition-all"
+            <Link
+              to="/contact"
+              className="px-8 py-3.5 rounded-full bg-blue-800/80 hover:bg-blue-800 text-white border border-blue-400/40 font-inter font-bold text-xs uppercase tracking-wider transition-all inline-flex items-center gap-1.5"
             >
-              EMAIL: contact@yashfx.in
-            </a>
+              CUSTOM QUOTE FORM <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </div>
       </section>

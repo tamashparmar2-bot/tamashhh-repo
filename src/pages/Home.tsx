@@ -634,11 +634,11 @@ function AboutArtistSection() {
             </h2>
 
             <p className="font-space text-slate-600 text-base sm:text-lg leading-relaxed mt-6">
-              I am Yashraj Parmar, an independent motion designer and commercial video editor. I collaborate with direct brands, directors, and agencies looking for razor-sharp visual rhythm, cinematic color grading, and tactile 3D simulations.
+              I am Yashraj Parmar, an independent motion designer and commercial video editor based in Anand, Gujarat. I collaborate with direct brands, directors, and agencies looking for razor-sharp visual rhythm, cinematic color grading, and tactile 3D simulations.
             </p>
 
             <p className="font-space text-slate-600 text-base sm:text-lg leading-relaxed mt-4">
-              Every transition is paced to music; every frame is graded with purpose. Rather than relying on generic presets, each production is built from the ground up to provoke an emotional reaction and leave a lasting impression.
+              Every transition is paced to music; every frame is graded with purpose. In addition to remote productions worldwide, I offer dedicated <Link to="/video-editor-anand" className="text-blue-600 font-semibold underline underline-offset-4 hover:text-blue-700 transition-colors">video editing services in Anand</Link> for regional businesses, creators, and agencies across Anand, Vallabh Vidyanagar, and Central Gujarat seeking hands-on creative collaboration.
             </p>
 
             {/* Software Stack Pills */}
@@ -748,6 +748,28 @@ function CreativeServicesSection() {
               </div>
             </motion.div>
           ))}
+        </div>
+
+        {/* Local Service Banner */}
+        <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-slate-50 border border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          <div className="space-y-1">
+            <span className="text-xs font-mono uppercase tracking-widest text-blue-600 font-bold block">
+              Regional Production Hub
+            </span>
+            <p className="font-space text-base text-navy-900 font-bold">
+              Looking for a dedicated video editor or motion graphics designer in Anand?
+            </p>
+            <p className="font-space text-xs sm:text-sm text-slate-600">
+              Direct, in-person or cloud-collaborative editing for businesses across Anand, Vallabh Vidyanagar, Nadiad, and Central Gujarat.
+            </p>
+          </div>
+          <Link
+            to="/video-editor-anand"
+            className="btn-outline inline-flex items-center gap-2 self-start sm:self-auto shrink-0 text-xs py-3 px-6"
+          >
+            LOCAL SERVICES IN ANAND
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
       </div>
     </section>

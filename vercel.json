@@ -1,4 +1,28 @@
 {
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "tamashhh.vercel.app"
+        }
+      ],
+      "destination": "https://www.yashfx.in/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "yashfx.in"
+        }
+      ],
+      "destination": "https://www.yashfx.in/$1",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",

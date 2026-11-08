@@ -2,13 +2,138 @@ import { Outlet, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { getProjectBySlug } from "../data/projects";
+
+interface RouteMeta {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+}
+
+const STATIC_ROUTE_META: Record<string, RouteMeta> = {
+  "/": {
+    title: "YASHFX – Video Editing, 3D CGI & Motion Graphics Studio",
+    description:
+      "YASHFX is a creative post-production studio by Yashraj Parmar, delivering commercial video editing, kinetic motion graphics, 3D CGI simulations, and DaVinci color grading.",
+  },
+  "/video-editor-anand": {
+    title: "Video Editor in Anand, Gujarat | Motion Graphics & CGI – YASHFX",
+    description:
+      "Looking for a professional video editor in Anand? YASHFX offers premium video editing, motion graphics, 3D animation and CGI advertising for brands and businesses.",
+  },
+  "/portfolio": {
+    title: "Selected Works & Portfolio | Commercial Video Editing & CGI – YASHFX",
+    description:
+      "Explore the commercial video editing, 3D CGI animations, vertical social reels, and kinetic typography portfolio by Yashraj Parmar (YASHFX).",
+  },
+  "/services": {
+    title: "Post-Production & Motion Design Services | YASHFX",
+    description:
+      "Explore post-production services including commercial video editing, kinetic typography, 3D CGI animation, and DaVinci Resolve color grading.",
+  },
+  "/about": {
+    title: "About Yashraj Parmar | Motion Designer & Video Editor – YASHFX",
+    description:
+      "Meet Yashraj Parmar, independent motion designer and commercial video editor behind YASHFX, crafting narrative velocity for brands and creators.",
+  },
+  "/contact": {
+    title: "Contact YASHFX | Hire Video Editor & Motion Designer",
+    description:
+      "Get in touch with Yashraj Parmar for commercial video editing, 3D CGI, and motion graphics projects. Get a quote within 12 hours.",
+  },
+  "/blog": {
+    title: "Insights & Articles on Motion Design and Video Editing | YASHFX",
+    description:
+      "Articles, techniques, and workflows covering commercial video editing, DaVinci Resolve color grading, 3D visual effects, and creative direction.",
+  },
+  "/resources": {
+    title: "Creator Resources, Video Templates & Presets | YASHFX",
+    description:
+      "Download curated video editing templates, Premiere Pro presets, and motion graphics assets created by YASHFX.",
+  },
+  "/portal": {
+    title: "Client Project Portal | YASHFX",
+    description:
+      "Private client portal for tracking project deliverables, review links, and milestones with YASHFX.",
+  },
+};
 
 export default function Layout() {
   const { pathname } = useLocation();
 
-  // Scroll to top on route change
+  // Scroll to top and synchronize title, meta description, canonical & og/twitter tags on route change
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // Compute route canonical URL and normalize paths
+    const cleanPath = pathname === "/" ? "" : pathname.replace(/\/+$/, "");
+    let canonicalPath = cleanPath;
+
+    let title = "YASHFX – Video Editing, 3D CGI & Motion Graphics Studio";
+    let description =
+      "YASHFX is a creative studio by Yashraj Parmar, specializing in commercial video editing, kinetic typography, 3D CGI animation, and DaVinci color grading.";
+
+    const lookupPath = cleanPath || "/";
+    if (STATIC_ROUTE_META[lookupPath]) {
+      const meta = STATIC_ROUTE_META[lookupPath];
+      title = meta.title;
+      description = meta.description;
+      if (meta.canonicalPath) canonicalPath = meta.canonicalPath;
+    } else if (cleanPath.startsWith("/work/") || cleanPath.startsWith("/project/")) {
+      const slug = cleanPath.replace(/^\/(work|project)\//, "");
+      const project = getProjectBySlug(slug);
+      if (project) {
+        title = `${project.title} | ${project.category} Portfolio – YASHFX`;
+        description = `${project.tagline} Built with ${project.software.slice(0, 3).join(", ")} by Yashraj Parmar (YASHFX).`;
+        // Canonicalize /project/:slug to primary /work/:slug
+        canonicalPath = `/work/${slug}`;
+      } else {
+        title = "Project Case Study | YASHFX Portfolio";
+        description = "Explore video editing, 3D CGI, and motion design case studies by YASHFX.";
+      }
+    }
+
+    // Update document title
+    document.title = title;
+
+    // Update <meta name="description">
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement("meta");
+      metaDesc.setAttribute("name", "description");
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute("content", description);
+
+    // Compute canonical URL
+    const canonicalUrl = `https://www.yashfx.in${canonicalPath}`;
+
+    // Update or create <link rel="canonical">
+    let link = document.querySelector('link[rel="canonical"]');
+    if (!link) {
+      link = document.createElement("link");
+      link.setAttribute("rel", "canonical");
+      document.head.appendChild(link);
+    }
+    link.setAttribute("href", canonicalUrl);
+
+    // Update <meta property="og:title"> and <meta name="twitter:title">
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute("content", title);
+    const twTitle = document.querySelector('meta[name="twitter:title"]');
+    if (twTitle) twTitle.setAttribute("content", title);
+
+    // Update <meta property="og:description"> and <meta name="twitter:description">
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute("content", description);
+    const twDesc = document.querySelector('meta[name="twitter:description"]');
+    if (twDesc) twDesc.setAttribute("content", description);
+
+    // Update <meta property="og:url"> and <meta name="twitter:url">
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute("content", canonicalUrl);
+    const twitterUrl = document.querySelector('meta[name="twitter:url"]');
+    if (twitterUrl) twitterUrl.setAttribute("content", canonicalUrl);
   }, [pathname]);
 
   return (

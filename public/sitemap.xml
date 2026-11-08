@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core Pages -->
   <url>
     <loc>https://www.yashfx.in/</loc>
     <lastmod>2026-11-08</lastmod>
@@ -36,6 +37,8 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+
+  <!-- Project Case Studies (13 Verified Slugs) -->
   <url>
     <loc>https://www.yashfx.in/work/ganesha-aagman-showcase</loc>
     <lastmod>2026-11-08</lastmod>
@@ -73,7 +76,43 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.yashfx.in/work/tracking-vfx-showcase</loc>
+    <loc>https://www.yashfx.in/work/yps-brand-film</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.yashfx.in/work/camera-tracking-vfx</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.yashfx.in/work/obsidian-brand-film</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.yashfx.in/work/epic-journey-film</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.yashfx.in/work/mango-social-campaign</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.yashfx.in/work/v5-kinetic-reel</loc>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.yashfx.in/work/priya-web-promo</loc>
     <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
