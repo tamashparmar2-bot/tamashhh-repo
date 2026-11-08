@@ -17,6 +17,48 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
+    slug: "ganesha-aagman-showcase",
+    title: "Ganesha Aagman Showcase",
+    client: "Blockbuster Charitable Trust",
+    year: "2024",
+    role: "Lead Video Editor & Colorist",
+    category: "Commercial Editing",
+    aspect: "16:9",
+    videoUrl: "/portfolio/ganesha-aagman.mp4",
+    tagline: "High-energy festive event film with dynamic crowd pacing, rich jewel tones, and rhythmic percussion cuts.",
+    overview: "An electric, celebratory event recap film capturing the vibrant energy and devotion of the Ganesha Aagman celebrations organized by Blockbuster Charitable Trust. Cut tightly against traditional dhol beats and percussive transitions with cinematic color treatment.",
+    creativeProcess: [
+      "Curated multi-cam festive documentary footage, organizing key high-energy moments.",
+      "Synchronized cuts with traditional live percussion and crowd chants for emotional resonance.",
+      "Graded night-time ambient festive lighting to enhance golden idol tones and rich reds.",
+      "Designed immersive audio transitions blending live festival soundscapes with dynamic music."
+    ],
+    software: ["Adobe Premiere Pro", "DaVinci Resolve Studio", "Adobe After Effects"],
+    deliverables: ["16:9 Master Showcase Film", "Social Highlight Reel", "Color Timed Deliverable"],
+    featured: true,
+  },
+  {
+    slug: "bairan-motion-edit",
+    title: "Bairan Cinematic Reel",
+    client: "Independent Creative Music Edit",
+    year: "2024",
+    role: "Motion Designer & Finishing Artist",
+    category: "Motion Graphics",
+    aspect: "9:16",
+    videoUrl: "/portfolio/bairan-edit.mp4",
+    tagline: "Emotional narrative pacing, kinetic text choreography, and atmospheric visual effects.",
+    overview: "A stylized, high-impact vertical motion edit set to evocative music. Crafted using After Effects with custom optical transitions, expressive speed ramps, and atmospheric color timing engineered for high engagement on social platforms.",
+    creativeProcess: [
+      "Assembled raw narrative clips tightly matching the lyrical cadence and vocal beats.",
+      "Created custom motion blur transitions, optical glow flares, and film burn textures in After Effects.",
+      "Applied cinematic warm-tone grading with contrasted shadow rolloffs.",
+      "Optimized framerate and bitrate for vertical 9:16 smartphone playback."
+    ],
+    software: ["Adobe After Effects", "Adobe Premiere Pro"],
+    deliverables: ["9:16 Vertical Master", "Full HD Social Cut", "Custom Motion Transitions"],
+    featured: true,
+  },
+  {
     slug: "fronx-commercial",
     title: "Fronx Commercial Delivery",
     client: "Nexa Motors / Automotive Delivery",

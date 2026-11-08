@@ -71,11 +71,11 @@ function SectionHeader({
    HERO INTERACTIVE SHOWREEL PREVIEW
    ═══════════════════════════════════════════════════════════════════════ */
 const HERO_CLIPS = [
+  { src: "/portfolio/ganesha-aagman.mp4", title: "Ganesha Aagman Showcase", format: "16:9 • FESTIVAL", category: "Commercial Film" },
+  { src: "/portfolio/bairan-edit.mp4", title: "Bairan Cinematic Reel", format: "9:16 • REEL", category: "Motion Graphics" },
   { src: "/portfolio/fronx-car-delivery.mp4", title: "Fronx Commercial Delivery", format: "16:9 • 4K", category: "Commercial" },
   { src: "/portfolio/dice-animation.mp4", title: "Kinetic Dice 3D Simulation", format: "9:16 • CGI", category: "3D Motion" },
   { src: "/portfolio/cgi-saregama.mp4", title: "Saregama CGI Motion Spot", format: "9:16 • 3D", category: "CGI Reveal" },
-  { src: "/portfolio/tracking.mp4", title: "Tracking VFX Showcase", format: "16:9 • VFX", category: "VFX Tracking" },
-  { src: "/portfolio/yps-restroo.mp4", title: "YP's Restroo Brand Film", format: "9:16 • 4K", category: "Brand Reel" },
 ];
 
 function HeroShowreelPreview() {
