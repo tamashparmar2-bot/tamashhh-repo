@@ -6,6 +6,8 @@ import {
   Phone,
   MapPin,
   CheckCircle,
+  MessageSquare,
+  Clock
 } from "lucide-react";
 import { IconInstagram, IconTwitterX, IconYoutube, IconLinkedin } from "../components/SocialIcons";
 import { supabase } from "../lib/supabaseClient";
@@ -18,13 +20,13 @@ const contactInfo = [
   },
   {
     icon: Phone,
-    title: "Phone",
+    title: "Phone / WhatsApp",
     detail: "+91 97731 35547",
   },
   {
     icon: MapPin,
     title: "Location",
-    detail: "Gujarat, India",
+    detail: "Gujarat, India (Global Remote)",
   },
 ];
 
@@ -35,7 +37,13 @@ const socials = [
   { icon: IconLinkedin, href: "https://linkedin.com", label: "LinkedIn" },
 ];
 
-const services = ["Brand Design", "Video Editing", "Vibe Coding", "Other"];
+const services = [
+  "Commercial Video Editing",
+  "Motion Graphics & Kinetic Type",
+  "3D CGI & Visual Simulations",
+  "Color Grading & Foley Sound",
+  "Other Creative Direction"
+];
 
 function Toast({
   message,
@@ -58,7 +66,7 @@ function Toast({
       className="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-white border border-slate-200/90 rounded-2xl px-6 py-4 flex items-center gap-3 shadow-2xl shadow-blue-500/10"
     >
       <CheckCircle className="w-5 h-5 text-emerald-600 shrink-0" />
-      <span className="text-sm text-slate-900 font-semibold">{message}</span>
+      <span className="text-sm text-navy-900 font-semibold font-space">{message}</span>
     </motion.div>
   );
 }
@@ -97,7 +105,6 @@ export default function Contact() {
             message: formData.message,
           },
         ]);
-
       if (error) {
         console.error("Database submission error:", error);
       }
@@ -110,52 +117,55 @@ export default function Contact() {
   };
 
   const inputClass =
-    "bg-white border border-slate-200 rounded-xl p-4 text-slate-900 placeholder:text-slate-400 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 shadow-sm w-full outline-none transition-all duration-200 text-sm";
+    "bg-white border border-slate-200 rounded-xl p-4 text-navy-900 placeholder:text-slate-400 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 shadow-sm w-full outline-none transition-all duration-200 text-sm font-space";
   const labelClass =
-    "block text-xs text-slate-700 uppercase tracking-wider mb-2 font-bold";
+    "block text-xs font-mono text-slate-700 uppercase tracking-wider mb-2 font-bold";
 
   return (
-    <main className="min-h-screen bg-white text-slate-900">
+    <main className="min-h-screen bg-white text-navy-900 pt-8">
       {/* Toast */}
       <AnimatePresence>
         {showToast && (
           <Toast
-            message="Message sent! I'll get back to you soon."
+            message="Inquiry submitted! I will reply within 12 hours."
             onClose={() => setShowToast(false)}
           />
         )}
       </AnimatePresence>
 
       {/* Hero Banner */}
-      <section className="relative py-24 lg:py-32 overflow-hidden bg-gradient-to-b from-blue-50/50 via-white to-slate-50/50 border-b border-slate-100">
+      <section className="relative py-20 lg:py-28 overflow-hidden bg-gradient-to-b from-blue-50/40 via-white to-slate-50/40 border-b border-slate-100">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-          <motion.span
+          <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-block text-xs font-bold tracking-[0.25em] text-blue-600 uppercase mb-4"
+            className="inline-flex items-center gap-2 mb-4 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200"
           >
-            GET IN TOUCH
-          </motion.span>
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
+            <span className="text-blue-700 text-xs tracking-[0.2em] uppercase font-inter font-bold">
+              Direct Production Inquiries
+            </span>
+          </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-podium font-bold text-slate-900 leading-tight tracking-tight"
+            className="text-5xl md:text-7xl font-podium font-bold text-navy-900 leading-tight tracking-tight uppercase"
           >
-            Let's Work Together
+            Start A Project
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-4 text-base md:text-lg text-slate-600 max-w-xl mx-auto leading-relaxed"
+            className="mt-4 text-base md:text-lg text-slate-600 max-w-xl mx-auto leading-relaxed font-space"
           >
-            Have a project in mind, an editing commission, or want to discuss a custom build? Send a brief message below.
+            Have a commercial edit, 3D simulation, or motion project in mind? Fill out the brief below or chat directly on WhatsApp.
           </motion.p>
         </div>
       </section>
@@ -172,7 +182,7 @@ export default function Contact() {
               transition={{ duration: 0.6 }}
               className="lg:col-span-3"
             >
-              <div className="glass-card rounded-3xl p-8 sm:p-10 bg-white border border-slate-200/90 shadow-xl shadow-slate-200/50">
+              <div className="rounded-3xl p-8 sm:p-10 bg-slate-50 border border-slate-200/90 shadow-xl shadow-blue-500/5">
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Name */}
                   <div>
@@ -184,7 +194,7 @@ export default function Contact() {
                       name="name"
                       type="text"
                       required
-                      placeholder="Your name"
+                      placeholder="e.g. Alex Morgan"
                       value={formData.name}
                       onChange={handleChange}
                       className={inputClass}
@@ -201,7 +211,7 @@ export default function Contact() {
                       name="email"
                       type="email"
                       required
-                      placeholder="you@company.com"
+                      placeholder="alex@brand.com"
                       value={formData.email}
                       onChange={handleChange}
                       className={inputClass}
@@ -211,7 +221,7 @@ export default function Contact() {
                   {/* Service */}
                   <div>
                     <label htmlFor="service" className={labelClass}>
-                      Service Category
+                      Production Discipline
                     </label>
                     <select
                       id="service"
@@ -219,13 +229,13 @@ export default function Contact() {
                       required
                       value={formData.service}
                       onChange={handleChange}
-                      className={`${inputClass} appearance-none cursor-pointer`}
+                      className={inputClass}
                     >
-                      <option value="" disabled className="text-slate-400">
-                        Select a service
+                      <option value="" disabled>
+                        Select a discipline
                       </option>
                       {services.map((s) => (
-                        <option key={s} value={s} className="text-slate-900">
+                        <option key={s} value={s}>
                           {s}
                         </option>
                       ))}
@@ -235,97 +245,104 @@ export default function Contact() {
                   {/* Message */}
                   <div>
                     <label htmlFor="message" className={labelClass}>
-                      Project Brief / Message
+                      Project Overview & Timeline
                     </label>
                     <textarea
                       id="message"
                       name="message"
+                      rows={4}
                       required
-                      rows={5}
-                      placeholder="Tell me about your project scope, goals, and timeline..."
+                      placeholder="Describe your footage, reference style, estimated deliverable lengths, or deadline..."
                       value={formData.message}
                       onChange={handleChange}
-                      className={`${inputClass} resize-none`}
+                      className={inputClass}
                     />
                   </div>
 
                   {/* Submit */}
-                  <button
-                    type="submit"
-                    className="btn-gradient w-full py-4 rounded-xl font-bold text-white flex items-center justify-center gap-2 text-sm uppercase tracking-wider shadow-lg shadow-blue-500/25"
-                  >
-                    Send Message
-                    <Send className="w-4 h-4" />
-                  </button>
+                  <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                    <button
+                      type="submit"
+                      className="btn-gradient flex-1 inline-flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <Send className="w-4 h-4" />
+                      SUBMIT INQUIRY
+                    </button>
+                    <a
+                      href="https://wa.me/919773135547?text=Hello%20Yashraj!%20I'd%20like%20to%20discuss%20a%20motion%20project."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-outline inline-flex items-center justify-center gap-2"
+                    >
+                      <MessageSquare className="w-4 h-4 text-emerald-600" />
+                      DIRECT WHATSAPP
+                    </a>
+                  </div>
                 </form>
               </div>
             </motion.div>
 
-            {/* Right: Contact Info */}
+            {/* Right: Contact Information & Direct Channels */}
             <motion.div
               initial={{ opacity: 0, x: 24 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="lg:col-span-2 flex flex-col justify-center pt-4"
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-2 space-y-8"
             >
-              <div className="space-y-8">
-                {contactInfo.map((info, idx) => {
-                  const Icon = info.icon;
-                  return (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, y: 16 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: idx * 0.1 }}
-                      className="flex items-start gap-4"
-                    >
-                      <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center shrink-0 shadow-sm">
-                        <Icon className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-slate-900 text-base">
-                          {info.title}
-                        </h4>
-                        <p className="text-slate-600 text-sm mt-0.5 font-medium">
-                          {info.detail}
-                        </p>
-                      </div>
-                    </motion.div>
-                  );
-                })}
+              {/* Direct Info Cards */}
+              <div className="space-y-4">
+                {contactInfo.map((item) => (
+                  <div
+                    key={item.title}
+                    className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-center gap-4"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 border border-blue-100">
+                      <item.icon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold block">
+                        {item.title}
+                      </span>
+                      <span className="text-sm font-space font-bold text-navy-900">
+                        {item.detail}
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
 
-              {/* Social Links */}
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="mt-12 pt-8 border-t border-slate-200"
-              >
-                <p className="text-xs text-blue-600 uppercase tracking-widest mb-4 font-bold">
-                  Connect on Socials
-                </p>
-                <div className="flex items-center gap-3">
-                  {socials.map((social, idx) => {
-                    const Icon = social.icon;
-                    return (
-                      <a
-                        key={idx}
-                        href={social.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={social.label}
-                        className="w-11 h-11 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-600 hover:text-blue-600 hover:bg-blue-50 hover:border-blue-300 transition-all duration-200 shadow-sm"
-                      >
-                        <Icon className="w-5 h-5" />
-                      </a>
-                    );
-                  })}
+              {/* Turnaround Guarantee Card */}
+              <div className="p-6 rounded-2xl bg-blue-50/60 border border-blue-200">
+                <div className="flex items-center gap-2 text-blue-700 font-mono text-xs font-bold uppercase tracking-wider mb-2">
+                  <Clock className="w-4 h-4 text-blue-600" />
+                  <span>12-Hour Guarantee</span>
                 </div>
-              </motion.div>
+                <p className="text-xs text-slate-600 font-space leading-relaxed">
+                  Every inquiry receives a personal reply, availability check, and detailed estimate within 12 hours.
+                </p>
+              </div>
+
+              {/* Social Channels */}
+              <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
+                <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-bold block mb-4">
+                  Follow & Connect
+                </span>
+                <div className="flex gap-3">
+                  {socials.map((s) => (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={s.label}
+                      className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-600 hover:text-blue-600 hover:border-blue-400 hover:bg-blue-50 transition-all shadow-sm"
+                    >
+                      <s.icon className="w-4 h-4" />
+                    </a>
+                  ))}
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>

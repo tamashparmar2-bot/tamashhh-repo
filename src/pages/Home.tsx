@@ -1,57 +1,65 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import {
-  Crown,
   ArrowUpRight,
-  Layers,
-  Film,
-  Code,
-  Quote,
-  Star,
-  Sparkles,
-  CheckCircle2,
   Play,
-  Volume2
+  Pause,
+  Volume2,
+  VolumeX,
+  Sparkles,
+  Film,
+  Layers,
+  Box,
+  Palette,
+  Send,
+  MessageSquare,
+  Clock
 } from "lucide-react";
+import { PROJECTS } from "../data/projects";
 
-/* ──────────────────────── animation variants ──────────────────────── */
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+/* ──────────────────────── animation presets ──────────────────────── */
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 };
 
-const stagger = {
+const stagger: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.12 } },
 };
 
-/* ──────────────────────── reusable section header ──────────────────────── */
+/* ──────────────────────── section header ──────────────────────── */
 function SectionHeader({
-  label,
+  badge,
   title,
   subtitle,
+  align = "center",
 }: {
-  label: string;
+  badge: string;
   title: string;
   subtitle?: string;
+  align?: "center" | "left";
 }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.6 }}
-      className="text-center mb-16"
+      className={`mb-14 ${align === "center" ? "text-center max-w-3xl mx-auto" : "max-w-2xl"}`}
     >
-      <span className="text-blue-600 text-xs tracking-[0.25em] uppercase font-inter font-bold">
-        {label}
-      </span>
-      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-podium text-slate-900 mt-2 tracking-tight">
+      <div className={`inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 ${align === "center" ? "mx-auto" : ""}`}>
+        <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
+        <span className="text-blue-700 text-xs tracking-[0.2em] uppercase font-inter font-bold">
+          {badge}
+        </span>
+      </div>
+      <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-podium text-navy-900 tracking-tight leading-[0.95]">
         {title}
       </h2>
       {subtitle && (
-        <p className="text-slate-600 max-w-xl mx-auto mt-4 text-sm sm:text-base leading-relaxed">
+        <p className="text-slate-600 font-space mt-4 text-base sm:text-lg leading-relaxed font-normal">
           {subtitle}
         </p>
       )}
@@ -60,307 +68,260 @@ function SectionHeader({
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   HERO VISUAL ANIMATION COMPONENT
+   HERO INTERACTIVE SHOWREEL PREVIEW
    ═══════════════════════════════════════════════════════════════════════ */
-/* 5 most-recently-added portfolio videos */
-const HERO_VIDEOS = [
-  { src: "/portfolio/yps-restroo.mp4",        label: "RESTAURANT BRAND REEL",  tag: "4K" },
-  { src: "/portfolio/fronx-car-delivery.mp4", label: "COMMERCIAL // CAR DELIVERY", tag: "60 FPS" },
-  { src: "/portfolio/navratri-project.mp4",   label: "EVENT SHOWCASE",         tag: "4K" },
-  { src: "/portfolio/dice-animation.mp4",     label: "MOTION DESIGN",          tag: "CGI" },
-  { src: "/portfolio/priya-web-promo.mp4",    label: "WEB PROMO",              tag: "CINEMATIC" },
+const HERO_CLIPS = [
+  { src: "/portfolio/fronx-car-delivery.mp4", title: "Fronx Commercial Delivery", format: "16:9 • 4K", category: "Commercial" },
+  { src: "/portfolio/dice-animation.mp4", title: "Kinetic Dice 3D Simulation", format: "9:16 • CGI", category: "3D Motion" },
+  { src: "/portfolio/cgi-saregama.mp4", title: "Saregama CGI Motion Spot", format: "9:16 • 3D", category: "CGI Reveal" },
+  { src: "/portfolio/tracking.mp4", title: "Tracking VFX Showcase", format: "16:9 • VFX", category: "VFX Tracking" },
+  { src: "/portfolio/yps-restroo.mp4", title: "YP's Restroo Brand Film", format: "9:16 • 4K", category: "Brand Reel" },
 ];
 
-function HeroVisual() {
+function HeroShowreelPreview() {
   const [activeIdx, setActiveIdx] = useState(0);
   const [progress, setProgress] = useState(0);
-  const waveformBars = [40, 75, 50, 90, 65, 85, 45, 95, 70, 55, 80, 60, 88, 45, 70, 55];
-  const VIDEO_DURATION = 8; // seconds per video before switching
+  const [isAudioMuted, setIsAudioMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const DURATION_PER_CLIP = 7; // seconds
 
-  /* Auto-advance timer & progress bar */
   useEffect(() => {
     setProgress(0);
     const interval = setInterval(() => {
       setProgress((p) => {
         if (p >= 100) {
-          setActiveIdx((i) => (i + 1) % HERO_VIDEOS.length);
+          setActiveIdx((prev) => (prev + 1) % HERO_CLIPS.length);
           return 0;
         }
-        return p + 100 / (VIDEO_DURATION * 20); // 20 ticks/sec
+        return p + 100 / (DURATION_PER_CLIP * 20);
       });
     }, 50);
     return () => clearInterval(interval);
   }, [activeIdx]);
 
-  const current = HERO_VIDEOS[activeIdx];
+  const toggleSound = () => {
+    setIsAudioMuted(!isAudioMuted);
+    if (videoRef.current) {
+      videoRef.current.muted = !isAudioMuted;
+    }
+  };
+
+  const current = HERO_CLIPS[activeIdx];
 
   return (
-    <div className="relative w-full h-full flex flex-col gap-4">
-
-      {/* ── Main Cinematic Video Player ── */}
-      <motion.div
-        key={activeIdx}
-        initial={{ opacity: 0, scale: 0.97 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="relative w-full rounded-2xl overflow-hidden shadow-2xl shadow-blue-500/15 border border-slate-200/80 bg-slate-950 flex-1 min-h-0"
-        style={{ aspectRatio: "16/10" }}
-      >
-        {/* Video */}
+    <div className="relative w-full flex flex-col gap-4">
+      {/* Main Video Viewport */}
+      <div className="relative w-full aspect-[16/10] sm:aspect-[16/9.5] rounded-3xl overflow-hidden bg-slate-950 border border-slate-200/90 shadow-2xl shadow-blue-500/15 group">
         <video
+          ref={videoRef}
           key={current.src}
           src={current.src}
           autoPlay
-          muted
+          muted={isAudioMuted}
           playsInline
-          preload="auto"
           loop
-          onLoadedData={(e) => e.currentTarget.play().catch(() => {})}
-          className="w-full h-full object-cover"
+          preload="auto"
+          className="w-full h-full object-cover transition-opacity duration-300"
         />
 
-        {/* Gradient overlay — bottom fade */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
+        {/* Ambient Vignette & Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-slate-950/40 pointer-events-none" />
 
-        {/* Top bar: macOS dots + live badge */}
-        <div className="absolute top-0 inset-x-0 flex items-center justify-between px-4 py-3 bg-black/30 backdrop-blur-sm">
-          <div className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-rose-400/90" />
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-400/90" />
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400/90" />
-            <span className="text-[10px] font-mono text-white/70 ml-2">yashfx_render.mp4</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-[9px] font-bold tracking-widest text-blue-300 bg-blue-900/60 border border-blue-500/40 px-2 py-0.5 rounded-full uppercase">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-400" />
+        {/* Top Control Bar */}
+        <div className="absolute top-0 inset-x-0 p-4 flex items-center justify-between pointer-events-auto">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+            <span className="text-[11px] font-mono text-white/80 ml-2 hidden sm:inline">
+              yashfx_reel_master.mp4
             </span>
-            {current.tag}
+          </div>
+
+          <div className="flex items-center gap-2">
+            {/* Audio Toggle */}
+            <button
+              onClick={toggleSound}
+              className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 hover:bg-blue-600 text-white text-xs font-mono backdrop-blur-md border border-white/20 transition-all cursor-pointer shadow-sm"
+              title="Toggle Audio"
+            >
+              {isAudioMuted ? (
+                <>
+                  <VolumeX className="w-3.5 h-3.5 text-slate-300" />
+                  <span className="text-[10px] uppercase font-bold tracking-wider">Unmute</span>
+                </>
+              ) : (
+                <>
+                  <Volume2 className="w-3.5 h-3.5 text-blue-300 animate-pulse" />
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-blue-200">Audio On</span>
+                </>
+              )}
+            </button>
+
+            {/* Live Indicator */}
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-blue-300 bg-blue-900/70 border border-blue-500/40 px-2.5 py-1 rounded-full">
+              {current.format}
+            </span>
           </div>
         </div>
 
-        {/* Bottom label */}
-        <div className="absolute bottom-14 left-4 text-[10px] font-mono tracking-widest text-white/80 uppercase bg-black/40 backdrop-blur-sm px-2.5 py-1 rounded">
-          {current.label}
-        </div>
+        {/* Bottom Metadata & Scrub Bar */}
+        <div className="absolute bottom-0 inset-x-0 p-4 sm:p-5 flex flex-col gap-2.5">
+          <div className="flex items-end justify-between">
+            <div>
+              <span className="text-[10px] font-mono uppercase tracking-widest text-blue-400 font-bold">
+                {current.category}
+              </span>
+              <h4 className="text-white font-podium text-xl sm:text-2xl leading-none mt-0.5">
+                {current.title}
+              </h4>
+            </div>
+            <span className="text-[11px] font-mono text-white/70">
+              0{activeIdx + 1} / 0{HERO_CLIPS.length}
+            </span>
+          </div>
 
-        {/* Progress bar + waveform at bottom */}
-        <div className="absolute bottom-0 inset-x-0 p-3 bg-black/50 backdrop-blur-sm space-y-2">
-          {/* Timeline scrub */}
-          <div className="relative h-1 w-full bg-white/20 rounded-full overflow-hidden">
+          {/* Scrub bar */}
+          <div className="relative w-full h-1 bg-white/20 rounded-full overflow-hidden">
             <div
-              className="h-full bg-blue-500 rounded-full transition-none"
+              className="h-full bg-blue-500 transition-none rounded-full"
               style={{ width: `${progress}%` }}
             />
           </div>
-          {/* Waveform + meta */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-end gap-0.5 h-4">
-              {waveformBars.map((h, i) => (
-                <motion.div
-                  key={i}
-                  animate={{ scaleY: [0.2, 1, 0.3, 0.9, 0.2] }}
-                  transition={{ duration: 1.0 + (i % 4) * 0.2, repeat: Infinity, ease: "easeInOut", delay: i * 0.04 }}
-                  className="w-0.5 bg-blue-400/80 rounded-full origin-bottom"
-                  style={{ height: `${h}%` }}
-                />
-              ))}
-            </div>
-            <div className="flex items-center gap-2 text-[9px] font-mono text-white/60">
-              <span>{activeIdx + 1} / {HERO_VIDEOS.length}</span>
-              <span className="text-blue-400">•</span>
-              <span>DaVinci LUT</span>
-            </div>
-          </div>
         </div>
+      </div>
 
-        {/* Floating badge: Color Grading */}
-        <motion.div
-          animate={{ y: [0, -6, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-14 right-3 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-xl p-2.5 shadow-xl shadow-blue-500/10 flex items-center gap-2"
-        >
-          <div className="w-7 h-7 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0">
-            <Sparkles className="w-3.5 h-3.5" />
-          </div>
-          <div>
-            <div className="flex items-center gap-1">
-              <span className="text-[10px] font-bold text-slate-900 leading-tight">Color Grading</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            </div>
-            <p className="text-[9px] text-slate-500 font-mono">DaVinci • S-Log3</p>
-          </div>
-        </motion.div>
-      </motion.div>
-
-      {/* ── Video Thumbnail Strip ── */}
-      <div className="flex gap-2">
-        {HERO_VIDEOS.map((v, i) => (
+      {/* Clip Selectors Thumbnail Strip */}
+      <div className="grid grid-cols-5 gap-2 sm:gap-3">
+        {HERO_CLIPS.map((clip, idx) => (
           <button
-            key={v.src}
-            onClick={() => { setActiveIdx(i); setProgress(0); }}
-            className={`relative flex-1 rounded-xl overflow-hidden border-2 transition-all duration-300 cursor-pointer ${
-              i === activeIdx
-                ? "border-blue-500 shadow-lg shadow-blue-500/25"
-                : "border-slate-200/80 opacity-60 hover:opacity-90"
+            key={clip.src}
+            onClick={() => {
+              setActiveIdx(idx);
+              setProgress(0);
+            }}
+            className={`relative rounded-xl overflow-hidden aspect-video border-2 transition-all cursor-pointer ${
+              idx === activeIdx
+                ? "border-blue-600 shadow-md shadow-blue-500/30 scale-[1.02]"
+                : "border-slate-200/80 opacity-60 hover:opacity-100"
             }`}
-            style={{ aspectRatio: "16/9" }}
           >
             <video
-              src={v.src}
+              src={clip.src}
               muted
               playsInline
               preload="metadata"
               className="w-full h-full object-cover pointer-events-none"
             />
-            {i === activeIdx && (
+            {idx === activeIdx && (
               <div className="absolute inset-0 bg-blue-600/20 flex items-center justify-center">
-                <div className="w-5 h-5 rounded-full bg-blue-600/90 flex items-center justify-center">
-                  <Play className="w-2.5 h-2.5 text-white fill-current ml-0.5" />
-                </div>
+                <Play className="w-3.5 h-3.5 text-white fill-current" />
               </div>
             )}
           </button>
         ))}
-      </div>
-
-      {/* ── Floating chips row ── */}
-      <div className="flex items-center gap-2 flex-wrap">
-        <motion.div
-          animate={{ y: [0, -4, 0] }}
-          transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-          className="flex items-center gap-2 bg-white border border-slate-200/80 rounded-full px-3 py-1.5 shadow-sm"
-        >
-          <Code className="w-3.5 h-3.5 text-blue-600" />
-          <span className="text-[10px] font-bold text-slate-800 font-mono">Vibe Coding</span>
-          <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 font-bold">100%</span>
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, -4, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-          className="flex items-center gap-2 bg-blue-600 text-white rounded-full px-3 py-1.5 shadow-md shadow-blue-500/30"
-        >
-          <CheckCircle2 className="w-3.5 h-3.5 text-blue-200" />
-          <span className="text-[10px] font-bold font-mono">48–72h Sprints</span>
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, -4, 0] }}
-          transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="flex items-center gap-2 bg-white border border-slate-200/80 rounded-full px-3 py-1.5 shadow-sm"
-        >
-          <Film className="w-3.5 h-3.5 text-blue-600" />
-          <span className="text-[10px] font-bold text-slate-800 font-mono">4K Cinematic</span>
-        </motion.div>
       </div>
     </div>
   );
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   HERO
+   SECTION 2: HERO SECTION
    ═══════════════════════════════════════════════════════════════════════ */
-function Hero() {
-  const stats = [
-    { value: "250+", label: "Brands Transformed" },
-    { value: "95%", label: "Client Retention" },
-    { value: "10+", label: "Years in the Game" },
-  ];
-
+function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-stretch bg-gradient-to-b from-blue-50/40 via-white to-slate-50/50">
-      {/* Background Hero Subtle Artwork & Grid */}
-      <img
-        src="/hero-bg.jpg"
-        alt="yashfx Creative Hero Background"
-        className="absolute inset-0 w-full h-full object-cover object-right md:object-center opacity-15"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/80 to-white pointer-events-none" />
+    <section className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-16 lg:pt-32 lg:pb-24 overflow-hidden bg-white">
+      {/* Subtle background radial ambient lights */}
+      <div className="absolute top-1/4 right-10 w-[500px] h-[500px] rounded-full bg-blue-500/8 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 left-10 w-[400px] h-[400px] rounded-full bg-blue-400/8 blur-3xl pointer-events-none" />
 
-      {/* Decorative Subtle Blue Ambient Glows */}
-      <div className="absolute -top-24 right-1/4 w-[450px] h-[450px] rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-10 w-[350px] h-[350px] rounded-full bg-blue-400/10 blur-3xl pointer-events-none" />
+      {/* Decorative Technical Grid Lines */}
+      <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
 
-      {/* Hero Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-20 lg:py-28">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center min-h-[calc(100vh-160px)]">
-          {/* Left Column: Heading, Badge, Subtext, CTAs, Stats */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+          {/* Left Editorial Narrative */}
           <motion.div
             variants={stagger}
             initial="hidden"
             animate="show"
             className="lg:col-span-6 flex flex-col justify-center"
           >
-            {/* Badge */}
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-6 bg-blue-50 border border-blue-200/80 px-4 py-1.5 rounded-full shadow-sm self-start">
-              <Crown className="w-4 h-4 text-blue-600" />
-              <span className="text-blue-700 text-xs tracking-[0.2em] uppercase font-inter font-bold">
-                World-Class Digital Creator
-              </span>
+            {/* Identity Badge */}
+            <motion.div variants={fadeUp} className="self-start mb-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600" />
+                </span>
+                <span className="text-blue-700 text-xs tracking-[0.2em] uppercase font-inter font-bold">
+                  Independent Motion Designer & Video Editor
+                </span>
+              </div>
             </motion.div>
 
-            {/* Heading */}
-            <motion.h1
-              variants={fadeUp}
-              className="font-podium text-[clamp(3.2rem,7.5vw,6.5rem)] leading-[0.92] text-slate-900 font-bold tracking-tight"
-            >
-              Design.
-              <br />
-              <span className="text-blue-600">Disrupt.</span>
-              <br />
-              Conquer.
-            </motion.h1>
+            {/* Giant Headline: Masked & Animated */}
+            <motion.div variants={fadeUp} className="overflow-hidden">
+              <h1 className="font-podium text-[clamp(3.5rem,8.5vw,7.2rem)] leading-[0.92] text-navy-900 font-bold tracking-tight uppercase">
+                Visuals That <br />
+                <span className="text-blue-600 relative inline-block">
+                  Move People.
+                </span>
+              </h1>
+            </motion.div>
 
-            {/* Subtext */}
+            {/* Refined Editorial Subtext */}
             <motion.p
               variants={fadeUp}
-              className="text-slate-600 max-w-lg mt-6 text-base sm:text-lg leading-relaxed font-normal"
+              className="font-space text-slate-600 text-base sm:text-xl font-normal max-w-xl mt-6 leading-relaxed"
             >
-              I build fierce brand identities, cinematic video edits, and modern
-              vibe coding web applications that dominate markets and captivate users.
+              Engineering cinematic motion graphics, 3D CGI simulations, and high-impact commercial video editing for ambitious brands and creators worldwide.
             </motion.p>
 
-            {/* CTAs */}
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-4 mt-8">
+            {/* Direct CTAs */}
+            <motion.div variants={fadeUp} className="flex flex-wrap gap-4 mt-8 items-center">
               <Link to="/portfolio" className="btn-gradient inline-flex items-center gap-2">
-                SEE MY WORK
+                EXPLORE WORK
                 <ArrowUpRight className="w-4 h-4" />
               </Link>
               <a
-                href="https://wa.me/919773135547?text=Hello%20yashfx!"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#quote"
                 className="btn-outline inline-flex items-center gap-2"
               >
-                START A PROJECT
+                REQUEST A QUOTE
               </a>
             </motion.div>
 
-            {/* Stats Strip */}
+            {/* Discipline Badges */}
             <motion.div
               variants={fadeUp}
-              className="flex flex-wrap gap-8 sm:gap-14 mt-12 border-t border-slate-200/90 pt-8"
+              className="flex flex-wrap items-center gap-4 sm:gap-6 mt-12 pt-8 border-t border-slate-200/90 text-slate-500 font-mono text-xs uppercase tracking-wider"
             >
-              {stats.map((s) => (
-                <div key={s.label}>
-                  <span className="text-3xl sm:text-4xl font-bold text-slate-900 font-podium">
-                    {s.value}
-                  </span>
-                  <p className="text-slate-500 text-xs tracking-wider uppercase mt-1 font-inter font-semibold">
-                    {s.label}
-                  </p>
-                </div>
-              ))}
+              <div className="flex items-center gap-2 text-navy-900 font-semibold">
+                <Film className="w-4 h-4 text-blue-600" />
+                <span>Commercial Editing</span>
+              </div>
+              <span className="text-slate-300">•</span>
+              <div className="flex items-center gap-2 text-navy-900 font-semibold">
+                <Layers className="w-4 h-4 text-blue-600" />
+                <span>Motion Graphics</span>
+              </div>
+              <span className="text-slate-300">•</span>
+              <div className="flex items-center gap-2 text-navy-900 font-semibold">
+                <Box className="w-4 h-4 text-blue-600" />
+                <span>3D & CGI</span>
+              </div>
             </motion.div>
           </motion.div>
 
-          {/* Right Column: Hero Visual Studio Showcase & Floating Animations */}
+          {/* Right Hero Video Interactive Showreel */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            initial={{ opacity: 0, scale: 0.96, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-6 relative mt-12 lg:mt-0 flex flex-col"
+            className="lg:col-span-6 relative flex flex-col"
           >
-            <HeroVisual />
+            <HeroShowreelPreview />
           </motion.div>
         </div>
       </div>
@@ -369,77 +330,114 @@ function Hero() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   SERVICES PREVIEW
+   SECTION 3: FULL-WIDTH CINEMATIC SHOWREEL
    ═══════════════════════════════════════════════════════════════════════ */
-function ServicesPreview() {
-  const services = [
-    {
-      Icon: Layers,
-      title: "Design",
-      desc: "Brand identities, UI/UX systems, packaging, and visual design crafted to make your brand instantly recognizable.",
-    },
-    {
-      Icon: Film,
-      title: "Editing",
-      desc: "High-end cinematic video editing, 3D motion graphics, VFX tracking, and reels engineered for virality.",
-    },
-    {
-      Icon: Code,
-      title: "Vibe Coding",
-      desc: "Interactive web applications, portfolios, and dynamic digital tools built rapidly with cutting-edge tech.",
-    },
-  ];
+function FullWidthShowreel() {
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  const togglePlay = () => {
+    if (!videoRef.current) return;
+    if (videoRef.current.paused) {
+      videoRef.current.play();
+      setIsPlaying(true);
+    } else {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  const toggleAudio = () => {
+    if (!videoRef.current) return;
+    videoRef.current.muted = !isMuted;
+    setIsMuted(!isMuted);
+  };
 
   return (
-    <section className="py-24 lg:py-32 px-6 sm:px-10 lg:px-16 bg-white">
-      <SectionHeader
-        label="WHAT I DO"
-        title="Services I offer"
-        subtitle="From concept to execution, I deliver end-to-end creative solutions that set ambitious brands apart."
-      />
+    <section className="py-20 lg:py-32 bg-navy-950 text-white relative overflow-hidden">
+      {/* Background radial glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {services.map((s, i) => (
-          <motion.div
-            key={s.title}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+        {/* Section Header with White / Cyan accents */}
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-900/60 border border-blue-400/30 text-blue-300 text-xs font-mono uppercase tracking-widest font-bold mb-4">
+            <span className="w-2 h-2 rounded-full bg-blue-400 animate-ping" />
+            <span>Cinematic Reel</span>
+          </div>
+          <h2 className="font-podium text-4xl sm:text-6xl text-white font-bold tracking-tight uppercase">
+            The Showreel
+          </h2>
+          <p className="font-space text-slate-300 text-base sm:text-lg mt-3 font-normal max-w-xl mx-auto">
+            A high-speed compilation of motion design, color treatment, and cinematic commercial sequences crafted for impact.
+          </p>
+        </div>
+
+        {/* Video Canvas with Controls */}
+        <div className="relative rounded-3xl overflow-hidden border border-slate-700/60 shadow-2xl shadow-blue-500/20 aspect-video bg-black max-w-5xl mx-auto group">
+          <video
+            ref={videoRef}
+            src="/portfolio/fronx-car-delivery.mp4"
+            autoPlay
+            loop
+            playsInline
+            muted={isMuted}
+            preload="auto"
+            className="w-full h-full object-cover"
+          />
+
+          {/* Letterbox Bars Top/Bottom Subtle Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 pointer-events-none" />
+
+          {/* Center Play/Pause Overlay */}
+          <button
+            onClick={togglePlay}
+            className="absolute inset-0 m-auto w-20 h-20 rounded-full bg-blue-600/90 text-white flex items-center justify-center backdrop-blur-md shadow-2xl shadow-blue-600/50 opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-90 group-hover:scale-100 cursor-pointer"
           >
-            <Link to="/services" className="glass-card block p-8 sm:p-10 h-full group bg-white border border-slate-200/90 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300">
-              {/* Icon */}
-              <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 shadow-sm">
-                <s.Icon className="w-6 h-6" />
-              </div>
+            {isPlaying ? (
+              <Pause className="w-8 h-8 fill-current" />
+            ) : (
+              <Play className="w-8 h-8 fill-current ml-1" />
+            )}
+          </button>
 
-              <h3 className="text-2xl font-bold text-slate-900 font-podium mb-3 group-hover:text-blue-600 transition-colors">
-                {s.title}
-              </h3>
-              <p className="text-slate-600 text-sm leading-relaxed mb-6 font-normal">
-                {s.desc}
-              </p>
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-600 group-hover:text-blue-700 transition-colors inline-flex items-center gap-1.5">
-                Learn More
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          {/* Bottom Floating Bar */}
+          <div className="absolute bottom-0 inset-x-0 p-6 flex items-center justify-between pointer-events-auto">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={togglePlay}
+                className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md text-white transition-colors cursor-pointer"
+              >
+                {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
+              </button>
+              <button
+                onClick={toggleAudio}
+                className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md text-white transition-colors cursor-pointer flex items-center gap-1.5 px-3"
+              >
+                {isMuted ? <VolumeX className="w-4 h-4 text-slate-300" /> : <Volume2 className="w-4 h-4 text-blue-400" />}
+                <span className="text-[11px] font-mono uppercase tracking-wider">{isMuted ? "Unmute" : "Mute"}</span>
+              </button>
+            </div>
+
+            <div className="flex items-center gap-3 text-xs font-mono text-slate-300">
+              <span className="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-400/30">
+                4K 60FPS
               </span>
-            </Link>
-          </motion.div>
-        ))}
+              <span className="hidden sm:inline">DaVinci S-Log3</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   PORTFOLIO PREVIEW
+   SECTION 4: SELECTED WORK PORTFOLIO GRID
    ═══════════════════════════════════════════════════════════════════════ */
-function PortfolioPreview() {
-  const items = [
-    { videoUrl: "/portfolio/fronx-car-delivery.mp4", category: "Commercial", title: "Fronx Car Delivery" },
-    { videoUrl: "/portfolio/navratri-project.mp4", category: "Culture & Reel", title: "Navratri Project" },
-    { videoUrl: "/portfolio/tracking.mp4", category: "VFX & Motion", title: "Tracking VFX Showcase" },
-  ];
+function SelectedWorkSection() {
+  const featured = PROJECTS.slice(0, 6);
 
   const handleMouseEnterVideo = (e: React.MouseEvent<HTMLElement>) => {
     document.querySelectorAll("video").forEach((v) => {
@@ -463,239 +461,491 @@ function PortfolioPreview() {
   };
 
   return (
-    <section className="py-24 lg:py-32 bg-slate-50/70 border-y border-slate-200/80 px-6 sm:px-10 lg:px-16">
-      <SectionHeader label="SELECTED WORK" title="Featured Portfolio" subtitle="A quick glimpse of recent editing and visual productions." />
+    <section className="py-24 lg:py-32 bg-white px-6 sm:px-10 lg:px-16 border-b border-slate-100">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <SectionHeader
+            badge="PORTFOLIO"
+            title="Selected Work"
+            subtitle="Curated motion design projects, commercial edits, and 3D visual studies. Hover to preview live sound."
+            align="left"
+          />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {items.map((p, i) => (
+          <Link
+            to="/portfolio"
+            className="btn-outline inline-flex items-center gap-2 self-start md:self-auto shrink-0 mb-8"
+          >
+            VIEW ALL WORK ({PROJECTS.length})
+            <ArrowUpRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        {/* Dynamic Editorial Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {featured.map((p, idx) => (
+            <motion.div
+              key={p.slug}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.08 }}
+              onMouseEnter={handleMouseEnterVideo}
+              onMouseLeave={handleMouseLeaveVideo}
+              className="group bg-white rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-blue-400 transition-all duration-300"
+            >
+              <Link to={`/work/${p.slug}`} className="block">
+                {/* Visual Viewport with 16:9 or 9:16 aspect */}
+                <div className={`relative w-full ${p.aspect === "9:16" ? "aspect-[9/14]" : "aspect-[16/10]"} bg-slate-950 overflow-hidden`}>
+                  <video
+                    src={p.videoUrl}
+                    autoPlay
+                    loop
+                    playsInline
+                    muted
+                    preload="metadata"
+                    onLoadedData={(e) => e.currentTarget.play().catch(() => {})}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  />
+
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/30 pointer-events-none" />
+
+                  {/* Top Tags */}
+                  <div className="absolute top-3.5 left-3.5 z-10 pointer-events-none">
+                    <span className="text-[10px] uppercase font-mono font-bold tracking-wider px-2.5 py-1 rounded-full bg-slate-950/80 text-white backdrop-blur-md border border-white/10">
+                      {p.aspect === "9:16" ? "9:16 REEL" : "16:9 CINEMATIC"}
+                    </span>
+                  </div>
+
+                  {/* Audio indicator */}
+                  <div className="absolute top-3.5 right-3.5 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-600/95 text-white text-[10px] font-mono shadow-md backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                    <Volume2 className="w-3.5 h-3.5 animate-pulse text-blue-200" />
+                    <span className="font-semibold tracking-wider">AUDIO ON</span>
+                  </div>
+
+                  {/* Hover Center Icon */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                    <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-xl shadow-blue-600/40">
+                      <Play className="w-5 h-5 fill-current ml-0.5" />
+                    </div>
+                  </div>
+
+                  {/* Bottom Text Over Visual */}
+                  <div className="absolute bottom-0 inset-x-0 p-5 pointer-events-none">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-blue-400 font-bold">
+                      {p.category}
+                    </span>
+                    <h3 className="font-podium text-2xl text-white font-bold leading-tight mt-0.5 group-hover:text-blue-300 transition-colors">
+                      {p.title}
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Editorial Card Footer */}
+                <div className="p-4 bg-white flex items-center justify-between border-t border-slate-100">
+                  <span className="text-xs font-mono text-slate-500 uppercase tracking-wider">
+                    {p.software.slice(0, 2).join(" • ")}
+                  </span>
+                  <span className="text-xs font-bold font-inter text-blue-600 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                    Case Study <ArrowUpRight className="w-3.5 h-3.5" />
+                  </span>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SECTION 5: ABOUT THE ARTIST
+   ═══════════════════════════════════════════════════════════════════════ */
+function AboutArtistSection() {
+  const tools = [
+    { name: "After Effects", desc: "Kinetic typography, compositing & 2D motion" },
+    { name: "Premiere Pro", desc: "Commercial assembly, rhythmic pacing & sound" },
+    { name: "DaVinci Resolve", desc: "Color grading, S-Log3/Arri LUT management" },
+    { name: "Blender 3D", desc: "Procedural shaders, rigid dynamics & CGI" },
+    { name: "Cinema 4D", desc: "Mograph simulation & studio lighting" },
+  ];
+
+  return (
+    <section className="py-24 lg:py-32 bg-slate-50/70 border-b border-slate-200/80 px-6 sm:px-10 lg:px-16">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* Left Column: Portrait & Identity */}
           <motion.div
-            key={p.title}
+            initial={{ opacity: 0, scale: 0.96 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-5 relative"
+          >
+            <div className="relative rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-xl shadow-blue-500/5 aspect-[4/5] group">
+              <img
+                src="/creator-profile.jpg"
+                alt="Yashraj Parmar — YASHFX"
+                className="w-full h-full object-cover grayscale contrast-105 group-hover:grayscale-0 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-transparent to-transparent pointer-events-none" />
+              
+              <div className="absolute bottom-0 inset-x-0 p-6 text-white">
+                <span className="text-[11px] font-mono uppercase tracking-widest text-blue-400 font-bold">
+                  Motion Designer & Editor
+                </span>
+                <h3 className="font-podium text-3xl font-bold text-white">
+                  Yashraj Parmar
+                </h3>
+                <p className="text-xs text-slate-300 font-inter mt-1">
+                  Founder & Creative Lead at YASHFX
+                </p>
+              </div>
+            </div>
+
+            {/* Quick Experience Pill */}
+            <div className="absolute -bottom-4 -right-4 bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xl flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+                <Sparkles className="w-5 h-5" />
+              </div>
+              <div>
+                <p className="text-xs text-slate-500 font-mono uppercase tracking-wider">Discipline</p>
+                <p className="text-sm font-bold text-navy-900 font-space">Pure Motion Craft</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right Column: Editorial Narrative & Philosophy */}
+          <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-7 flex flex-col justify-center"
           >
-            <Link
-              to="/portfolio"
-              onMouseEnter={handleMouseEnterVideo}
-              onMouseLeave={handleMouseLeaveVideo}
-              className="block rounded-2xl overflow-hidden relative group aspect-video bg-slate-900 shadow-sm border border-slate-200/90 hover:shadow-xl hover:border-blue-400 transition-all duration-300"
-            >
-              <video
-                src={p.videoUrl}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                onLoadedData={(e) => e.currentTarget.play().catch(() => {})}
-                className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-105"
-              />
-              {/* Audio on indicator */}
-              <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-600/90 text-white text-[10px] font-mono shadow-md backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                <Volume2 className="w-3.5 h-3.5 animate-pulse text-blue-200" />
-                <span className="font-semibold tracking-wider">AUDIO ON</span>
-              </div>
-              {/* hover overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                <span className="text-xs tracking-widest uppercase text-blue-400 mb-1 font-inter font-bold">
-                  {p.category}
-                </span>
-                <h3 className="text-xl font-bold text-white font-podium">
-                  {p.title}
-                </h3>
-              </div>
-            </Link>
-          </motion.div>
-        ))}
-      </div>
+            <div className="inline-flex items-center gap-2 mb-3 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-mono uppercase tracking-widest font-bold self-start">
+              <span>Behind the Canvas</span>
+            </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="text-center mt-12"
-      >
-        <Link
-          to="/portfolio"
-          className="btn-outline inline-flex items-center gap-2"
-        >
-          View All Projects
-          <ArrowUpRight className="w-4 h-4" />
-        </Link>
-      </motion.div>
-    </section>
-  );
-}
+            <h2 className="font-podium text-4xl sm:text-5xl text-navy-900 font-bold tracking-tight uppercase leading-[0.98]">
+              Motion isn&apos;t decoration. <br />
+              <span className="text-blue-600">It is narrative velocity.</span>
+            </h2>
 
-/* ═══════════════════════════════════════════════════════════════════════
-   STATS
-   ═══════════════════════════════════════════════════════════════════════ */
-function Stats() {
-  const data = [
-    { value: "150+", label: "Projects Delivered" },
-    { value: "50+", label: "Global Clients" },
-    { value: "5+", label: "Years Experience" },
-    { value: "100%", label: "Satisfaction Rate" },
-  ];
-
-  return (
-    <section className="py-20 bg-white relative">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
-        {data.map((d, i) => (
-          <motion.div
-            key={d.label}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.08 }}
-            className="text-center"
-          >
-            <span className="text-5xl lg:text-6xl font-bold text-blue-600 font-podium">
-              {d.value}
-            </span>
-            <p className="text-slate-500 text-xs tracking-wider uppercase mt-2 font-inter font-semibold">
-              {d.label}
+            <p className="font-space text-slate-600 text-base sm:text-lg leading-relaxed mt-6">
+              I am Yashraj Parmar, an independent motion designer and commercial video editor. I collaborate with direct brands, directors, and agencies looking for razor-sharp visual rhythm, cinematic color grading, and tactile 3D simulations.
             </p>
+
+            <p className="font-space text-slate-600 text-base sm:text-lg leading-relaxed mt-4">
+              Every transition is paced to music; every frame is graded with purpose. Rather than relying on generic presets, each production is built from the ground up to provoke an emotional reaction and leave a lasting impression.
+            </p>
+
+            {/* Software Stack Pills */}
+            <div className="mt-8 pt-8 border-t border-slate-200/90">
+              <h4 className="text-xs font-mono uppercase tracking-widest text-slate-400 font-bold mb-4">
+                Core Production Pipeline
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {tools.map((t) => (
+                  <div
+                    key={t.name}
+                    className="p-3 rounded-xl bg-white border border-slate-200 flex flex-col gap-0.5 shadow-sm"
+                  >
+                    <span className="text-xs font-bold font-space text-navy-900">
+                      {t.name}
+                    </span>
+                    <span className="text-[11px] text-slate-500 font-inter">
+                      {t.desc}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </motion.div>
-        ))}
+        </div>
       </div>
     </section>
   );
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   TESTIMONIALS
+   SECTION 6: CREATIVE SERVICES
    ═══════════════════════════════════════════════════════════════════════ */
-function Testimonials() {
-  const testimonials = [
+function CreativeServicesSection() {
+  const services = [
     {
-      quote:
-        "yashfx transformed our entire brand presence. His design instincts are unmatched — every deliverable exceeded expectations.",
-      name: "Priya Sharma",
-      role: "CEO, Luxora Brands",
+      Icon: Layers,
+      title: "Motion Graphics & Kinetic Type",
+      desc: "Title sequences, brand idents, graphic overlays, and animated UI choreographies designed with mathematical easing and rhythm.",
+      deliverables: ["2D & 2.5D Animation", "Vector Rigging", "Kinetic Typography", "Lottie / Web Motion"],
     },
     {
-      quote:
-        "The video editing quality is cinematic-grade. He turned raw footage into storytelling gold. An absolute game-changer.",
-      name: "Marcus Chen",
-      role: "Founder, Elevate Media",
+      Icon: Film,
+      title: "Commercial Video Editing",
+      desc: "Punchy, rhythm-driven commercial edits, event showcases, and social cutdowns structured around narrative cadence and sound cues.",
+      deliverables: ["Commercial Spots", "Vertical 9:16 Reels", "Music Beat Sync", "Speed Ramping"],
     },
     {
-      quote:
-        "Yash's courses gave my team the confidence and skills to level up our in-house creative work. Worth every penny.",
-      name: "Ananya Patel",
-      role: "Creative Director, Nomad Studio",
+      Icon: Box,
+      title: "3D CGI Visuals & Simulations",
+      desc: "Photorealistic product reveals, mechanical simulations, abstract physics animations, and macro lighting explorations.",
+      deliverables: ["Rigid Body Physics", "Procedural Texturing", "Studio Key Lighting", "Multi-Pass Compositing"],
+    },
+    {
+      Icon: Palette,
+      title: "Color Grading & Sound Foley",
+      desc: "Transforming raw flat LOG footage into cinematic palettes, paired with multi-layer foley sound effects, whooshes, and bass swells.",
+      deliverables: ["DaVinci Resolve Grade", "LUT Creation", "Custom Foley Mix", "Audio Mastering"],
     },
   ];
 
-  const [active, setActive] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(
-      () => setActive((prev) => (prev + 1) % testimonials.length),
-      5000
-    );
-    return () => clearInterval(timer);
-  }, [testimonials.length]);
-
-  const t = testimonials[active];
-
   return (
-    <section className="py-24 lg:py-32 bg-slate-50/60 border-t border-slate-200/80 px-6 sm:px-10 lg:px-16">
-      <SectionHeader label="TESTIMONIALS" title="What clients say" />
+    <section className="py-24 lg:py-32 bg-white px-6 sm:px-10 lg:px-16 border-b border-slate-100">
+      <div className="max-w-6xl mx-auto">
+        <SectionHeader
+          badge="DISCIPLINES"
+          title="Creative Services"
+          subtitle="Precision motion design and high-end editing capabilities engineered to elevate your brand films."
+        />
 
-      <motion.div
-        key={active}
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="glass-card max-w-3xl mx-auto p-8 sm:p-12 text-center bg-white border border-slate-200/90 shadow-md shadow-slate-200/50"
-      >
-        <Quote className="w-10 h-10 mx-auto mb-6 text-blue-600/70" />
-        <p className="text-lg sm:text-xl text-slate-700 italic leading-relaxed mb-8 font-normal">
-          &ldquo;{t.quote}&rdquo;
-        </p>
-        <div className="flex items-center justify-center gap-1 mb-2">
-          {[...Array(5)].map((_, i) => (
-            <Star
-              key={i}
-              className="w-4 h-4 text-amber-500 fill-amber-500"
-            />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+          {services.map((s, idx) => (
+            <motion.div
+              key={s.title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="p-8 sm:p-10 rounded-3xl bg-slate-50/60 border border-slate-200/80 hover:border-blue-400 hover:bg-white hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 flex items-center justify-center mb-6 shadow-sm">
+                  <s.Icon className="w-6 h-6" />
+                </div>
+                <h3 className="font-podium text-3xl text-navy-900 font-bold mb-3 tracking-tight">
+                  {s.title}
+                </h3>
+                <p className="font-space text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
+                  {s.desc}
+                </p>
+              </div>
+
+              <div className="pt-6 border-t border-slate-200/70">
+                <span className="text-[11px] font-mono uppercase tracking-widest text-slate-400 font-bold block mb-3">
+                  Key Deliverables
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {s.deliverables.map((d) => (
+                    <span
+                      key={d}
+                      className="text-xs font-mono font-medium px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-700"
+                    >
+                      {d}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
           ))}
         </div>
-        <p className="text-slate-900 font-bold font-podium text-xl">{t.name}</p>
-        <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider">{t.role}</p>
-      </motion.div>
-
-      {/* Dots */}
-      <div className="flex justify-center gap-2 mt-8">
-        {testimonials.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setActive(i)}
-            className={`h-2 rounded-full transition-all duration-300 ${
-              i === active
-                ? "bg-blue-600 w-6"
-                : "bg-slate-300 hover:bg-slate-400 w-2"
-            }`}
-            aria-label={`Testimonial ${i + 1}`}
-          />
-        ))}
       </div>
     </section>
   );
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   CTA
+   SECTION 7: GET A QUOTE & CONTACT CTA
    ═══════════════════════════════════════════════════════════════════════ */
-function CtaSection() {
-  return (
-    <section className="py-24 lg:py-32 relative overflow-hidden bg-gradient-to-b from-white to-blue-50/50 border-t border-slate-100">
-      {/* Decorative Orbs */}
-      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
+function GetAQuoteSection() {
+  const [projectType, setProjectType] = useState("Commercial Editing");
+  const [timeline, setTimeline] = useState("Within 2 Weeks");
+  const [notes, setNotes] = useState("");
 
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="relative z-10 text-center px-6 max-w-4xl mx-auto"
-      >
-        <h2 className="text-4xl sm:text-6xl font-bold font-podium text-slate-900 tracking-tight">
-          Ready to elevate your brand?
-        </h2>
-        <p className="text-slate-600 max-w-lg mx-auto mt-4 text-base sm:text-lg leading-relaxed">
-          Let&rsquo;s craft something extraordinary together. Premium design, cinematic storytelling, and modern code.
-        </p>
-        <div className="flex flex-wrap justify-center gap-4 mt-8">
-          <Link to="/contact" className="btn-gradient inline-flex items-center gap-2">
-            GET STARTED
-            <ArrowUpRight className="w-4 h-4" />
-          </Link>
-          <Link to="/portfolio" className="btn-outline inline-flex items-center gap-2">
-            VIEW MY WORK
-          </Link>
+  const projectTypes = [
+    "Commercial Editing",
+    "Motion Graphics",
+    "3D CGI Visual",
+    "Brand Showreel",
+    "Color & Sound Finishing",
+  ];
+
+  const timelineOptions = ["Urgent (48-72h)", "Within 2 Weeks", "1 Month+", "Flexible"];
+
+  const handleWhatsAppQuote = (e: React.FormEvent) => {
+    e.preventDefault();
+    const message = `Hello Yashraj! I would like to get a quote for a project:\n\n• Type: ${projectType}\n• Timeline: ${timeline}\n• Brief/Details: ${notes || "Available to discuss"}\n\nLooking forward to hearing from you.`;
+    const url = `https://wa.me/919773135547?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank");
+  };
+
+  return (
+    <section id="quote" className="py-24 lg:py-32 bg-white px-6 sm:px-10 lg:px-16 relative overflow-hidden">
+      {/* Decorative Orbs */}
+      <div className="absolute top-1/2 right-1/4 w-[450px] h-[450px] rounded-full bg-blue-500/8 blur-3xl pointer-events-none" />
+
+      <div className="max-w-5xl mx-auto">
+        <SectionHeader
+          badge="PROJECT ESTIMATE"
+          title="Get a Custom Quote"
+          subtitle="Tell me about your project scope and timeline. I respond within 12 hours with availability and custom pricing."
+        />
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mt-12">
+          {/* Left Column: Direct Info & Availability */}
+          <div className="lg:col-span-5 flex flex-col justify-between">
+            <div>
+              <h3 className="font-podium text-3xl text-navy-900 font-bold mb-3">
+                Let&apos;s Build Something Memorable
+              </h3>
+              <p className="font-space text-slate-600 text-sm sm:text-base leading-relaxed mb-8">
+                Whether you need a full commercial campaign cut, 3D simulations, or social reels that stop the scroll, I take on a limited number of projects each month to guarantee bespoke quality.
+              </p>
+
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                    <Clock className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">Fast Turnaround</span>
+                    <p className="text-sm font-bold text-navy-900 font-space">48h–72h for high-priority sprints</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                    <MessageSquare className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">Direct Contact</span>
+                    <p className="text-sm font-bold text-navy-900 font-space">contact@yashfx.in • +91 97731 35547</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 pt-6 border-t border-slate-100 flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-xs font-mono text-slate-600 font-semibold">Currently Booking for 2024 / Q2</span>
+            </div>
+          </div>
+
+          {/* Right Column: Interactive Quote Request Builder */}
+          <div className="lg:col-span-7">
+            <form
+              onSubmit={handleWhatsAppQuote}
+              className="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200/90 shadow-xl shadow-blue-500/5 flex flex-col gap-6"
+            >
+              {/* Step 1: Select Type */}
+              <div>
+                <label className="block text-xs font-mono uppercase tracking-widest text-slate-500 font-bold mb-3">
+                  1. Project Discipline
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {projectTypes.map((type) => (
+                    <button
+                      type="button"
+                      key={type}
+                      onClick={() => setProjectType(type)}
+                      className={`px-4 py-2 rounded-xl text-xs font-space font-medium transition-all cursor-pointer ${
+                        projectType === type
+                          ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
+                          : "bg-white border border-slate-200 text-slate-700 hover:border-blue-300 hover:bg-blue-50/50"
+                      }`}
+                    >
+                      {type}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Step 2: Desired Timeline */}
+              <div>
+                <label className="block text-xs font-mono uppercase tracking-widest text-slate-500 font-bold mb-3">
+                  2. Timeline / Urgency
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {timelineOptions.map((time) => (
+                    <button
+                      type="button"
+                      key={time}
+                      onClick={() => setTimeline(time)}
+                      className={`px-4 py-2 rounded-xl text-xs font-space font-medium transition-all cursor-pointer ${
+                        timeline === time
+                          ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
+                          : "bg-white border border-slate-200 text-slate-700 hover:border-blue-300 hover:bg-blue-50/50"
+                      }`}
+                    >
+                      {time}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Step 3: Brief Details */}
+              <div>
+                <label className="block text-xs font-mono uppercase tracking-widest text-slate-500 font-bold mb-3">
+                  3. Project Overview or Links (Optional)
+                </label>
+                <textarea
+                  rows={3}
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                  placeholder="Tell me about the footage, mood, reference videos, or deliverables..."
+                  className="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 text-slate-900 text-sm focus:outline-none focus:border-blue-600 transition-colors placeholder:text-slate-400"
+                />
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-2 flex flex-col sm:flex-row gap-3">
+                <button
+                  type="submit"
+                  className="btn-gradient flex-1 inline-flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Send className="w-4 h-4" />
+                  REQUEST QUOTE VIA WHATSAPP
+                </button>
+                <a
+                  href={`mailto:contact@yashfx.in?subject=${encodeURIComponent(`Project Inquiry: ${projectType}`)}&body=${encodeURIComponent(`Project Type: ${projectType}\nTimeline: ${timeline}\n\nDetails:\n${notes}`)}`}
+                  className="btn-outline inline-flex items-center justify-center gap-2"
+                >
+                  EMAIL INQUIRY
+                </a>
+              </div>
+            </form>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   PAGE
+   EXPORTED HOME COMPONENT
    ═══════════════════════════════════════════════════════════════════════ */
 export default function Home() {
   return (
-    <main className="bg-white text-slate-900 overflow-x-hidden">
-      <Hero />
-      <ServicesPreview />
-      <PortfolioPreview />
-      <Stats />
-      <Testimonials />
-      <CtaSection />
+    <main className="bg-white text-navy-900 overflow-x-hidden">
+      {/* 1. Minimal Sticky Navigation is in Navbar.tsx */}
+      
+      {/* 2. Hero with Large Animated Typography and Showreel */}
+      <HeroSection />
+
+      {/* 3. Full-Width Cinematic Showreel */}
+      <FullWidthShowreel />
+
+      {/* 4. Selected Work Portfolio Grid */}
+      <SelectedWorkSection />
+
+      {/* 5. About the Artist */}
+      <AboutArtistSection />
+
+      {/* 6. Creative Services */}
+      <CreativeServicesSection />
+
+      {/* 7. Get a Quote & Contact CTA */}
+      <GetAQuoteSection />
     </main>
   );
 }

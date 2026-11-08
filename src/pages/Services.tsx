@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import {
   Layers,
   Film,
-  Code,
+  Box,
+  Palette,
   CheckCircle,
   ArrowRight,
   Send,
@@ -12,8 +12,7 @@ import {
   Clock,
   ShieldCheck,
   Check,
-  Zap,
-  Phone
+  Zap
 } from "lucide-react";
 
 const fadeUp = {
@@ -28,71 +27,104 @@ const stagger = {
 
 const services = [
   {
-    icon: Layers,
-    title: "Brand Design",
-    subtitle: "Visual identities that captivate",
-    description:
-      "I create cohesive brand identities, modern UI/UX design systems, and visual guidelines that resonate with your target market and elevate your brand presence.",
-    features: ["Brand Identity", "UI/UX Design Systems", "Social Media Kits", "Packaging & Merch", "Logo Systems", "Typography & Guidelines"],
-    videoUrl: "/portfolio/v5.mp4"
-  },
-  {
     icon: Film,
-    title: "Video Editing",
-    subtitle: "Stories brought to life with impact",
+    title: "Commercial Video Editing",
+    subtitle: "Rhythmic, high-octane commercial pacing",
     description:
-      "Professional cinematic video editing, color grading, sound design, and 3D motion graphics that transform raw footage into captivating showpieces.",
-    features: ["Cinematic Editing", "Color Grading & LUTs", "Motion Graphics", "Sound Design & Mixing", "VFX & Tracking", "High-Retention Reels"],
-    videoUrl: "/portfolio/obsidian-draft-1.mp4"
+      "Precision video editing engineered around musical cadence and sound design. From automotive delivery films to high-impact brand showcases, every cut is timed with frame accuracy.",
+    features: [
+      "Commercial Brand Films",
+      "Automotive & Event Highlights",
+      "Bespoke Foley Sound Design",
+      "Musical Beat Synchronization",
+      "High-Retention Vertical Reels (9:16)",
+      "Speed Ramping & Smooth Match Cuts"
+    ],
+    videoUrl: "/portfolio/fronx-car-delivery.mp4"
   },
   {
-    icon: Code,
-    title: "Vibe Coding",
-    subtitle: "Rapid-fire fullstack development",
+    icon: Layers,
+    title: "Motion Graphics & Kinetic Type",
+    subtitle: "Visual rhythm that captivates and converts",
     description:
-      "I build custom web applications, responsive landing pages, interactive portfolios, and automated workflows live at high velocity with zero friction.",
-    features: ["Rapid Prototyping", "Fullstack Web Apps", "API Integrations", "Interactive UI/UX", "React & Vite Systems", "Workflow Automation"],
-    videoUrl: "/portfolio/v5.mp4"
+      "Bold typography, sleek animated logo reveals, and custom UI transitions crafted with mathematical easing curves and editorial sophistication.",
+    features: [
+      "Kinetic Typography Sequences",
+      "2D & 3D Title Direction",
+      "Logo Idents & Brand Bumpers",
+      "Vector Shape Rigging",
+      "Animated UI Choreographies",
+      "Clean Loopable Social Graphics"
+    ],
+    videoUrl: "/portfolio/priya-web-promo.mp4"
   },
-];
-
-const steps = [
-  { num: "01", title: "Discovery", desc: "Understanding your brand, goals, and audience through deep research and alignment." },
-  { num: "02", title: "Strategy", desc: "Crafting a tailored creative roadmap that aligns with your timeline and market." },
-  { num: "03", title: "Creation", desc: "Bringing concepts to life with obsessive attention to detail, motion, and aesthetics." },
-  { num: "04", title: "Delivery", desc: "Polished final deliverables, source files, and launch support with ongoing guidance." },
+  {
+    icon: Box,
+    title: "3D CGI & Physics Simulations",
+    subtitle: "Photorealistic digital lighting and dynamic movement",
+    description:
+      "Bespoke 3D CGI product reveals, dynamic collision physics, tactile procedural texturing, and photorealistic macro camera passes rendered in Blender and Cinema 4D.",
+    features: [
+      "Photorealistic Product Reveals",
+      "Rigid Body & Soft Dynamics",
+      "Procedural Materials & Glass Dispersion",
+      "Macro Studio Key Lighting",
+      "Multi-Pass Compositing",
+      "Optical Flares & Film Grain"
+    ],
+    videoUrl: "/portfolio/dice-animation.mp4"
+  },
+  {
+    icon: Palette,
+    title: "Color Grading & Sound Foley",
+    subtitle: "Cinematic depth, contrast, and tactile acoustic impact",
+    description:
+      "Transforming flat camera profiles into rich, contrasty, and vibrant master grades in DaVinci Resolve Studio, complemented with customized multi-channel sound design.",
+    features: [
+      "DaVinci Resolve Studio Color Pipeline",
+      "Sony S-Log3, Canon Log & Arri Handling",
+      "Custom Brand LUT Creation",
+      "Multi-Layer Sound Foley & Whooshes",
+      "Sub-Bass Drops & Transitions",
+      "4K ProRes & H.264 Master Exports"
+    ],
+    videoUrl: "/portfolio/obsidian-draft-1.mp4"
+  }
 ];
 
 export default function Services() {
   return (
-    <div className="bg-white min-h-screen text-slate-900">
+    <div className="bg-white min-h-screen text-navy-900 pt-8">
       {/* Hero */}
-      <section className="py-24 lg:py-32 relative overflow-hidden bg-gradient-to-b from-blue-50/50 via-white to-slate-50/50 border-b border-slate-100">
+      <section className="py-20 lg:py-28 relative overflow-hidden bg-gradient-to-b from-blue-50/40 via-white to-slate-50/40 border-b border-slate-100">
         <div className="absolute top-10 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative px-6 sm:px-10 lg:px-16 text-center max-w-4xl mx-auto">
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-blue-600 text-xs tracking-[0.25em] uppercase font-bold mb-4"
+            className="inline-flex items-center gap-2 mb-4 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200"
           >
-            OUR EXPERTISE
-          </motion.p>
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
+            <span className="text-blue-700 text-xs tracking-[0.2em] uppercase font-inter font-bold">
+              Creative Disciplines
+            </span>
+          </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.6 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold font-podium text-slate-900 tracking-tight"
+            className="text-5xl sm:text-6xl lg:text-7xl font-bold font-podium text-navy-900 tracking-tight leading-[0.95]"
           >
-            Crafted To Perfection
+            Motion & Post-Production
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="mt-4 text-slate-600 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed font-normal"
+            className="mt-6 text-slate-600 font-space max-w-2xl mx-auto text-base sm:text-lg leading-relaxed font-normal"
           >
-            From brand identity design to high-impact cinematic editing and vibe coding web applications — I deliver premium, end-to-end creative solutions.
+            From high-energy commercial edits to procedural 3D simulations and DaVinci color grading, I provide end-to-end visual finishing for ambitious brands.
           </motion.p>
         </div>
       </section>
@@ -101,47 +133,47 @@ export default function Services() {
       <section className="px-6 sm:px-10 lg:px-16 py-20 lg:py-28">
         {services.map((s, i) => (
           <div key={s.title}>
-            {i > 0 && <div className="h-px bg-slate-200 my-16 lg:my-24 max-w-4xl mx-auto" />}
+            {i > 0 && <div className="h-px bg-slate-200 my-16 lg:my-24 max-w-5xl mx-auto" />}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-6xl mx-auto`}
+              className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-6xl mx-auto"
             >
               {/* Text */}
               <div className={i % 2 === 1 ? "lg:order-2" : ""}>
                 <div className="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center mb-6 shadow-sm">
                   <s.icon className="w-7 h-7" />
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-bold font-podium text-slate-900 mb-2">{s.title}</h2>
-                <p className="text-lg font-medium text-blue-600 mb-4">{s.subtitle}</p>
-                <p className="text-slate-600 leading-relaxed mb-8 text-base">{s.description}</p>
+                <h2 className="text-3xl sm:text-4xl font-bold font-podium text-navy-900 mb-2">{s.title}</h2>
+                <p className="text-base font-space font-medium text-blue-600 mb-4">{s.subtitle}</p>
+                <p className="text-slate-600 font-space leading-relaxed mb-8 text-base">{s.description}</p>
                 
                 <motion.div
                   variants={stagger}
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  className="grid grid-cols-2 gap-3 mb-8"
+                  className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8"
                 >
                   {s.features.map((f) => (
-                    <motion.div key={f} variants={fadeUp} className="flex items-center gap-2 text-sm text-slate-700 font-medium">
+                    <motion.div key={f} variants={fadeUp} className="flex items-center gap-2 text-sm text-slate-700 font-medium font-space">
                       <CheckCircle className="w-4 h-4 text-blue-600 flex-shrink-0" />
                       {f}
                     </motion.div>
                   ))}
                 </motion.div>
 
-                <Link to="/contact" className="btn-gradient inline-flex items-center gap-2">
-                  Get a Quote <ArrowRight className="w-4 h-4" />
-                </Link>
+                <a href="#quote" className="btn-gradient inline-flex items-center gap-2">
+                  Request a Quote <ArrowRight className="w-4 h-4" />
+                </a>
               </div>
 
               {/* Visual Thumbnail Video */}
               <div className={i % 2 === 1 ? "lg:order-1" : ""}>
-                <div className="glass-card p-2 bg-white border border-slate-200 shadow-xl rounded-2xl">
-                  <div className="aspect-[4/3] rounded-xl bg-slate-900 flex items-center justify-center relative overflow-hidden">
+                <div className="p-2 bg-white border border-slate-200 shadow-xl rounded-2xl">
+                  <div className="aspect-[16/10] rounded-xl bg-slate-900 flex items-center justify-center relative overflow-hidden">
                     <video
                       src={s.videoUrl}
                       autoPlay
@@ -160,45 +192,19 @@ export default function Services() {
         ))}
       </section>
 
-      {/* Process */}
-      <section className="py-24 lg:py-32 bg-slate-50/70 border-y border-slate-200/80 px-6 sm:px-10 lg:px-16">
-        <div className="text-center mb-16">
-          <p className="text-blue-600 text-xs tracking-[0.25em] uppercase font-bold mb-3">HOW I WORK</p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-podium text-slate-900 tracking-tight">My Process</h2>
-          <p className="mt-4 text-slate-600 max-w-xl mx-auto text-base">A disciplined, agile workflow tailored for world-class quality.</p>
-        </div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-          {steps.map((step, i) => (
-            <motion.div
-              key={step.num}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="glass-card p-8 text-center bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 rounded-2xl"
-            >
-              <span className="text-5xl font-bold text-blue-600 font-podium">{step.num}</span>
-              <h3 className="text-xl font-bold text-slate-900 font-podium mt-4 mb-2">{step.title}</h3>
-              <p className="text-sm text-slate-600 leading-relaxed font-normal">{step.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
       {/* Get a Quote Section */}
-      <section id="quote" className="py-24 lg:py-32 px-6 sm:px-10 lg:px-16 bg-gradient-to-b from-white via-blue-50/30 to-slate-50/50 border-t border-slate-200/80">
+      <section id="quote" className="py-24 lg:py-32 px-6 sm:px-10 lg:px-16 bg-gradient-to-b from-white via-blue-50/20 to-slate-50/50 border-t border-slate-200/80">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-14">
-            <span className="text-blue-600 text-xs tracking-[0.25em] uppercase font-bold mb-3 inline-block">
-              CUSTOM ESTIMATE
+            <span className="text-blue-600 text-xs tracking-[0.25em] uppercase font-bold mb-3 inline-block font-mono">
+              PROJECT ESTIMATE
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-podium text-slate-900 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-podium text-navy-900 tracking-tight">
               Get a Project Quote
             </h2>
-            <p className="mt-4 text-slate-600 max-w-xl mx-auto text-base leading-relaxed">
-              Every project is unique. Select your scope and timeline below to receive an exact, customized quote within 24 hours.
+            <p className="mt-4 text-slate-600 font-space max-w-xl mx-auto text-base leading-relaxed">
+              Select your project parameters below to receive an exact estimate and availability within 12 hours.
             </p>
           </div>
 
@@ -207,10 +213,10 @@ export default function Services() {
           {/* Guarantees / Value Props Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-14">
             {[
-              { icon: Zap, title: "48–72h Sprints", desc: "Lightning fast turnarounds available for urgent deadlines." },
-              { icon: MessageSquare, title: "Direct 1-on-1", desc: "Work directly with Yashraj with zero agency middlemen." },
-              { icon: ShieldCheck, title: "Full Ownership", desc: "You own 100% of final masters, raw assets, and source code." },
-              { icon: Clock, title: "24h Response", desc: "Detailed timeline and quote delivered within 24 hours." },
+              { icon: Zap, title: "48–72h Sprints", desc: "High-priority turnarounds available for urgent campaign deadlines." },
+              { icon: MessageSquare, title: "Direct 1-on-1", desc: "Collaborate directly with Yashraj with zero agency middle layers." },
+              { icon: ShieldCheck, title: "Full Ownership", desc: "You own 100% of final master exports and raw project assets." },
+              { icon: Clock, title: "12h Response", desc: "Direct quote and availability timeline delivered within 12 hours." },
             ].map((g, i) => (
               <motion.div
                 key={g.title}
@@ -223,8 +229,8 @@ export default function Services() {
                 <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-3 border border-blue-100">
                   <g.icon className="w-5 h-5" />
                 </div>
-                <h4 className="font-bold text-slate-900 text-sm mb-1">{g.title}</h4>
-                <p className="text-xs text-slate-500 leading-relaxed">{g.desc}</p>
+                <h4 className="font-bold text-navy-900 font-space text-sm mb-1">{g.title}</h4>
+                <p className="text-xs text-slate-500 font-inter leading-relaxed">{g.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -235,7 +241,7 @@ export default function Services() {
 }
 
 function QuoteCalculator() {
-  const [selectedService, setSelectedService] = useState("Brand Design");
+  const [selectedService, setSelectedService] = useState("Commercial Video Editing");
   const [selectedTimeline, setSelectedTimeline] = useState("Standard (1–2 Weeks)");
   const [selectedAddons, setSelectedAddons] = useState<string[]>([
     "Full Source / Project Files"
@@ -246,10 +252,10 @@ function QuoteCalculator() {
   const [submitted, setSubmitted] = useState(false);
 
   const servicesList = [
-    { id: "Brand Design", label: "Brand Design", desc: "Identity, Logo, UI Systems" },
-    { id: "Video Editing", label: "Video Editing", desc: "Reels, Commercials, 4K VFX" },
-    { id: "Vibe Coding", label: "Vibe Coding", desc: "Fullstack Apps & Portfolios" },
-    { id: "Full Creative Suite", label: "Full Creative Suite", desc: "End-to-End Visual Overhaul" }
+    { id: "Commercial Video Editing", label: "Commercial Video Editing", desc: "Reels, Commercials, 4K Master" },
+    { id: "Motion Graphics & Kinetic Type", label: "Motion Graphics", desc: "Title Sequences, Idents, UI" },
+    { id: "3D CGI & Simulations", label: "3D CGI & Simulations", desc: "Product Reveals, Procedural 3D" },
+    { id: "Full Motion & Finishing Suite", label: "Full Motion Suite", desc: "End-to-End Post-Production" }
   ];
 
   const timelineList = [
@@ -263,7 +269,7 @@ function QuoteCalculator() {
     "4K 60FPS Master Export",
     "DaVinci Color Grade + LUTs",
     "Sound Design & Audio Mix",
-    "Live Web Deployment",
+    "Vertical 9:16 Social Cutdowns",
     "Rush Weekend Delivery"
   ];
 
@@ -275,7 +281,7 @@ function QuoteCalculator() {
 
   const whatsappMessage = encodeURIComponent(
     `Hello Yashraj! I would like to get a project quote.\n\n` +
-    `• Service: ${selectedService}\n` +
+    `• Discipline: ${selectedService}\n` +
     `• Timeline: ${selectedTimeline}\n` +
     `• Add-ons: ${selectedAddons.length > 0 ? selectedAddons.join(", ") : "Standard package"}\n` +
     (name ? `• Name: ${name}\n` : "") +
@@ -299,76 +305,60 @@ function QuoteCalculator() {
           <div className="w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-4 border border-blue-200 shadow-md">
             <Check className="w-8 h-8" />
           </div>
-          <h3 className="text-2xl font-bold font-podium text-slate-900 mb-2">Quote Request Sent!</h3>
-          <p className="text-slate-600 max-w-md mx-auto text-sm leading-relaxed mb-6">
-            Thanks {name || "there"}! Yashraj will review your project requirements and send a customized quote within 24 hours.
+          <h3 className="font-podium text-3xl font-bold text-navy-900 mb-2">Quote Request Sent!</h3>
+          <p className="text-slate-600 font-space text-sm max-w-md mx-auto mb-6">
+            Thank you for reaching out. I have received your project details and will send a detailed estimate and proposal within 12 hours.
           </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <a
-              href={`https://wa.me/919773135547?text=${whatsappMessage}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-gradient inline-flex items-center gap-2 text-sm"
-            >
-              <Phone className="w-4 h-4" />
-              Chat Directly on WhatsApp
-            </a>
-            <button
-              onClick={() => setSubmitted(false)}
-              className="btn-outline text-sm"
-            >
-              Modify Scope
-            </button>
-          </div>
+          <a
+            href={`https://wa.me/919773135547?text=${whatsappMessage}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-gradient inline-flex items-center gap-2"
+          >
+            Open in WhatsApp
+          </a>
         </motion.div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-8">
-          {/* Step 1: Select Service */}
+          {/* Step 1 */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-3">
-              1. Select Service Type
+            <label className="block text-xs font-mono uppercase tracking-widest text-slate-500 font-bold mb-3">
+              1. Select Production Discipline
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {servicesList.map((s) => (
                 <button
-                  key={s.id}
                   type="button"
+                  key={s.id}
                   onClick={() => setSelectedService(s.id)}
-                  className={`text-left p-4 rounded-xl border-2 transition-all duration-200 ${
+                  className={`p-4 rounded-2xl text-left border transition-all cursor-pointer ${
                     selectedService === s.id
                       ? "border-blue-600 bg-blue-50/50 shadow-md shadow-blue-500/10"
-                      : "border-slate-200 hover:border-blue-200 hover:bg-slate-50/60"
+                      : "border-slate-200 hover:border-slate-300 bg-white"
                   }`}
                 >
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-slate-900 text-sm">{s.label}</span>
-                    <span className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                      selectedService === s.id ? "border-blue-600 bg-blue-600" : "border-slate-300"
-                    }`}>
-                      {selectedService === s.id && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                    </span>
-                  </div>
-                  <p className="text-xs text-slate-500 mt-1">{s.desc}</p>
+                  <p className="font-space font-bold text-sm text-navy-900">{s.label}</p>
+                  <p className="text-xs text-slate-500 mt-0.5">{s.desc}</p>
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Step 2: Select Timeline */}
+          {/* Step 2 */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-3">
-              2. Preferred Timeline
+            <label className="block text-xs font-mono uppercase tracking-widest text-slate-500 font-bold mb-3">
+              2. Timeline Expectation
             </label>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {timelineList.map((t) => (
                 <button
-                  key={t}
                   type="button"
+                  key={t}
                   onClick={() => setSelectedTimeline(t)}
-                  className={`py-3 px-4 rounded-xl text-xs font-semibold border-2 transition-all duration-200 text-center ${
+                  className={`p-3.5 rounded-2xl text-center border text-xs font-space font-semibold transition-all cursor-pointer ${
                     selectedTimeline === t
                       ? "border-blue-600 bg-blue-600 text-white shadow-md shadow-blue-500/20"
-                      : "border-slate-200 text-slate-700 hover:border-blue-300 hover:bg-blue-50/30"
+                      : "border-slate-200 text-slate-700 hover:border-slate-300 bg-white"
                   }`}
                 >
                   {t}
@@ -377,92 +367,97 @@ function QuoteCalculator() {
             </div>
           </div>
 
-          {/* Step 3: Add-on Capabilities */}
+          {/* Step 3 */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-3">
+            <label className="block text-xs font-mono uppercase tracking-widest text-slate-500 font-bold mb-3">
               3. Deliverable Add-ons (Optional)
             </label>
-            <div className="flex flex-wrap gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
               {addonsList.map((addon) => {
-                const isSelected = selectedAddons.includes(addon);
+                const checked = selectedAddons.includes(addon);
                 return (
                   <button
-                    key={addon}
                     type="button"
+                    key={addon}
                     onClick={() => toggleAddon(addon)}
-                    className={`px-3.5 py-2 rounded-full text-xs font-medium border transition-all duration-200 flex items-center gap-1.5 ${
-                      isSelected
-                        ? "border-blue-600 bg-blue-50 text-blue-700 font-semibold"
-                        : "border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50"
+                    className={`p-2.5 rounded-xl border text-xs font-space font-medium text-left flex items-center justify-between transition-all cursor-pointer ${
+                      checked
+                        ? "border-blue-600 bg-blue-50/60 text-blue-700"
+                        : "border-slate-200 text-slate-600 hover:border-slate-300 bg-white"
                     }`}
                   >
-                    <span className={`w-3.5 h-3.5 rounded flex items-center justify-center text-[10px] ${
-                      isSelected ? "bg-blue-600 text-white" : "border border-slate-300"
+                    <span className="truncate pr-1">{addon}</span>
+                    <span className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
+                      checked ? "bg-blue-600 border-blue-600 text-white" : "border-slate-300"
                     }`}>
-                      {isSelected && "✓"}
+                      {checked && <Check className="w-2.5 h-2.5" />}
                     </span>
-                    {addon}
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* Step 4: Contact info */}
-          <div className="border-t border-slate-100 pt-6 space-y-4">
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
-              4. Your Contact & Project Overview
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <input
-                  type="text"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Your Name *"
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none text-sm transition-all"
-                />
-              </div>
-              <div>
-                <input
-                  type="text"
-                  required
-                  value={contactInfo}
-                  onChange={(e) => setContactInfo(e.target.value)}
-                  placeholder="Email or WhatsApp Number *"
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none text-sm transition-all"
-                />
-              </div>
+          {/* Step 4 */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-mono uppercase tracking-widest text-slate-500 font-bold mb-2">
+                Your Name
+              </label>
+              <input
+                type="text"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="e.g. Alex Morgan"
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-navy-900 text-sm focus:outline-none focus:border-blue-600"
+              />
             </div>
             <div>
-              <textarea
-                rows={3}
-                value={details}
-                onChange={(e) => setDetails(e.target.value)}
-                placeholder="Brief project details, reference links, or specific requirements..."
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none text-sm transition-all resize-none"
+              <label className="block text-xs font-mono uppercase tracking-widest text-slate-500 font-bold mb-2">
+                Email or WhatsApp Number
+              </label>
+              <input
+                type="text"
+                required
+                value={contactInfo}
+                onChange={(e) => setContactInfo(e.target.value)}
+                placeholder="contact@brand.com or +91 ..."
+                className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-navy-900 text-sm focus:outline-none focus:border-blue-600"
               />
             </div>
           </div>
 
-          {/* Action CTAs */}
-          <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+          <div>
+            <label className="block text-xs font-mono uppercase tracking-widest text-slate-500 font-bold mb-2">
+              Brief Project Notes or Video Links
+            </label>
+            <textarea
+              rows={3}
+              value={details}
+              onChange={(e) => setDetails(e.target.value)}
+              placeholder="Tell me about your footage, aesthetic preferences, reference videos, or target delivery date..."
+              className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-navy-900 text-sm focus:outline-none focus:border-blue-600"
+            />
+          </div>
+
+          {/* Submit CTAs */}
+          <div className="flex flex-col sm:flex-row gap-3 pt-2">
             <button
               type="submit"
-              className="btn-gradient w-full sm:w-auto sm:flex-1 justify-center py-3.5 text-sm inline-flex items-center gap-2 shadow-lg shadow-blue-500/25"
+              className="btn-gradient flex-1 inline-flex items-center justify-center gap-2 cursor-pointer"
             >
               <Send className="w-4 h-4" />
-              Submit Quote Request
+              SUBMIT QUOTE REQUEST
             </button>
             <a
               href={`https://wa.me/919773135547?text=${whatsappMessage}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-outline w-full sm:w-auto justify-center py-3.5 text-sm inline-flex items-center gap-2 hover:border-emerald-500 hover:text-emerald-600"
+              className="btn-outline inline-flex items-center justify-center gap-2"
             >
-              <MessageSquare className="w-4 h-4" />
-              Quote via WhatsApp
+              <MessageSquare className="w-4 h-4 text-emerald-600" />
+              SEND ON WHATSAPP
             </a>
           </div>
         </form>

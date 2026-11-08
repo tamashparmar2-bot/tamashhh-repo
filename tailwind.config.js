@@ -8,9 +8,18 @@ export default {
     extend: {
       fontFamily: {
         podium: ['"Bebas Neue"', 'sans-serif'],
+        space: ['"Space Grotesk"', 'sans-serif'],
         inter: ['"Inter"', 'sans-serif'],
       },
       colors: {
+        navy: {
+          950: '#060b17',
+          900: '#0b1329',
+          850: '#0f172a',
+          800: '#111d3d',
+          700: '#1b2a4e',
+          600: '#334155',
+        },
         brand: {
           50: '#eff6ff',
           100: '#dbeafe',

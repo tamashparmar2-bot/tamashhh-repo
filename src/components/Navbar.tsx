@@ -6,26 +6,22 @@ import {
   Menu,
   Mail,
   Phone,
-  Clock,
-  FolderOpen
+  Clock
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { IconInstagram, IconTwitterX, IconYoutube, IconLinkedin } from "./SocialIcons";
 
 const NAV_LINKS = [
-  { label: "Home", to: "/" },
+  { label: "Work", to: "/portfolio" },
   { label: "About", to: "/about" },
   { label: "Services", to: "/services" },
-  { label: "Portfolio", to: "/portfolio", badge: "NEW" },
-  { label: "Blog", to: "/blog" },
-  { label: "Resources", to: "/resources", badge: "FREE" },
-  { label: "Portal", to: "/portal", icon: FolderOpen },
+  { label: "Contact", to: "/contact" },
 ];
 
 const ANNOUNCEMENTS = [
-  "🔥 Save 25% on Brand Identity Design & Video Editing — Use Code: YASHFX25",
-  "⚡ Free Assets Hub: Download video intro templates, LUTs, and React boilerplates",
-  "🚀 Fast Turnaround: 48-72h sprints for design and vibe coding deliverables"
+  "⚡ Available for Motion Design & Commercial Video Editing — Direct Inquiries Open",
+  "🎬 High-Octane Commercial Cuts, 3D CGI Simulations & Color Grading",
+  "🚀 Fast Delivery: 48-72h High-Priority Motion Sprints Available"
 ];
 
 export default function Navbar() {
@@ -72,8 +68,8 @@ export default function Navbar() {
             {/* Left: Availability Status */}
             <div className="hidden sm:flex items-center gap-2 text-slate-300 shrink-0">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
               </span>
               <span className="font-semibold text-slate-200">Available for projects</span>
               <span className="text-slate-500">•</span>
@@ -92,7 +88,7 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.3 }}
-                  className="text-center truncate px-2 text-slate-200 text-[11px] tracking-wide"
+                  className="text-center truncate px-2 text-slate-200 text-[11px] tracking-wide font-space"
                 >
                   {ANNOUNCEMENTS[announcementIdx]}
                 </motion.div>
@@ -115,7 +111,7 @@ export default function Navbar() {
                 className="hover:text-blue-400 transition-colors flex items-center gap-1.5 font-mono text-[10px]"
                 title="Call directly"
               >
-                <Phone className="w-3 h-3 text-emerald-400" />
+                <Phone className="w-3 h-3 text-blue-400" />
                 <span>+91 97731 35547</span>
               </a>
             </div>
@@ -123,7 +119,7 @@ export default function Navbar() {
         </div>
 
         {/* Main Navigation Bar */}
-        <nav className="bg-white/95 backdrop-blur-xl border-b border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.04)] w-full">
+        <nav className="bg-white/95 backdrop-blur-xl border-b border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] w-full">
           <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-8 lg:px-12 py-3.5">
             {/* Logo + Tagline */}
             <Link to="/" className="flex items-center gap-3 group">
@@ -141,13 +137,13 @@ export default function Navbar() {
                   </span>
                 </div>
                 <span className="text-[9px] uppercase tracking-widest text-slate-500 font-semibold -mt-1 font-mono hidden sm:block">
-                  Design • Video • Code
+                  Motion Designer & Video Editor
                 </span>
               </div>
             </Link>
 
             {/* Desktop Navigation Links */}
-            <div className="hidden lg:flex items-center gap-6 xl:gap-8">
+            <div className="hidden lg:flex items-center gap-8">
               {NAV_LINKS.map((link) => {
                 const isActive = location.pathname === link.to;
                 return (
@@ -161,11 +157,6 @@ export default function Navbar() {
                     }`}
                   >
                     <span>{link.label}</span>
-                    {link.badge && (
-                      <span className="text-[8px] font-bold px-1.5 py-0.2 rounded-full bg-blue-600 text-white tracking-wider">
-                        {link.badge}
-                      </span>
-                    )}
                     {isActive && (
                       <motion.div
                         layoutId="activeNavIndicator"
@@ -179,28 +170,29 @@ export default function Navbar() {
 
             {/* Right Actions */}
             <div className="flex items-center gap-3 sm:gap-4">
-              {/* Client Portal Quick Pill */}
-              <Link
-                to="/portal"
-                className="hidden sm:flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border border-slate-200 text-slate-700 hover:border-blue-300 hover:text-blue-600 hover:bg-blue-50/50 transition-all"
+              {/* WhatsApp Quick Link */}
+              <a
+                href="https://wa.me/919773135547?text=Hello%20YASHFX!%20I'd%20like%20to%20discuss%20a%20motion%20project."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden sm:flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2 rounded-full border border-slate-200 text-slate-700 hover:border-blue-300 hover:text-blue-600 hover:bg-blue-50/50 transition-all font-mono"
               >
-                <FolderOpen className="w-3.5 h-3.5 text-blue-600" />
-                <span>Client Portal</span>
-              </Link>
+                <span>WhatsApp</span>
+              </a>
 
-              {/* Primary Contact CTA */}
+              {/* Primary Quote CTA */}
               <Link
                 to="/contact"
                 className="hidden sm:flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 text-xs font-inter font-semibold uppercase tracking-wider rounded-full shadow-md shadow-blue-500/20 hover:shadow-blue-500/30 transition-all duration-200"
               >
-                <span>Let's Talk</span>
+                <span>Get a Quote</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>
 
               {/* Hamburger Button for Mobile */}
               <button
                 onClick={() => setMenuOpen(true)}
-                className="flex lg:hidden text-slate-800 hover:text-blue-600 transition-colors p-1.5 rounded-xl border border-slate-200 hover:border-blue-300"
+                className="flex lg:hidden text-slate-800 hover:text-blue-600 transition-colors p-1.5 rounded-xl border border-slate-200 hover:border-blue-300 cursor-pointer"
                 aria-label="Open navigation menu"
               >
                 <Menu className="w-5 h-5" />
@@ -233,13 +225,13 @@ export default function Navbar() {
                     YASHFX
                   </span>
                   <span className="text-[9px] uppercase tracking-widest text-slate-500 font-semibold font-mono">
-                    Design • Video • Code
+                    Motion Designer & Video Editor
                   </span>
                 </div>
               </Link>
               <button
                 onClick={() => setMenuOpen(false)}
-                className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+                className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer"
                 aria-label="Close menu"
               >
                 <X className="w-5 h-5" />
@@ -252,11 +244,11 @@ export default function Navbar() {
               <div className="mb-6 p-3 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
                   </span>
                   <span className="text-xs font-semibold text-slate-800">
-                    Available for Q2 Projects
+                    Available for Motion Projects
                   </span>
                 </div>
                 <span className="text-[10px] font-mono text-slate-500">
@@ -273,26 +265,16 @@ export default function Navbar() {
                       key={link.to}
                       to={link.to}
                       onClick={() => setMenuOpen(false)}
-                      className={`flex items-center justify-between py-2 px-3 rounded-xl transition-all ${
+                      className={`flex items-center justify-between py-2.5 px-3.5 rounded-xl transition-all ${
                         isActive
                           ? "bg-blue-600 text-white font-bold"
                           : "text-slate-800 hover:bg-slate-100 hover:text-blue-600"
                       }`}
                     >
-                      <span className="font-podium text-xl uppercase tracking-wider">
+                      <span className="font-podium text-2xl uppercase tracking-wider">
                         {link.label}
                       </span>
-                      {link.badge && (
-                        <span
-                          className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${
-                            isActive
-                              ? "bg-white text-blue-600"
-                              : "bg-blue-50 text-blue-600 border border-blue-200"
-                          }`}
-                        >
-                          {link.badge}
-                        </span>
-                      )}
+                      <ArrowUpRight className="w-4 h-4 opacity-50" />
                     </Link>
                   );
                 })}
@@ -312,7 +294,7 @@ export default function Navbar() {
                     href="tel:+919773135547"
                     className="flex items-center gap-2.5 p-2 rounded-xl bg-slate-50 hover:bg-blue-50 hover:text-blue-600 transition-colors"
                   >
-                    <Phone className="w-4 h-4 text-emerald-600" />
+                    <Phone className="w-4 h-4 text-blue-600" />
                     <span className="font-mono font-medium">+91 97731 35547</span>
                   </a>
                 </div>
@@ -343,7 +325,7 @@ export default function Navbar() {
                     onClick={() => setMenuOpen(false)}
                     className="btn-gradient py-2 px-4 text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 text-white"
                   >
-                    <span>Contact Me</span>
+                    <span>Get a Quote</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
