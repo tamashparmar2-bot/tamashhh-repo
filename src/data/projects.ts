@@ -39,23 +39,23 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "bairan-motion-edit",
-    title: "Bairan Cinematic Reel",
+    title: "Bairan Cinematic Edit",
     client: "Independent Creative Music Edit",
     year: "2024",
     role: "Motion Designer & Finishing Artist",
     category: "Motion Graphics",
-    aspect: "9:16",
+    aspect: "16:9",
     videoUrl: "/portfolio/bairan-edit.mp4",
-    tagline: "Emotional narrative pacing, kinetic text choreography, and atmospheric visual effects.",
-    overview: "A stylized, high-impact vertical motion edit set to evocative music. Crafted using After Effects with custom optical transitions, expressive speed ramps, and atmospheric color timing engineered for high engagement on social platforms.",
+    tagline: "Atmospheric landscape narrative edit with kinetic typography and celestial visual effects.",
+    overview: "A stylized, high-impact landscape motion edit set to evocative music. Crafted using After Effects with custom optical transitions, expressive speed ramps, and atmospheric color timing.",
     creativeProcess: [
       "Assembled raw narrative clips tightly matching the lyrical cadence and vocal beats.",
       "Created custom motion blur transitions, optical glow flares, and film burn textures in After Effects.",
       "Applied cinematic warm-tone grading with contrasted shadow rolloffs.",
-      "Optimized framerate and bitrate for vertical 9:16 smartphone playback."
+      "Composited kinetic title typography and celestial particle animations in 16:9 widescreen."
     ],
     software: ["Adobe After Effects", "Adobe Premiere Pro"],
-    deliverables: ["9:16 Vertical Master", "Full HD Social Cut", "Custom Motion Transitions"],
+    deliverables: ["16:9 Cinematic Master", "Full HD Master Cut", "Custom Motion Transitions"],
     featured: true,
   },
   {
