@@ -93,7 +93,7 @@ export default function VideoEditorAnand() {
             { "@type": "EducationalOrganization", "name": "CVM University" }
           ],
           "sameAs": [
-            "https://www.instagram.com/tamashhh_/"
+            "https://www.instagram.com/yashfx.mov"
           ]
         },
         {

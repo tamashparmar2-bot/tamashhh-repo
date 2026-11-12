@@ -174,7 +174,7 @@ export default function DigitalGrowth() {
       ],
       "description": description,
       "sameAs": [
-        "https://www.instagram.com/tamashhh_/"
+        "https://www.instagram.com/yashfx.mov"
       ]
     };
 

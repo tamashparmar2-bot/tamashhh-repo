@@ -31,7 +31,7 @@ const contactInfo = [
 ];
 
 const socials = [
-  { icon: IconInstagram, href: "https://www.instagram.com/tamashhh_/", label: "Instagram" },
+  { icon: IconInstagram, href: "https://www.instagram.com/yashfx.mov", label: "Instagram" },
   { icon: IconTwitterX, href: "https://x.com", label: "Twitter / X" },
   { icon: IconYoutube, href: "https://youtube.com", label: "YouTube" },
   { icon: IconLinkedin, href: "https://linkedin.com", label: "LinkedIn" },
