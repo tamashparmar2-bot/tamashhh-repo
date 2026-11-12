@@ -42,6 +42,7 @@ const services = [
   "Motion Graphics & Kinetic Type",
   "3D CGI & Visual Simulations",
   "Color Grading & Foley Sound",
+  "Digital Growth (Website & Marketing)",
   "Other Creative Direction"
 ];
 
