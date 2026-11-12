@@ -31,6 +31,11 @@ const STATIC_ROUTE_META: Record<string, RouteMeta> = {
     description:
       "Explore post-production services including commercial video editing, kinetic typography, 3D CGI animation, and DaVinci Resolve color grading.",
   },
+  "/digital-growth": {
+    title: "Digital Growth Services | Website Development, SEO & Performance Marketing – YASHFX",
+    description:
+      "We help ambitious brands build a powerful digital presence through website development, performance marketing, SEO and social media marketing.",
+  },
   "/about": {
     title: "About Yashraj Parmar | Motion Designer & Video Editor – YASHFX",
     description:

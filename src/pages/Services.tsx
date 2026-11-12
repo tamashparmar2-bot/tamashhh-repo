@@ -207,6 +207,30 @@ export default function Services() {
         ))}
       </section>
 
+      {/* Cross-link to Digital Growth */}
+      <section className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 pb-16">
+        <div className="p-6 sm:p-8 rounded-3xl bg-slate-50 border border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          <div className="space-y-1">
+            <span className="text-xs font-mono uppercase tracking-widest text-blue-600 font-bold block">
+              FULL-FUNNEL BRAND SCALING
+            </span>
+            <p className="font-space text-base text-navy-900 font-bold">
+              Need Website Development, Performance Marketing, SEO or Social Media?
+            </p>
+            <p className="font-space text-xs sm:text-sm text-slate-600">
+              Pair YASHFX motion craft with conversion-focused web development and digital marketing.
+            </p>
+          </div>
+          <Link
+            to="/digital-growth"
+            className="btn-outline inline-flex items-center gap-2 self-start sm:self-auto shrink-0 text-xs py-3 px-6"
+          >
+            EXPLORE DIGITAL GROWTH
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+      </section>
+
       {/* Get a Quote Section */}
       <section id="quote" className="py-24 lg:py-32 px-6 sm:px-10 lg:px-16 bg-gradient-to-b from-white via-blue-50/20 to-slate-50/50 border-t border-slate-200/80">
         <div className="max-w-4xl mx-auto">
@@ -306,6 +330,11 @@ function QuoteCalculator() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    window.open(
+      `https://wa.me/919773135547?text=${whatsappMessage}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
     setSubmitted(true);
   };
 

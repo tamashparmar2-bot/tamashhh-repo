@@ -8,11 +8,13 @@ const footerLinks = {
     { label: "Motion Graphics & Kinetic Type", to: "/services" },
     { label: "3D CGI & Physics Simulations", to: "/services" },
     { label: "Color Grading & Foley Sound", to: "/services" },
+    { label: "Digital Growth & Marketing", to: "/digital-growth" },
   ],
   navigation: [
     { label: "Selected Work", to: "/portfolio" },
     { label: "About Yashraj", to: "/about" },
     { label: "Disciplines", to: "/services" },
+    { label: "Digital Growth", to: "/digital-growth" },
     { label: "Video Editor in Anand", to: "/video-editor-anand" },
     { label: "Get a Custom Quote", to: "/contact" },
   ],

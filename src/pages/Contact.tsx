@@ -88,29 +88,40 @@ export default function Contact() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.service || !formData.message) {
       return;
     }
 
-    try {
-      const { error } = await supabase
-        .from("contact_submissions")
-        .insert([
-          {
-            name: formData.name,
-            email: formData.email,
-            service: formData.service,
-            message: formData.message,
-          },
-        ]);
-      if (error) {
-        console.error("Database submission error:", error);
-      }
-    } catch (err) {
-      console.error("Failed to connect to database:", err);
-    }
+    const whatsappText =
+      `Hello Yashraj! New project inquiry from yashfx.in:\n\n` +
+      `• Name: ${formData.name}\n` +
+      `• Email: ${formData.email}\n` +
+      `• Discipline: ${formData.service}\n` +
+      `• Project Overview & Timeline:\n${formData.message}`;
+
+    const whatsappUrl = `https://wa.me/919773135547?text=${encodeURIComponent(whatsappText)}`;
+
+    // Open WhatsApp synchronously within user gesture context
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+
+    // Save to Supabase in background
+    supabase
+      .from("contact_submissions")
+      .insert([
+        {
+          name: formData.name,
+          email: formData.email,
+          service: formData.service,
+          message: formData.message,
+        },
+      ])
+      .then(({ error }) => {
+        if (error) {
+          console.error("Database submission error:", error);
+        }
+      });
 
     setShowToast(true);
     setFormData({ name: "", email: "", service: "", message: "" });
