@@ -167,3 +167,171 @@
     animation: pulse-glow 3s ease-in-out infinite;
   }
 }
+
+/* ──────────────────────── DARK MODE SYSTEM ──────────────────────── */
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #060b17;
+  color: #f1f5f9;
+}
+
+html.dark ::selection {
+  background: rgba(59, 130, 246, 0.35);
+  color: #ffffff;
+}
+
+/* Base Surfaces in Dark Mode */
+html.dark main,
+html.dark article,
+html.dark .bg-white {
+  background-color: #060b17;
+}
+
+/* Secondary Surface & Card Shading */
+html.dark .bg-slate-50,
+html.dark .bg-slate-50\/70,
+html.dark .bg-slate-50\/60,
+html.dark .bg-slate-50\/80,
+html.dark .bg-slate-50\/50,
+html.dark .bg-slate-50\/40,
+html.dark .bg-slate-50\/30 {
+  background-color: #0b1329;
+}
+
+html.dark .bg-slate-100 {
+  background-color: #0f1a36;
+}
+
+/* Hero Section Subtle Gradients */
+html.dark [class*="bg-gradient-to-b"][class*="from-blue-50"],
+html.dark [class*="bg-gradient-to-b"][class*="from-white"] {
+  background: linear-gradient(180deg, rgba(30, 58, 138, 0.22) 0%, #060b17 65%, #060b17 100%) !important;
+}
+
+/* Cards & Elevated Containers */
+html.dark .rounded-2xl.bg-white,
+html.dark .rounded-3xl.bg-white,
+html.dark .rounded-xl.bg-white,
+html.dark .group.bg-white,
+html.dark .glass-card {
+  background-color: #0b1329;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
+}
+
+html.dark .rounded-2xl.bg-slate-50,
+html.dark .rounded-3xl.bg-slate-50,
+html.dark .rounded-xl.bg-slate-50 {
+  background-color: #0d1833;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+html.dark .p-4.bg-white,
+html.dark .bg-white.flex,
+html.dark .bg-white.p-6,
+html.dark .bg-white.p-8 {
+  background-color: #0b1329;
+}
+
+/* Pills & Badges */
+html.dark .bg-blue-50,
+html.dark .bg-blue-50\/70,
+html.dark .bg-blue-50\/60,
+html.dark .bg-blue-50\/50,
+html.dark .bg-blue-50\/40 {
+  background-color: rgba(37, 99, 235, 0.15) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+}
+
+html.dark .text-blue-700 {
+  color: #93c5fd !important;
+}
+
+/* Typography Color Inversions */
+html.dark .text-navy-900,
+html.dark .text-slate-900,
+html.dark .text-slate-800 {
+  color: #f8fafc !important;
+}
+
+html.dark .text-slate-700,
+html.dark .text-slate-600 {
+  color: #cbd5e1 !important;
+}
+
+html.dark .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+/* Typography Gradients in Dark Mode */
+html.dark .gradient-text {
+  background: linear-gradient(135deg, #ffffff 15%, #60a5fa 75%, #3b82f6 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+html.dark .gradient-text-h {
+  background: linear-gradient(90deg, #ffffff 20%, #60a5fa 75%, #3b82f6 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+/* Borders */
+html.dark .border-slate-100,
+html.dark .border-slate-200,
+html.dark .border-slate-200\/90,
+html.dark .border-slate-200\/80,
+html.dark .border-slate-200\/70 {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark .border-slate-300 {
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+/* Outline Buttons */
+html.dark .btn-outline {
+  background: #0b1329 !important;
+  color: #f8fafc !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4) !important;
+}
+
+html.dark .btn-outline:hover {
+  background: rgba(37, 99, 235, 0.15) !important;
+  border-color: #3b82f6 !important;
+  color: #60a5fa !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3) !important;
+}
+
+/* Form Inputs, Textareas & Selects */
+html.dark input:not([type="checkbox"]):not([type="radio"]),
+html.dark textarea,
+html.dark select {
+  background-color: #060b17 !important;
+  color: #f8fafc !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #64748b !important;
+}
+
+html.dark input:focus,
+html.dark textarea:focus,
+html.dark select:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 1px #3b82f6 !important;
+}
+
+/* Subtle dot grid pattern */
+html.dark [class*="radial-gradient(#e2e8f0"] {
+  background-image: radial-gradient(#1e293b 1px, transparent 1px) !important;
+  opacity: 0.65 !important;
+}

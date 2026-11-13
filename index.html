@@ -7,6 +7,18 @@
     <link rel="shortcut icon" href="/favicon.ico?v=3" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('yashfx-theme');
+          if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
     <meta name="description" content="YASHFX — Independent Motion Designer & Video Editor. Visuals That Move People. Specialising in high-impact motion graphics, commercial video editing, and 3D CGI." />
     <title>YASHFX — Visuals That Move People | Motion Designer & Video Editor</title>
     <link rel="canonical" href="https://www.yashfx.in/" />

@@ -142,7 +142,7 @@ export default function Layout() {
   }, [pathname]);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-inter relative">
+    <div className="min-h-screen bg-white dark:bg-navy-950 text-slate-900 dark:text-slate-100 font-inter relative transition-colors duration-300">
       <Navbar />
       <main className="pt-[92px] lg:pt-[100px]">
         <Outlet />

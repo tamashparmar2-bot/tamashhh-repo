@@ -42,7 +42,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
             y: -30,
             transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] } 
           }}
-          className="fixed inset-0 z-[9999] bg-white flex flex-col items-center justify-center select-none"
+          className="fixed inset-0 z-[9999] bg-white dark:bg-navy-950 flex flex-col items-center justify-center select-none"
         >
           {/* Subtle background blue glow */}
           <div className="absolute w-[400px] h-[400px] rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
@@ -52,7 +52,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 0.06 }}
-              className="absolute -top-16 font-mono text-[12vw] font-bold text-slate-900 tracking-tighter pointer-events-none"
+              className="absolute -top-16 font-mono text-[12vw] font-bold text-slate-900 dark:text-white tracking-tighter pointer-events-none"
             >
               {progress.toString().padStart(3, "0")}
             </motion.div>
@@ -79,7 +79,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
                     delay: index * 0.06,
                     ease: [0.215, 0.61, 0.355, 1],
                   }}
-                  className="font-podium text-3xl sm:text-4xl lg:text-5xl font-bold tracking-widest text-slate-900"
+                  className="font-podium text-3xl sm:text-4xl lg:text-5xl font-bold tracking-widest text-slate-900 dark:text-white"
                 >
                   {char}
                 </motion.span>
@@ -87,7 +87,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
             </div>
 
             {/* Minimalist Blue Progress bar */}
-            <div className="w-full h-[2px] bg-slate-100 rounded-full overflow-hidden relative mt-1">
+            <div className="w-full h-[2px] bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden relative mt-1">
               <motion.div
                 className="absolute top-0 left-0 h-full bg-blue-600"
                 style={{ width: `${progress}%` }}

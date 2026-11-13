@@ -13,13 +13,14 @@ import Blog from "./pages/Blog";
 import Resources from "./pages/Resources";
 import ClientPortal from "./pages/ClientPortal";
 import Preloader from "./components/Preloader";
+import { ThemeProvider } from "./context/ThemeContext";
 import "./index.css";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <>
+    <ThemeProvider>
       {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
       <BrowserRouter>
         <Routes>
@@ -39,6 +40,6 @@ export default function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </>
+    </ThemeProvider>
   );
 }
