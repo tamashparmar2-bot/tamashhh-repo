@@ -1,33 +1,63 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Volume2 } from "lucide-react";
+import { ArrowUpRight, Volume2, VolumeX } from "lucide-react";
 import { PROJECTS, type Project } from "../data/projects";
 
 const categories = ["All", "Commercial Editing", "Motion Graphics", "3D & CGI"] as const;
 
 export default function Portfolio() {
   const [filter, setFilter] = useState<string>("All");
+  const [activeAudioSlug, setActiveAudioSlug] = useState<string | null>(null);
+  const [userMuted, setUserMuted] = useState<boolean>(false);
 
-  const handleMouseEnterVideo = (e: React.MouseEvent<HTMLElement>) => {
+  const handleMouseEnterVideo = (e: React.MouseEvent<HTMLElement>, slug: string) => {
+    if (userMuted) return;
+    const video = e.currentTarget.querySelector("video");
     // Mute all other videos
     document.querySelectorAll("video").forEach((v) => {
-      if (v !== e.currentTarget.querySelector("video")) {
+      if (v !== video) {
         v.muted = true;
       }
     });
-    const video = e.currentTarget.querySelector("video");
     if (video) {
       video.muted = false;
       video.volume = 1;
       video.play().catch(() => {});
+      setActiveAudioSlug(slug);
     }
   };
 
-  const handleMouseLeaveVideo = (e: React.MouseEvent<HTMLElement>) => {
+  const handleMouseLeaveVideo = (e: React.MouseEvent<HTMLElement>, slug: string) => {
     const video = e.currentTarget.querySelector("video");
     if (video) {
       video.muted = true;
+    }
+    setActiveAudioSlug((current) => (current === slug ? null : current));
+  };
+
+  const toggleAudio = (e: React.MouseEvent, slug: string) => {
+    e.stopPropagation();
+    const card = (e.currentTarget as HTMLElement).closest(".project-card");
+    const video = card?.querySelector("video");
+
+    if (activeAudioSlug === slug) {
+      // Currently unmuted -> MUTE IT
+      if (video) video.muted = true;
+      setActiveAudioSlug(null);
+      setUserMuted(true);
+    } else {
+      // Unmute this video, mute all other videos
+      document.querySelectorAll("video").forEach((v) => {
+        v.muted = true;
+      });
+      if (video) {
+        video.muted = false;
+        video.volume = 1;
+        video.play().catch(() => {});
+      }
+      setActiveAudioSlug(slug);
+      setUserMuted(false);
     }
   };
 
@@ -109,16 +139,18 @@ export default function Portfolio() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.4, delay: idx * 0.04 }}
-                onMouseEnter={handleMouseEnterVideo}
-                onMouseLeave={handleMouseLeaveVideo}
-                className="break-inside-avoid mb-6 group bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:border-blue-400 transition-all duration-300"
+                onMouseEnter={(e) => handleMouseEnterVideo(e, project.slug)}
+                onMouseLeave={(e) => handleMouseLeaveVideo(e, project.slug)}
+                className="project-card break-inside-avoid mb-6 group bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:border-blue-400 transition-all duration-300"
               >
                 <div className="block relative">
                   {/* Aspect Ratio Box */}
                   <div
+                    onClick={(e) => toggleAudio(e, project.slug)}
                     className={`relative w-full ${
                       project.aspect === "9:16" ? "aspect-[9/16]" : "aspect-video"
-                    } overflow-hidden bg-slate-950`}
+                    } overflow-hidden bg-slate-950 cursor-pointer`}
+                    title="Click to toggle sound"
                   >
                     <video
                       src={project.videoUrl}
@@ -141,11 +173,31 @@ export default function Portfolio() {
                       </span>
                     </div>
 
-                    {/* Top Right: Live Audio Indicator */}
-                    <div className="absolute top-3.5 right-3.5 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-600/95 text-white text-[10px] font-mono shadow-md backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                      <Volume2 className="w-3.5 h-3.5 animate-pulse text-blue-200" />
-                      <span className="font-semibold tracking-wider">AUDIO ON</span>
-                    </div>
+                    {/* Top Right: Interactive Audio Toggle Button */}
+                    <button
+                      type="button"
+                      onClick={(e) => toggleAudio(e, project.slug)}
+                      aria-label={activeAudioSlug === project.slug ? "Mute audio" : "Unmute audio"}
+                      title={activeAudioSlug === project.slug ? "Click to mute audio" : "Click to unmute audio"}
+                      className={`absolute top-3.5 right-3.5 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono shadow-md backdrop-blur-md transition-all duration-200 cursor-pointer pointer-events-auto ${
+                        activeAudioSlug === project.slug
+                          ? "bg-blue-600 hover:bg-blue-700 text-white ring-2 ring-blue-400/50 scale-105 opacity-100"
+                          : "bg-slate-950/80 hover:bg-slate-900 text-slate-200 border border-white/20 opacity-80 group-hover:opacity-100"
+                      }`}
+                    >
+                      {activeAudioSlug === project.slug ? (
+                        <>
+                          <Volume2 className="w-3.5 h-3.5 animate-pulse text-blue-200" />
+                          <span className="font-semibold tracking-wider">AUDIO ON</span>
+                          <span className="text-[9px] opacity-80 uppercase ml-0.5">• MUTE</span>
+                        </>
+                      ) : (
+                        <>
+                          <VolumeX className="w-3.5 h-3.5 text-slate-300" />
+                          <span className="font-semibold tracking-wider">MUTED</span>
+                        </>
+                      )}
+                    </button>
 
                     {/* Bottom Metadata overlay */}
                     <div className="absolute bottom-0 inset-x-0 p-5 pointer-events-none">

@@ -438,25 +438,53 @@ function FullWidthShowreel() {
    ═══════════════════════════════════════════════════════════════════════ */
 function SelectedWorkSection() {
   const featured = PROJECTS.slice(0, 6);
+  const [activeAudioSlug, setActiveAudioSlug] = useState<string | null>(null);
+  const [userMuted, setUserMuted] = useState<boolean>(false);
 
-  const handleMouseEnterVideo = (e: React.MouseEvent<HTMLElement>) => {
+  const handleMouseEnterVideo = (e: React.MouseEvent<HTMLElement>, slug: string) => {
+    if (userMuted) return;
+    const video = e.currentTarget.querySelector("video");
     document.querySelectorAll("video").forEach((v) => {
-      if (v !== e.currentTarget.querySelector("video")) {
+      if (v !== video) {
         v.muted = true;
       }
     });
-    const video = e.currentTarget.querySelector("video");
     if (video) {
       video.muted = false;
       video.volume = 1;
       video.play().catch(() => {});
+      setActiveAudioSlug(slug);
     }
   };
 
-  const handleMouseLeaveVideo = (e: React.MouseEvent<HTMLElement>) => {
+  const handleMouseLeaveVideo = (e: React.MouseEvent<HTMLElement>, slug: string) => {
     const video = e.currentTarget.querySelector("video");
     if (video) {
       video.muted = true;
+    }
+    setActiveAudioSlug((current) => (current === slug ? null : current));
+  };
+
+  const toggleAudio = (e: React.MouseEvent, slug: string) => {
+    e.stopPropagation();
+    const card = (e.currentTarget as HTMLElement).closest(".selected-work-card");
+    const video = card?.querySelector("video");
+
+    if (activeAudioSlug === slug) {
+      if (video) video.muted = true;
+      setActiveAudioSlug(null);
+      setUserMuted(true);
+    } else {
+      document.querySelectorAll("video").forEach((v) => {
+        v.muted = true;
+      });
+      if (video) {
+        video.muted = false;
+        video.volume = 1;
+        video.play().catch(() => {});
+      }
+      setActiveAudioSlug(slug);
+      setUserMuted(false);
     }
   };
 
@@ -489,13 +517,17 @@ function SelectedWorkSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.08 }}
-              onMouseEnter={handleMouseEnterVideo}
-              onMouseLeave={handleMouseLeaveVideo}
-              className="group bg-white rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-blue-400 transition-all duration-300"
+              onMouseEnter={(e) => handleMouseEnterVideo(e, p.slug)}
+              onMouseLeave={(e) => handleMouseLeaveVideo(e, p.slug)}
+              className="selected-work-card group bg-white rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-blue-400 transition-all duration-300"
             >
               <div className="block">
                 {/* Visual Viewport with 16:9 or 9:16 aspect */}
-                <div className={`relative w-full ${p.aspect === "9:16" ? "aspect-[9/14]" : "aspect-[16/10]"} bg-slate-950 overflow-hidden`}>
+                <div
+                  onClick={(e) => toggleAudio(e, p.slug)}
+                  className={`relative w-full ${p.aspect === "9:16" ? "aspect-[9/14]" : "aspect-[16/10]"} bg-slate-950 overflow-hidden cursor-pointer`}
+                  title="Click to toggle sound"
+                >
                   <video
                     src={p.videoUrl}
                     autoPlay
@@ -517,11 +549,31 @@ function SelectedWorkSection() {
                     </span>
                   </div>
 
-                  {/* Audio indicator */}
-                  <div className="absolute top-3.5 right-3.5 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-600/95 text-white text-[10px] font-mono shadow-md backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                    <Volume2 className="w-3.5 h-3.5 animate-pulse text-blue-200" />
-                    <span className="font-semibold tracking-wider">AUDIO ON</span>
-                  </div>
+                  {/* Interactive Audio Toggle Button */}
+                  <button
+                    type="button"
+                    onClick={(e) => toggleAudio(e, p.slug)}
+                    aria-label={activeAudioSlug === p.slug ? "Mute audio" : "Unmute audio"}
+                    title={activeAudioSlug === p.slug ? "Click to mute audio" : "Click to unmute audio"}
+                    className={`absolute top-3.5 right-3.5 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono shadow-md backdrop-blur-md transition-all duration-200 cursor-pointer pointer-events-auto ${
+                      activeAudioSlug === p.slug
+                        ? "bg-blue-600 hover:bg-blue-700 text-white ring-2 ring-blue-400/50 scale-105 opacity-100"
+                        : "bg-slate-950/80 hover:bg-slate-900 text-slate-200 border border-white/20 opacity-80 group-hover:opacity-100"
+                    }`}
+                  >
+                    {activeAudioSlug === p.slug ? (
+                      <>
+                        <Volume2 className="w-3.5 h-3.5 animate-pulse text-blue-200" />
+                        <span className="font-semibold tracking-wider">AUDIO ON</span>
+                        <span className="text-[9px] opacity-80 uppercase ml-0.5">• MUTE</span>
+                      </>
+                    ) : (
+                      <>
+                        <VolumeX className="w-3.5 h-3.5 text-slate-300" />
+                        <span className="font-semibold tracking-wider">MUTED</span>
+                      </>
+                    )}
+                  </button>
 
                   {/* Bottom Text Over Visual */}
                   <div className="absolute bottom-0 inset-x-0 p-5 pointer-events-none">
