@@ -493,7 +493,7 @@ function SelectedWorkSection() {
               onMouseLeave={handleMouseLeaveVideo}
               className="group bg-white rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-blue-400 transition-all duration-300"
             >
-              <Link to={`/work/${p.slug}`} className="block">
+              <div className="block">
                 {/* Visual Viewport with 16:9 or 9:16 aspect */}
                 <div className={`relative w-full ${p.aspect === "9:16" ? "aspect-[9/14]" : "aspect-[16/10]"} bg-slate-950 overflow-hidden`}>
                   <video
@@ -523,13 +523,6 @@ function SelectedWorkSection() {
                     <span className="font-semibold tracking-wider">AUDIO ON</span>
                   </div>
 
-                  {/* Hover Center Icon */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                    <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-xl shadow-blue-600/40">
-                      <Play className="w-5 h-5 fill-current ml-0.5" />
-                    </div>
-                  </div>
-
                   {/* Bottom Text Over Visual */}
                   <div className="absolute bottom-0 inset-x-0 p-5 pointer-events-none">
                     <span className="text-[10px] font-mono uppercase tracking-widest text-blue-400 font-bold">
@@ -546,11 +539,11 @@ function SelectedWorkSection() {
                   <span className="text-xs font-mono text-slate-500 uppercase tracking-wider">
                     {p.software.slice(0, 2).join(" • ")}
                   </span>
-                  <span className="text-xs font-bold font-inter text-blue-600 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                    Case Study <ArrowUpRight className="w-3.5 h-3.5" />
+                  <span className="text-xs font-mono text-slate-400 uppercase tracking-wider">
+                    {p.aspect === "9:16" ? "Vertical Reel" : "Commercial Cut"}
                   </span>
                 </div>
-              </Link>
+              </div>
             </motion.div>
           ))}
         </div>

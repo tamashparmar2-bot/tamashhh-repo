@@ -368,7 +368,7 @@ export default function VideoEditorAnand() {
                 onMouseLeave={handleMouseLeaveVideo}
                 className="group bg-white rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-blue-400 transition-all duration-300"
               >
-                <Link to={`/work/${p.slug}`} className="block">
+                <div className="block">
                   <div className={`relative w-full ${p.aspect === "9:16" ? "aspect-[9/14]" : "aspect-[16/10]"} bg-slate-950 overflow-hidden`}>
                     <video
                       src={p.videoUrl}
@@ -412,11 +412,11 @@ export default function VideoEditorAnand() {
                     <span className="text-xs font-mono text-slate-500 uppercase tracking-wider">
                       {p.software.slice(0, 2).join(" • ")}
                     </span>
-                    <span className="text-xs font-bold font-inter text-blue-600 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                      View Project <ArrowUpRight className="w-3.5 h-3.5" />
+                    <span className="text-xs font-mono text-slate-400 uppercase tracking-wider">
+                      {p.aspect === "9:16" ? "9:16 Vertical" : "16:9 4K Master"}
                     </span>
                   </div>
-                </Link>
+                </div>
               </div>
             ))}
           </div>
@@ -424,7 +424,7 @@ export default function VideoEditorAnand() {
           {/* Contextual Link to Full Portfolio */}
           <div className="mt-12 text-center">
             <Link to="/portfolio" className="btn-outline inline-flex items-center gap-2">
-              EXPLORE ALL 13+ PORTFOLIO CASE STUDIES
+              EXPLORE ALL 13+ PORTFOLIO SHOWCASE EDITS
               <ArrowUpRight className="w-4 h-4" />
             </Link>
           </div>

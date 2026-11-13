@@ -2,7 +2,6 @@ import { Outlet, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { getProjectBySlug } from "../data/projects";
 
 interface RouteMeta {
   title: string;
@@ -84,18 +83,6 @@ export default function Layout() {
       title = meta.title;
       description = meta.description;
       if (meta.canonicalPath) canonicalPath = meta.canonicalPath;
-    } else if (cleanPath.startsWith("/work/") || cleanPath.startsWith("/project/")) {
-      const slug = cleanPath.replace(/^\/(work|project)\//, "");
-      const project = getProjectBySlug(slug);
-      if (project) {
-        title = `${project.title} | ${project.category} Portfolio – YASHFX`;
-        description = `${project.tagline} Built with ${project.software.slice(0, 3).join(", ")} by Yashraj Parmar (YASHFX).`;
-        // Canonicalize /project/:slug to primary /work/:slug
-        canonicalPath = `/work/${slug}`;
-      } else {
-        title = "Project Case Study | YASHFX Portfolio";
-        description = "Explore video editing, 3D CGI, and motion design case studies by YASHFX.";
-      }
     }
 
     // Update document title

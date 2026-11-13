@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Services from "./pages/Services";
 import Portfolio from "./pages/Portfolio";
-import ProjectDetail from "./pages/ProjectDetail";
 import Contact from "./pages/Contact";
 import VideoEditorAnand from "./pages/VideoEditorAnand";
 import DigitalGrowth from "./pages/DigitalGrowth";
@@ -29,8 +28,8 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
             <Route path="/portfolio" element={<Portfolio />} />
-            <Route path="/work/:slug" element={<ProjectDetail />} />
-            <Route path="/project/:slug" element={<ProjectDetail />} />
+            <Route path="/work/*" element={<Navigate to="/portfolio" replace />} />
+            <Route path="/project/*" element={<Navigate to="/portfolio" replace />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/video-editor-anand" element={<VideoEditorAnand />} />
             <Route path="/digital-growth" element={<DigitalGrowth />} />

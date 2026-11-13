@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Play, Volume2 } from "lucide-react";
+import { ArrowUpRight, Volume2 } from "lucide-react";
 import { PROJECTS, type Project } from "../data/projects";
 
 const categories = ["All", "Commercial Editing", "Motion Graphics", "3D & CGI"] as const;
@@ -113,7 +113,7 @@ export default function Portfolio() {
                 onMouseLeave={handleMouseLeaveVideo}
                 className="break-inside-avoid mb-6 group bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:border-blue-400 transition-all duration-300"
               >
-                <Link to={`/work/${project.slug}`} className="block relative">
+                <div className="block relative">
                   {/* Aspect Ratio Box */}
                   <div
                     className={`relative w-full ${
@@ -147,13 +147,6 @@ export default function Portfolio() {
                       <span className="font-semibold tracking-wider">AUDIO ON</span>
                     </div>
 
-                    {/* Center hover play button */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                      <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-xl shadow-blue-600/40 transform scale-90 group-hover:scale-100 transition-transform">
-                        <Play className="w-5 h-5 fill-current ml-0.5" />
-                      </div>
-                    </div>
-
                     {/* Bottom Metadata overlay */}
                     <div className="absolute bottom-0 inset-x-0 p-5 pointer-events-none">
                       <div className="flex items-center gap-2 mb-1.5">
@@ -179,11 +172,11 @@ export default function Portfolio() {
                     <span className="text-xs font-mono text-slate-500 uppercase tracking-wider">
                       {project.software.slice(0, 2).join(" • ")}
                     </span>
-                    <span className="text-xs font-bold font-inter text-blue-600 inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                      View Project <ArrowUpRight className="w-3.5 h-3.5" />
+                    <span className="text-xs font-mono text-slate-400 uppercase tracking-wider">
+                      {project.aspect === "9:16" ? "Vertical Cut" : "Cinematic 16:9"}
                     </span>
                   </div>
-                </Link>
+                </div>
               </motion.div>
             ))}
           </AnimatePresence>
