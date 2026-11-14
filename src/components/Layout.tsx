@@ -1,7 +1,8 @@
 import { Outlet, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { trackPageView } from "../lib/analytics";
 
 interface RouteMeta {
   title: string;
@@ -63,14 +64,16 @@ const STATIC_ROUTE_META: Record<string, RouteMeta> = {
 };
 
 export default function Layout() {
-  const { pathname } = useLocation();
+  const location = useLocation();
+  const lastTrackedPathRef = useRef<string | null>(null);
 
   // Scroll to top and synchronize title, meta description, canonical & og/twitter tags on route change
   useEffect(() => {
     window.scrollTo(0, 0);
 
+    const fullPath = location.pathname + location.search;
     // Compute route canonical URL and normalize paths
-    const cleanPath = pathname === "/" ? "" : pathname.replace(/\/+$/, "");
+    const cleanPath = location.pathname === "/" ? "" : location.pathname.replace(/\/+$/, "");
     let canonicalPath = cleanPath;
 
     let title = "YASHFX – Video Editing, 3D CGI & Motion Graphics Studio";
@@ -126,7 +129,13 @@ export default function Layout() {
     if (ogUrl) ogUrl.setAttribute("content", canonicalUrl);
     const twitterUrl = document.querySelector('meta[name="twitter:url"]');
     if (twitterUrl) twitterUrl.setAttribute("content", canonicalUrl);
-  }, [pathname]);
+
+    // Track GA4 page view on route changes while avoiding duplicate events
+    if (lastTrackedPathRef.current !== fullPath) {
+      lastTrackedPathRef.current = fullPath;
+      trackPageView(fullPath, title);
+    }
+  }, [location.pathname, location.search]);
 
   return (
     <div className="min-h-screen bg-white dark:bg-navy-950 text-slate-900 dark:text-slate-100 font-inter relative transition-colors duration-300">

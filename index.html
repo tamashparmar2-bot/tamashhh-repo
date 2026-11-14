@@ -7,6 +7,18 @@
     <link rel="shortcut icon" href="/favicon.ico?v=3" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google tag (gtag.js) - Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TN0ZQGMF62"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Disable automatic page view tracking to prevent duplicate hits in React SPA
+      gtag('config', 'G-TN0ZQGMF62', {
+        send_page_view: false
+      });
+    </script>
     <script>
       (function() {
         try {
