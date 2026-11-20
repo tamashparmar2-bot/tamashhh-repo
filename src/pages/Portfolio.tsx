@@ -141,7 +141,7 @@ export default function Portfolio() {
                 transition={{ duration: 0.4, delay: idx * 0.04 }}
                 onMouseEnter={(e) => handleMouseEnterVideo(e, project.slug)}
                 onMouseLeave={(e) => handleMouseLeaveVideo(e, project.slug)}
-                className="project-card break-inside-avoid mb-6 group bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:border-blue-400 transition-all duration-300"
+                className={`project-card break-inside-avoid mb-6 group bg-white ${project.highlight ? "border-2 border-blue-500 shadow-xl shadow-blue-500/10 ring-2 ring-blue-500/20" : "border border-slate-200/90 shadow-sm"} rounded-2xl overflow-hidden hover:shadow-2xl hover:border-blue-400 transition-all duration-300`}
               >
                 <div className="block relative">
                   {/* Aspect Ratio Box */}
@@ -171,6 +171,11 @@ export default function Portfolio() {
                       <span className="text-[10px] uppercase tracking-wider font-mono font-bold px-2.5 py-1 rounded-full bg-slate-950/75 text-white backdrop-blur-md border border-white/10 shadow-sm">
                         {project.aspect === "9:16" ? "9:16 REEL" : "16:9 CINEMATIC"}
                       </span>
+                      {project.highlight && (
+                        <span className="text-[10px] uppercase tracking-wider font-mono font-bold px-2.5 py-1 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md backdrop-blur-md border border-blue-400/40 flex items-center gap-1">
+                          ★ FEATURED EDIT
+                        </span>
+                      )}
                     </div>
 
                     {/* Top Right: Interactive Audio Toggle Button */}

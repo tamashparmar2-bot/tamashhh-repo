@@ -396,7 +396,7 @@ export default function VideoEditorAnand() {
                 key={p.slug}
                 onMouseEnter={(e) => handleMouseEnterVideo(e, p.slug)}
                 onMouseLeave={(e) => handleMouseLeaveVideo(e, p.slug)}
-                className="anand-video-card group bg-white rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-blue-400 transition-all duration-300"
+                className={`anand-video-card group bg-white rounded-2xl overflow-hidden border ${p.highlight ? "border-2 border-blue-500 shadow-xl shadow-blue-500/10 ring-2 ring-blue-500/20" : "border-slate-200/90 shadow-sm"} hover:shadow-2xl hover:border-blue-400 transition-all duration-300`}
               >
                 <div className="block">
                   <div
@@ -417,10 +417,15 @@ export default function VideoEditorAnand() {
 
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/30 pointer-events-none" />
 
-                    <div className="absolute top-3.5 left-3.5 z-10 pointer-events-none">
+                    <div className="absolute top-3.5 left-3.5 z-10 flex items-center gap-1.5 pointer-events-none">
                       <span className="text-[10px] uppercase font-mono font-bold tracking-wider px-2.5 py-1 rounded-full bg-slate-950/80 text-white backdrop-blur-md border border-white/10">
                         {p.aspect === "9:16" ? "9:16 REEL" : "16:9 CINEMATIC"}
                       </span>
+                      {p.highlight && (
+                        <span className="text-[10px] uppercase font-mono font-bold tracking-wider px-2.5 py-1 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md backdrop-blur-md border border-blue-400/40 flex items-center gap-1">
+                          ★ FEATURED EDIT
+                        </span>
+                      )}
                     </div>
 
                     {/* Interactive Audio Toggle Button */}
@@ -479,7 +484,7 @@ export default function VideoEditorAnand() {
           {/* Contextual Link to Full Portfolio */}
           <div className="mt-12 text-center">
             <Link to="/portfolio" className="btn-outline inline-flex items-center gap-2">
-              EXPLORE ALL 13+ PORTFOLIO SHOWCASE EDITS
+              EXPLORE ALL 14+ PORTFOLIO SHOWCASE EDITS
               <ArrowUpRight className="w-4 h-4" />
             </Link>
           </div>

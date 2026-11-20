@@ -519,7 +519,7 @@ function SelectedWorkSection() {
               transition={{ duration: 0.5, delay: idx * 0.08 }}
               onMouseEnter={(e) => handleMouseEnterVideo(e, p.slug)}
               onMouseLeave={(e) => handleMouseLeaveVideo(e, p.slug)}
-              className="selected-work-card group bg-white rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-blue-400 transition-all duration-300"
+              className={`selected-work-card group bg-white rounded-2xl overflow-hidden border ${p.highlight ? "border-blue-500 shadow-lg shadow-blue-500/10 ring-2 ring-blue-500/20" : "border-slate-200/90 shadow-sm"} hover:shadow-2xl hover:border-blue-400 transition-all duration-300`}
             >
               <div className="block">
                 {/* Visual Viewport with 16:9 or 9:16 aspect */}
@@ -543,10 +543,15 @@ function SelectedWorkSection() {
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/30 pointer-events-none" />
 
                   {/* Top Tags */}
-                  <div className="absolute top-3.5 left-3.5 z-10 pointer-events-none">
+                  <div className="absolute top-3.5 left-3.5 z-10 flex items-center gap-1.5 pointer-events-none">
                     <span className="text-[10px] uppercase font-mono font-bold tracking-wider px-2.5 py-1 rounded-full bg-slate-950/80 text-white backdrop-blur-md border border-white/10">
                       {p.aspect === "9:16" ? "9:16 REEL" : "16:9 CINEMATIC"}
                     </span>
+                    {p.highlight && (
+                      <span className="text-[10px] uppercase font-mono font-bold tracking-wider px-2.5 py-1 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md backdrop-blur-md border border-blue-400/40 flex items-center gap-1">
+                        ★ FEATURED EDIT
+                      </span>
+                    )}
                   </div>
 
                   {/* Interactive Audio Toggle Button */}

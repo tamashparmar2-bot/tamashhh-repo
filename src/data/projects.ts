@@ -13,9 +13,53 @@ export interface Project {
   software: string[];
   deliverables: string[];
   featured: boolean;
+  highlight?: boolean;
 }
 
 export const PROJECTS: Project[] = [
+  {
+    slug: "talking-head-motion-graphic",
+    title: "Talking Head Motion Graphics",
+    client: "Creator & Brand Showcase",
+    year: "2024",
+    role: "Lead Video Editor & Motion Designer",
+    category: "Motion Graphics",
+    aspect: "9:16",
+    videoUrl: "/portfolio/talking-head-motion.mp4",
+    tagline: "High-retention talking head editing with kinetic motion graphics, sound design, and viral pacing.",
+    overview: "A premier talking head motion edit crafted to maximize viewer retention and engagement. Engineered with frame-accurate speed ramps, custom kinetic typography, visual punch-ins, and multi-layered sound design tailored for modern mobile audiences.",
+    creativeProcess: [
+      "Engineered high-retention visual hooks and pattern interrupts to captivate viewers within the first 2 seconds.",
+      "Designed bespoke kinetic text animations, animated icon callouts, and clean motion overlays in After Effects.",
+      "Mixed tactile sound effects (whooshes, pops, risers, and impact hits) synchronized precisely with dialogue.",
+      "Applied selective skin-tone color grading and contrast rolloff for high-definition mobile displays."
+    ],
+    software: ["Adobe Premiere Pro", "Adobe After Effects"],
+    deliverables: ["9:16 Vertical Master", "Motion Graphic Assets", "Full Audio Design Package"],
+    featured: true,
+    highlight: true,
+  },
+  {
+    slug: "mango-social-campaign",
+    title: "Mango Social Motion Reel",
+    client: "Beverage Brand Promo",
+    year: "2024",
+    role: "Motion Graphics Artist",
+    category: "Motion Graphics",
+    aspect: "9:16",
+    videoUrl: "/portfolio/mango-reel-v2.mp4",
+    tagline: "Punchy commercial pop motion with playful kinetic type and vibrant palettes.",
+    overview: "A vibrant social ad engineered to capture immediate thumbs on the feed within the first 0.5 seconds through high-contrast colors and kinetic animation.",
+    creativeProcess: [
+      "Illustrated vector elements and product lockups in Adobe Illustrator.",
+      "Rigged kinetic bouncy transitions with custom secondary action dynamics.",
+      "Synced punchy sound effects to each typographic pop and screen wipe.",
+      "Exported optimized WebM and MP4 variants for multi-platform ad spend."
+    ],
+    software: ["Adobe After Effects", "Adobe Illustrator"],
+    deliverables: ["9:16 Social Ad", "Story Variant", "Square 1:1 Feed Cut"],
+    featured: true,
+  },
   {
     slug: "ganesha-aagman-showcase",
     title: "Ganesha Aagman Showcase",
@@ -224,27 +268,6 @@ export const PROJECTS: Project[] = [
     ],
     software: ["Adobe Premiere Pro", "DaVinci Resolve Studio"],
     deliverables: ["9:16 Full Reel", "High Bitrate Master"],
-    featured: false,
-  },
-  {
-    slug: "mango-social-campaign",
-    title: "Mango Social Motion Reel",
-    client: "Beverage Brand Promo",
-    year: "2024",
-    role: "Motion Graphics Artist",
-    category: "Motion Graphics",
-    aspect: "9:16",
-    videoUrl: "/portfolio/mango-reel.mp4",
-    tagline: "Punchy commercial pop motion with playful kinetic type and vibrant palettes.",
-    overview: "A vibrant social ad engineered to capture immediate thumbs on the feed within the first 0.5 seconds through high-contrast colors and kinetic animation.",
-    creativeProcess: [
-      "Illustrated vector elements and product lockups in Adobe Illustrator.",
-      "Rigged kinetic bouncy transitions with custom secondary action dynamics.",
-      "Synced punchy sound effects to each typographic pop and screen wipe.",
-      "Exported optimized WebM and MP4 variants for multi-platform ad spend."
-    ],
-    software: ["Adobe After Effects", "Adobe Illustrator"],
-    deliverables: ["9:16 Social Ad", "Story Variant", "Square 1:1 Feed Cut"],
     featured: false,
   },
   {
