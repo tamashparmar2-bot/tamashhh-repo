@@ -253,7 +253,7 @@ export default function Services() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-14">
             {[
               { icon: Zap, title: "48–72h Sprints", desc: "High-priority turnarounds available for urgent campaign deadlines." },
-              { icon: MessageSquare, title: "Direct 1-on-1", desc: "Collaborate directly with Yashraj with zero agency middle layers." },
+              { icon: MessageSquare, title: "Direct 1-on-1", desc: "Collaborate directly with Tamash with zero agency middle layers." },
               { icon: ShieldCheck, title: "Full Ownership", desc: "You own 100% of final master exports and raw project assets." },
               { icon: Clock, title: "12h Response", desc: "Direct quote and availability timeline delivered within 12 hours." },
             ].map((g, i) => (
@@ -319,7 +319,7 @@ function QuoteCalculator() {
   };
 
   const whatsappMessage = encodeURIComponent(
-    `Hello Yashraj! I would like to get a project quote.\n\n` +
+    `Hello Tamash! I would like to get a project quote.\n\n` +
     `• Discipline: ${selectedService}\n` +
     `• Timeline: ${selectedTimeline}\n` +
     `• Add-ons: ${selectedAddons.length > 0 ? selectedAddons.join(", ") : "Standard package"}\n` +

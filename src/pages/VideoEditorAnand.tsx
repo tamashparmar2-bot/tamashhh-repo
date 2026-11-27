@@ -32,7 +32,7 @@ export default function VideoEditorAnand() {
     },
     {
       q: "Why hire YASHFX as the best video editor in Anand instead of a traditional agency?",
-      a: "Traditional agencies often subcontract post-production to third-party vendors or route briefs through junior interns and slow account managers. Working directly with Yashraj Parmar gives you senior-level motion craftsmanship, frame-accurate musical pacing, rapid 48–72 hour delivery options, transparent direct communication, and significantly higher aesthetic quality without agency markups."
+      a: "Traditional agencies often subcontract post-production to third-party vendors or route briefs through junior interns and slow account managers. Working directly with Tamash Parmar gives you senior-level motion craftsmanship, frame-accurate musical pacing, rapid 48–72 hour delivery options, transparent direct communication, and significantly higher aesthetic quality without agency markups."
     },
     {
       q: "How do I hire a freelance video editor in Anand for monthly social media reels?",
@@ -86,7 +86,7 @@ export default function VideoEditorAnand() {
         {
           "@type": "Person",
           "@id": "https://www.yashfx.in/#person",
-          "name": "Yashraj Parmar",
+          "name": "Tamash Parmar",
           "url": "https://www.yashfx.in/about",
           "jobTitle": "Freelance Video Editor & Motion Graphics Designer",
           "alumniOf": [
@@ -122,7 +122,7 @@ export default function VideoEditorAnand() {
             { "@type": "AdministrativeArea", "name": "Gujarat" }
           ],
           "priceRange": "$$",
-          "description": "Professional commercial video editing, 3D CGI animation, motion graphics, and DaVinci Resolve color grading by freelance creator Yashraj Parmar in Anand, Gujarat."
+          "description": "Professional commercial video editing, 3D CGI animation, motion graphics, and DaVinci Resolve color grading by freelance creator Tamash Parmar in Anand, Gujarat."
         },
         {
           "@type": "FAQPage",
@@ -246,7 +246,7 @@ export default function VideoEditorAnand() {
           {/* Quick CTAs */}
           <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
             <a
-              href="https://wa.me/919773135547?text=Hello%20Yashraj!%20I'm%20contacting%20you%20from%20Anand%20regarding%20video%20editing%20services."
+              href="https://wa.me/919773135547?text=Hello%20Tamash!%20I'm%20contacting%20you%20from%20Anand%20regarding%20video%20editing%20services."
               target="_blank"
               rel="noopener noreferrer"
               className="btn-gradient inline-flex items-center gap-2"
@@ -508,7 +508,7 @@ export default function VideoEditorAnand() {
               Whether you are an automotive dealership on 100 Feet Road, a college or coaching academy in Vidyanagar, a retail brand near Nana Bazar and Mota Bazar, or an industrial manufacturer in the Vitthal Udyognagar GIDC belt, I deliver broadcast-ready video assets tailored for your audience.
             </p>
             <p className="font-space text-slate-600 text-base leading-relaxed mb-6">
-              Need a dedicated creative partner? Learn more about my journey on the <Link to="/about" className="text-blue-600 font-semibold underline underline-offset-4 hover:text-blue-700">About Yashraj Parmar</Link> page or schedule a direct consultation.
+              Need a dedicated creative partner? Learn more about my journey on the <Link to="/about" className="text-blue-600 font-semibold underline underline-offset-4 hover:text-blue-700">About Tamash Parmar</Link> page or schedule a direct consultation.
             </p>
 
             <div className="grid grid-cols-2 gap-3 text-xs font-mono uppercase tracking-wider text-navy-900 font-semibold">
@@ -535,7 +535,7 @@ export default function VideoEditorAnand() {
               <ul className="space-y-4 text-sm font-space text-slate-700">
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
-                  <span><strong>Direct 1-on-1 Access:</strong> Work directly with Yashraj with zero account managers or communication bottlenecks.</span>
+                  <span><strong>Direct 1-on-1 Access:</strong> Work directly with Tamash with zero account managers or communication bottlenecks.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
@@ -615,7 +615,7 @@ export default function VideoEditorAnand() {
 
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a
-              href="https://wa.me/919773135547?text=Hello%20Yashraj!%20I'm%20reaching%20out%20from%20Anand%20regarding%20video%20editing%20services."
+              href="https://wa.me/919773135547?text=Hello%20Tamash!%20I'm%20reaching%20out%20from%20Anand%20regarding%20video%20editing%20services."
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-3.5 rounded-full bg-white text-blue-700 hover:bg-blue-50 font-inter font-bold text-xs uppercase tracking-wider shadow-lg transition-all"

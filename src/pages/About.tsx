@@ -84,7 +84,7 @@ function HeroBanner() {
           variants={fadeUp}
           className="text-slate-600 font-space max-w-2xl mx-auto mt-6 text-base sm:text-lg leading-relaxed font-normal"
         >
-          I am Yashraj Parmar, an independent motion designer and commercial video editor. I engineer high-octane commercial cuts, 3D simulations, and kinetic typography that command attention.
+          I am Tamash Parmar, an independent motion designer and commercial video editor. I engineer high-octane commercial cuts, 3D simulations, and kinetic typography that command attention.
         </motion.p>
       </motion.div>
     </section>
@@ -307,7 +307,7 @@ function TeamSection() {
     <section className="py-24 bg-slate-50/70 border-t border-slate-200/80 px-6 sm:px-10 lg:px-16">
       <SectionHeader
         label="THE ARTIST"
-        title="Meet Yashraj Parmar"
+        title="Meet Tamash Parmar"
         subtitle="Independent Motion Designer & Video Editor based in India, collaborating with clients worldwide."
       />
 
@@ -323,7 +323,7 @@ function TeamSection() {
           <div className="relative group w-full max-w-[340px] aspect-[3/4] rounded-2xl overflow-hidden border border-slate-200 shadow-xl shadow-slate-200/60 transition-transform duration-500 hover:scale-[1.02]">
             <img
               src="/creator-profile.jpg"
-              alt="Yashraj Parmar Portrait"
+              alt="Tamash Parmar Portrait"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           </div>
@@ -342,7 +342,7 @@ function TeamSection() {
               Independent Motion Designer & Video Editor
             </span>
             <h3 className="text-navy-900 font-bold font-podium text-3xl sm:text-4xl mb-4">
-              Yashraj Parmar
+              Tamash Parmar
             </h3>
             
             <p className="text-slate-600 font-space text-sm sm:text-base leading-relaxed mb-6">

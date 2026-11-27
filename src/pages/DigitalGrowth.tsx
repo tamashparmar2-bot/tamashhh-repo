@@ -163,7 +163,7 @@ export default function DigitalGrowth() {
       "email": "contact@yashfx.in",
       "founder": {
         "@type": "Person",
-        "name": "Yashraj Parmar",
+        "name": "Tamash Parmar",
         "url": "https://www.yashfx.in/about"
       },
       "serviceType": [
@@ -491,7 +491,7 @@ export default function DigitalGrowth() {
               <ArrowUpRight className="w-4 h-4" />
             </Link>
             <a
-              href="https://wa.me/919773135547?text=Hello%20Yashraj!%20I'd%20like%20to%20discuss%20Digital%20Growth%20services%20for%20my%20brand."
+              href="https://wa.me/919773135547?text=Hello%20Tamash!%20I'd%20like%20to%20discuss%20Digital%20Growth%20services%20for%20my%20brand."
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-3.5 rounded-full bg-blue-800/80 hover:bg-blue-800 text-white border border-blue-400/40 font-inter font-bold text-xs uppercase tracking-wider transition-all inline-flex items-center gap-2"

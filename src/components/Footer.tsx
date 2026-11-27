@@ -12,7 +12,7 @@ const footerLinks = {
   ],
   navigation: [
     { label: "Selected Work", to: "/portfolio" },
-    { label: "About Yashraj", to: "/about" },
+    { label: "About Tamash", to: "/about" },
     { label: "Disciplines", to: "/services" },
     { label: "Digital Growth", to: "/digital-growth" },
     { label: "Video Editor in Anand", to: "/video-editor-anand" },

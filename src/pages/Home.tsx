@@ -636,7 +636,7 @@ function AboutArtistSection() {
             <div className="relative rounded-3xl overflow-hidden border border-slate-200 bg-white shadow-xl shadow-blue-500/5 aspect-[4/5] group">
               <img
                 src="/creator-profile.jpg"
-                alt="Yashraj Parmar — YASHFX"
+                alt="Tamash Parmar — YASHFX"
                 className="w-full h-full object-cover grayscale contrast-105 group-hover:grayscale-0 transition-all duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-transparent to-transparent pointer-events-none" />
@@ -646,7 +646,7 @@ function AboutArtistSection() {
                   Motion Designer & Editor
                 </span>
                 <h3 className="font-podium text-3xl font-bold text-white">
-                  Yashraj Parmar
+                  Tamash Parmar
                 </h3>
                 <p className="text-xs text-slate-300 font-inter mt-1">
                   Founder & Creative Lead at YASHFX
@@ -684,7 +684,7 @@ function AboutArtistSection() {
             </h2>
 
             <p className="font-space text-slate-600 text-base sm:text-lg leading-relaxed mt-6">
-              I am Yashraj Parmar, an independent motion designer and commercial video editor based in Anand, Gujarat. I collaborate with direct brands, directors, and agencies looking for razor-sharp visual rhythm, cinematic color grading, and tactile 3D simulations.
+              I am Tamash Parmar, an independent motion designer and commercial video editor based in Anand, Gujarat. I collaborate with direct brands, directors, and agencies looking for razor-sharp visual rhythm, cinematic color grading, and tactile 3D simulations.
             </p>
 
             <p className="font-space text-slate-600 text-base sm:text-lg leading-relaxed mt-4">
@@ -846,7 +846,7 @@ function GetAQuoteSection() {
 
   const handleWhatsAppQuote = (e: React.FormEvent) => {
     e.preventDefault();
-    const message = `Hello Yashraj! I would like to get a quote for a project:\n\n• Type: ${projectType}\n• Timeline: ${timeline}\n• Brief/Details: ${notes || "Available to discuss"}\n\nLooking forward to hearing from you.`;
+    const message = `Hello Tamash! I would like to get a quote for a project:\n\n• Type: ${projectType}\n• Timeline: ${timeline}\n• Brief/Details: ${notes || "Available to discuss"}\n\nLooking forward to hearing from you.`;
     const url = `https://wa.me/919773135547?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
   };

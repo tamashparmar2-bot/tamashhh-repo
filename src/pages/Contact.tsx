@@ -96,7 +96,7 @@ export default function Contact() {
     }
 
     const whatsappText =
-      `Hello Yashraj! New project inquiry from yashfx.in:\n\n` +
+      `Hello Tamash! New project inquiry from yashfx.in:\n\n` +
       `• Name: ${formData.name}\n` +
       `• Email: ${formData.email}\n` +
       `• Discipline: ${formData.service}\n` +
@@ -281,7 +281,7 @@ export default function Contact() {
                       SUBMIT INQUIRY
                     </button>
                     <a
-                      href="https://wa.me/919773135547?text=Hello%20Yashraj!%20I'd%20like%20to%20discuss%20a%20motion%20project."
+                      href="https://wa.me/919773135547?text=Hello%20Tamash!%20I'd%20like%20to%20discuss%20a%20motion%20project."
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-outline inline-flex items-center justify-center gap-2"

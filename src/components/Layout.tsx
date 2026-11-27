@@ -14,7 +14,7 @@ const STATIC_ROUTE_META: Record<string, RouteMeta> = {
   "/": {
     title: "YASHFX – Video Editing, 3D CGI & Motion Graphics Studio",
     description:
-      "YASHFX is a creative post-production studio by Yashraj Parmar, delivering commercial video editing, kinetic motion graphics, 3D CGI simulations, and DaVinci color grading.",
+      "YASHFX is a creative post-production studio by Tamash Parmar, delivering commercial video editing, kinetic motion graphics, 3D CGI simulations, and DaVinci color grading.",
   },
   "/video-editor-anand": {
     title: "Video Editor in Anand, Gujarat | Motion Graphics & CGI – YASHFX",
@@ -24,7 +24,7 @@ const STATIC_ROUTE_META: Record<string, RouteMeta> = {
   "/portfolio": {
     title: "Selected Works & Portfolio | Commercial Video Editing & CGI – YASHFX",
     description:
-      "Explore the commercial video editing, 3D CGI animations, vertical social reels, and kinetic typography portfolio by Yashraj Parmar (YASHFX).",
+      "Explore the commercial video editing, 3D CGI animations, vertical social reels, and kinetic typography portfolio by Tamash Parmar (YASHFX).",
   },
   "/services": {
     title: "Post-Production & Motion Design Services | YASHFX",
@@ -37,14 +37,14 @@ const STATIC_ROUTE_META: Record<string, RouteMeta> = {
       "We help ambitious brands build a powerful digital presence through website development, performance marketing, SEO and social media marketing.",
   },
   "/about": {
-    title: "About Yashraj Parmar | Motion Designer & Video Editor – YASHFX",
+    title: "About Tamash Parmar | Motion Designer & Video Editor – YASHFX",
     description:
-      "Meet Yashraj Parmar, independent motion designer and commercial video editor behind YASHFX, crafting narrative velocity for brands and creators.",
+      "Meet Tamash Parmar, independent motion designer and commercial video editor behind YASHFX, crafting narrative velocity for brands and creators.",
   },
   "/contact": {
     title: "Contact YASHFX | Hire Video Editor & Motion Designer",
     description:
-      "Get in touch with Yashraj Parmar for commercial video editing, 3D CGI, and motion graphics projects. Get a quote within 12 hours.",
+      "Get in touch with Tamash Parmar for commercial video editing, 3D CGI, and motion graphics projects. Get a quote within 12 hours.",
   },
   "/blog": {
     title: "Insights & Articles on Motion Design and Video Editing | YASHFX",
@@ -78,7 +78,7 @@ export default function Layout() {
 
     let title = "YASHFX – Video Editing, 3D CGI & Motion Graphics Studio";
     let description =
-      "YASHFX is a creative studio by Yashraj Parmar, specializing in commercial video editing, kinetic typography, 3D CGI animation, and DaVinci color grading.";
+      "YASHFX is a creative studio by Tamash Parmar, specializing in commercial video editing, kinetic typography, 3D CGI animation, and DaVinci color grading.";
 
     const lookupPath = cleanPath || "/";
     if (STATIC_ROUTE_META[lookupPath]) {
