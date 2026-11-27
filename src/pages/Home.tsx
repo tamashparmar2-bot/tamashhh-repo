@@ -378,7 +378,7 @@ function FullWidthShowreel() {
         <div className="relative rounded-3xl overflow-hidden border border-slate-700/60 shadow-2xl shadow-blue-500/20 aspect-video bg-black max-w-5xl mx-auto group">
           <video
             ref={videoRef}
-            src="/portfolio/fronx-car-delivery.mp4"
+            src="/portfolio/yashfx-showreel.mp4"
             autoPlay
             loop
             playsInline
@@ -422,9 +422,9 @@ function FullWidthShowreel() {
 
             <div className="flex items-center gap-3 text-xs font-mono text-slate-300">
               <span className="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-400/30">
-                4K 60FPS
+                1080P 24FPS
               </span>
-              <span className="hidden sm:inline">DaVinci S-Log3</span>
+              <span className="hidden sm:inline">Official Master Reel</span>
             </div>
           </div>
         </div>
